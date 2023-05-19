@@ -15,17 +15,17 @@ use Symfony\Component\Yaml\Yaml;
  *     ->addPlugin('expect');
  *
  * // Define the flow of your scenario and add it to the Artillery instance
- * $flow = Artillery::flow()
+ * $flow = Artillery::scenario()
  *     ->addRequest(
- * Artillery::request('get', '/login')
- *     ->addCapture('token', 'json', '$.token')
- *     ->addExpect('statusCode', 200)
- *     ->addExpect('contentType', 'json')
- *     ->addExpect('hasProperty', 'token'))
+ *         Artillery::request('get', '/login')
+ *             ->addCapture('token', 'json', '$.token')
+ *             ->addExpect('statusCode', 200)
+ *             ->addExpect('contentType', 'json')
+ *             ->addExpect('hasProperty', 'token'))
  *     ->addRequest(
- * Artillery::request('get', '/inbox')
- *     ->setQueryString('token', '{{ token }}')
- *     ->addExpect('statusCode', 200));
+ *         Artillery::request('get', '/inbox')
+ *             ->setQueryString('token', '{{ token }}')
+ *             ->addExpect('statusCode', 200));
  *
  * $scenario = Artillery::scenario()->addLoop($flow, 10);
  *

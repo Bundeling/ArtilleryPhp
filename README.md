@@ -75,7 +75,7 @@ $artillery->addScenario($loopedScenario);
 file_put_contents(__DIR__ . '/artillery.yaml', $artillery->toYaml());
 
 // Maybe even run the script right away:
-// shell_exec('artillery run --output artillery-report.json artillery.yaml');
+// shell_exec('artillery run --output artillery-report.json ' . __DIR__ . '/artillery.yaml');
 ```
 This will produce the following `artillery.yaml` file:
 ```yaml

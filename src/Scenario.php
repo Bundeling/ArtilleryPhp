@@ -159,7 +159,7 @@ class Scenario {
 		else if (is_array($loop)) {
 			$ret = ['loop' => []];
 			foreach ($loop as $r) {
-				if ($r instanceof Scenario) $ret['loop'][] = $r->toArray();
+				if ($r instanceof Scenario) $ret['loop'][] = $r->getFlow();
 				elseif ($r instanceof RequestInterface) $ret['loop'][] = [$r->toArray()];
 				else $ret['loop'][] = $r;
 			}

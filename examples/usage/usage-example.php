@@ -6,7 +6,7 @@ use ArtilleryPhp\Artillery;
 $artillery = Artillery::new('http://localhost:3000')
 	->addPhase(['duration' => 60, 'arrivalRate' => 5, 'rampTo' => 20], 'Warm up')
 	->addPhase(['duration' => 60, 'arrivalRate' => 20], 'Sustain')
-	->addPlugin('expect');
+	->setPlugin('expect');
 
 $flow = Artillery::scenario()
 	->addRequest(

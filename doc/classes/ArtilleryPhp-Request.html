@@ -126,10 +126,10 @@
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
                                                  <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$getTarget = Artillery::request('get', '/inbox')
-     ->setJson(['client_id' => '{{ id }}'])
+     ->setJson('client_id', '{{ id }}')
      ->addCapture('first_inbox_id', 'json', '$[0].id');
 $postResponse = Artillery::request('post', '/inbox')
-     ->setJson(['user_id' => '{{ first_inbox_id }}', 'message' => 'Hello, world!']);
+     ->setJsons(['user_id' => '{{ first_inbox_id }}', 'message' => 'Hello, world!']);
 </code></pre>
 </section>
 
@@ -162,6 +162,20 @@ $postResponse = Artillery::request('post', '/inbox')
 <dd>Request constructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/ArtilleryPhp-Request.html#method_addAfterResponse">addAfterResponse()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed after the response is received where the response can be inspected, and custom variables can be set.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/ArtilleryPhp-Request.html#method_addBeforeRequest">addBeforeRequest()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed before the request is sent, where you can set headers or body dynamically.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-RequestBase.html#method_addCapture">addCapture()</a>
     <span>
                                 &nbsp;: $this    </span>
@@ -176,18 +190,18 @@ $postResponse = Artillery::request('post', '/inbox')
 <dd>Adds an expectation assertion to the request.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/ArtilleryPhp-RequestBase.html#method_addExpects">addExpects()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Adds an array of expectation assertions to the request.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-RequestBase.html#method_set">set()</a>
     <span>
                                 &nbsp;: $this    </span>
 </dt>
 <dd>Set arbitrary data in the request, such as those from third party extension.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/ArtilleryPhp-Request.html#method_setAfterResponse">setAfterResponse()</a>
-    <span>
-                                &nbsp;: $this    </span>
-</dt>
-<dd>Set a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed after the response is received where the response can be inspected, and custom variables can be set.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Request.html#method_setAuth">setAuth()</a>
@@ -197,18 +211,11 @@ $postResponse = Artillery::request('post', '/inbox')
 <dd>If your request requires Basic HTTP authentication, set your username and password under the auth option.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/ArtilleryPhp-Request.html#method_setBeforeRequest">setBeforeRequest()</a>
-    <span>
-                                &nbsp;: $this    </span>
-</dt>
-<dd>Set a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed before the request is sent, where you can set headers or body dynamically.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Request.html#method_setBody">setBody()</a>
     <span>
                                 &nbsp;: $this    </span>
 </dt>
-<dd>Set the body of the request. This can be a string, an array (which will be stringified into JSON).</dd>
+<dd>Set the body of the request. This can be a string or an array (which will be stringified into JSON).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Request.html#method_setCookie">setCookie()</a>
@@ -278,7 +285,14 @@ $postResponse = Artillery::request('post', '/inbox')
     <span>
                                 &nbsp;: $this    </span>
 </dt>
-<dd>Set the JSON data for the request.</dd>
+<dd>Set a JSON field for the request.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/ArtilleryPhp-Request.html#method_setJsons">setJsons()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Set JSON data for the request.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Request.html#method_setMethod">setMethod()</a>
@@ -394,6 +408,126 @@ $postResponse = Artillery::request('post', '/inbox')
     <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
         
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_addAfterResponse">
+        addAfterResponse()
+        <a href="classes/ArtilleryPhp-Request.html#method_addAfterResponse" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">34</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed after the response is received where the response can be inspected, and custom variables can be set.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">addAfterResponse</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$function</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$function</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The function(s) to execute.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/http-reference#afterresponse-hooks"> https://www.artillery.io/docs/guides/guides/http-reference#afterresponse-hooks </a>
+                    
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The current Request instance.</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_addBeforeRequest">
+        addBeforeRequest()
+        <a href="classes/ArtilleryPhp-Request.html#method_addBeforeRequest" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">47</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed before the request is sent, where you can set headers or body dynamically.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">addBeforeRequest</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$function</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$function</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The function(s) to execute.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/http-reference#beforerequest-hooks"> https://www.artillery.io/docs/guides/guides/http-reference#beforerequest-hooks </a>
+                    
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The current Request instance.</p>
+</section>
+
     
 </article>
                     <article
@@ -549,7 +683,7 @@ $postMsgRequest = Artillery::request('post', '/inbox')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/RequestBase.php"><a href="files/src-requestbase.html"><abbr title="src/RequestBase.php">RequestBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">110</span>
+    <span class="phpdocumentor-element-found-in__line">106</span>
 
     </aside>
 
@@ -594,7 +728,7 @@ $postMsgRequest = Artillery::request('post', '/inbox')
                                                                                 
                                                  <section class="phpdocumentor-description"><p>Expectations are assertions that are checked after the request is made.
 If the assertion fails, the request is considered to have failed.<br>
-The built-in 'expect' plugin needs to be enabled with Artillery::addPlugin('expect') for this feature.</p>
+The built-in 'expect' plugin needs to be enabled with Artillery::setPlugin('expect') for this feature.</p>
 </section>
 
                                     </dd>
@@ -604,9 +738,103 @@ The built-in 'expect' plugin needs to be enabled with Artillery::addPlugin('expe
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
                                                  <section class="phpdocumentor-description"><pre class="prettyprint"><code class="prettyprint">npm i artillery-plugin-expect</pre></code><br>
-<pre class="prettyprint"><code class="language-php">$artillery->addPlugin('expect');
+<pre class="prettyprint"><code class="language-php">$artillery->setPlugin('expect');
 $ensureRequest = Artillery::request('get', '/users/1')
    ->addExpect('statusCode', [200, 201]);
+</code></pre>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions#expectations"> https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions#expectations </a>
+                    
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions"> https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions </a>
+                    
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The current Request instance.</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_addExpects">
+        addExpects()
+        <a href="classes/ArtilleryPhp-RequestBase.html#method_addExpects" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/RequestBase.php"><a href="files/src-requestbase.html"><abbr title="src/RequestBase.php">RequestBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">132</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Adds an array of expectation assertions to the request.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">addExpects</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$expects</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$expects</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">description</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Expectations are assertions that are checked after the request is made.
+If the assertion fails, the request is considered to have failed.<br>
+The built-in 'expect' plugin needs to be enabled with Artillery::setPlugin('expect') for this feature.</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="prettyprint">npm i artillery-plugin-expect</pre></code><br>
+<pre class="prettyprint"><code class="language-php">$artillery->setPlugin('expect');
+$expectJson200 = [
+    ['statusCode' => 200],
+    ['contentType' => 'application/json'],
+];
+$ensureRequest = Artillery::request('get', '/users/1')
+   ->addExpects($expectJson200);
 </code></pre>
 </section>
 
@@ -691,72 +919,12 @@ $ensureRequest = Artillery::request('get', '/users/1')
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$artillery->addPlugin('something', ['some' => 'option']);
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$artillery = Artillery::new()->setPlugin('something', ['some' => 'option']);
 $request = Artillery::request('get', '/users/1')
     ->set('something', ['pluginAction' => 'values']);
 </code></pre>
 </section>
 
-                                    </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The current Request instance.</p>
-</section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_setAfterResponse">
-        setAfterResponse()
-        <a href="classes/ArtilleryPhp-Request.html#method_setAfterResponse" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">34</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Set a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed after the response is received where the response can be inspected, and custom variables can be set.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setAfterResponse</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$function</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$function</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The function(s) to execute.</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">link</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/http-reference#afterresponse-hooks"> https://www.artillery.io/docs/guides/guides/http-reference#afterresponse-hooks </a>
-                    
                                     </dd>
                         </dl>
 
@@ -781,7 +949,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">59</span>
+    <span class="phpdocumentor-element-found-in__line">61</span>
 
     </aside>
 
@@ -843,66 +1011,6 @@ $request = Artillery::request('get', '/users/1')
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_setBeforeRequest">
-        setBeforeRequest()
-        <a href="classes/ArtilleryPhp-Request.html#method_setBeforeRequest" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">46</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Set a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed before the request is sent, where you can set headers or body dynamically.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setBeforeRequest</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$function</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$function</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The function(s) to execute.</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">link</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/http-reference#beforerequest-hooks"> https://www.artillery.io/docs/guides/guides/http-reference#beforerequest-hooks </a>
-                    
-                                    </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The current Request instance.</p>
-</section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="method_setBody">
         setBody()
         <a href="classes/ArtilleryPhp-Request.html#method_setBody" class="headerlink"><i class="fas fa-link"></i></a>
@@ -910,11 +1018,11 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">70</span>
+    <span class="phpdocumentor-element-found-in__line">72</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Set the body of the request. This can be a string, an array (which will be stringified into JSON).</p>
+        <p class="phpdocumentor-summary">Set the body of the request. This can be a string or an array (which will be stringified into JSON).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -972,7 +1080,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 
     </aside>
 
@@ -1050,7 +1158,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">96</span>
+    <span class="phpdocumentor-element-found-in__line">98</span>
 
     </aside>
 
@@ -1119,7 +1227,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">107</span>
+    <span class="phpdocumentor-element-found-in__line">109</span>
 
     </aside>
 
@@ -1166,7 +1274,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">121</span>
+    <span class="phpdocumentor-element-found-in__line">123</span>
 
     </aside>
 
@@ -1237,7 +1345,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">132</span>
+    <span class="phpdocumentor-element-found-in__line">134</span>
 
     </aside>
 
@@ -1297,7 +1405,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">143</span>
+    <span class="phpdocumentor-element-found-in__line">145</span>
 
     </aside>
 
@@ -1346,7 +1454,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">169</span>
+    <span class="phpdocumentor-element-found-in__line">171</span>
 
     </aside>
 
@@ -1424,7 +1532,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">155</span>
+    <span class="phpdocumentor-element-found-in__line">157</span>
 
     </aside>
 
@@ -1492,7 +1600,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">184</span>
+    <span class="phpdocumentor-element-found-in__line">186</span>
 
     </aside>
 
@@ -1563,22 +1671,78 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">194</span>
+    <span class="phpdocumentor-element-found-in__line">197</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Set the JSON data for the request.</p>
+        <p class="phpdocumentor-summary">Set a JSON field for the request.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setJson</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$json</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setJson</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$key</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$json</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                <span class="phpdocumentor-signature__argument__name">$key</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The name of the JSON field to set.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The value of the JSON field to set.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The current Request instance.</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setJsons">
+        setJsons()
+        <a href="classes/ArtilleryPhp-Request.html#method_setJsons" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">208</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set JSON data for the request.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setJsons</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$jsons</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$jsons</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>An array of data to be stringified as JSON data for the request.</p>
@@ -1610,7 +1774,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">204</span>
+    <span class="phpdocumentor-element-found-in__line">218</span>
 
     </aside>
 
@@ -1657,7 +1821,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">230</span>
+    <span class="phpdocumentor-element-found-in__line">244</span>
 
     </aside>
 
@@ -1735,7 +1899,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">216</span>
+    <span class="phpdocumentor-element-found-in__line">230</span>
 
     </aside>
 
@@ -1850,7 +2014,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Request.php"><a href="files/src-request.html"><abbr title="src/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">241</span>
+    <span class="phpdocumentor-element-found-in__line">255</span>
 
     </aside>
 

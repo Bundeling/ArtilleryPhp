@@ -5,10 +5,10 @@ namespace ArtilleryPhp;
 /**
  * The Request class represents a single HTTP request to be made by Artillery within the flow section of a scenario.
  * @example <pre><code class="language-php">$getTarget = Artillery::request('get', '/inbox')
- *      ->setJson(['client_id' => '{{ id }}'])
+ *      ->setJson('client_id', '{{ id }}')
  *      ->addCapture('first_inbox_id', 'json', '$[0].id');
  * $postResponse = Artillery::request('post', '/inbox')
- *      ->setJson(['user_id' => '{{ first_inbox_id }}', 'message' => 'Hello, world!']);
+ *      ->setJsons(['user_id' => '{{ first_inbox_id }}', 'message' => 'Hello, world!']);
  * </code></pre>
  * @link https://www.artillery.io/docs/guides/guides/http-reference
  */
@@ -26,26 +26,28 @@ class Request extends RequestBase {
 	}
 
 	/**
-	 * Set a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed after the response is received where the response can be inspected, and custom variables can be set.
+	 * Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed after the response is received where the response can be inspected, and custom variables can be set.
 	 * @param string|string[] $function The function(s) to execute.
 	 * @return $this The current Request instance.
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#afterresponse-hooks
 	 */
-	public function setAfterResponse(array|string $function): self {
+	public function addAfterResponse(array|string $function): self {
 		if (!array_key_exists('afterResponse', $this->request)) $this->request['afterResponse'] = [];
-		$this->request['afterResponse'][] = $function;
+		if (is_array($function)) $this->request['afterResponse'] = array_merge($this->request['afterResponse'], $function);
+		else $this->request['afterResponse'][] = $function;
 		return $this;
 	}
 
 	/**
-	 * Set a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed before the request is sent, where you can set headers or body dynamically.
+	 * Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed before the request is sent, where you can set headers or body dynamically.
 	 * @param string|string[] $function The function(s) to execute.
 	 * @return $this The current Request instance.
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#beforerequest-hooks
 	 */
-	public function setBeforeRequest(array|string $function): self {
+	public function addBeforeRequest(array|string $function): self {
 		if (!array_key_exists('beforeRequest', $this->request)) $this->request['beforeRequest'] = [];
-		$this->request['beforeRequest'][] = $function;
+		if (is_array($function)) $this->request['beforeRequest'] = array_merge($this->request['beforeRequest'], $function);
+		else $this->request['beforeRequest'][] = $function;
 		return $this;
 	}
 
@@ -62,7 +64,7 @@ class Request extends RequestBase {
 	}
 
 	/**
-	 * Set the body of the request. This can be a string, an array (which will be stringified into JSON).
+	 * Set the body of the request. This can be a string or an array (which will be stringified into JSON).
 	 * @param mixed $body The body of the request in arbitrary data.
 	 * @return $this The current Request instance.
 	 * @example <pre><code class="language-php">$request->setBody('Hello world!');</code></pre>
@@ -187,12 +189,24 @@ class Request extends RequestBase {
 	}
 
 	/**
-	 * Set the JSON data for the request.
-	 * @param array $json An array of data to be stringified as JSON data for the request.
+	 * Set a JSON field for the request.
+	 * @param string $key The name of the JSON field to set.
+	 * @param mixed $value The value of the JSON field to set.
 	 * @return $this The current Request instance.
 	 */
-	public function setJson(array $json): self {
-		$this->request['json'] = $json;
+	public function setJson(string $key, mixed $value): self {
+		if (!array_key_exists('json', $this->request)) $this->request['json'] = [];
+		$this->request['json'][$key] = $value;
+		return $this;
+	}
+
+	/**
+	 * Set JSON data for the request.
+	 * @param array<string, mixed> $jsons An array of data to be stringified as JSON data for the request.
+	 * @return $this The current Request instance.
+	 */
+	public function setJsons(array $jsons): self {
+		foreach ($jsons as $key => $value) $this->setJson($key, $value);
 		return $this;
 	}
 

@@ -154,6 +154,13 @@
 <dd>Adds an expectation assertion to the request.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/ArtilleryPhp-RequestBase.html#method_addExpects">addExpects()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Adds an array of expectation assertions to the request.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-RequestBase.html#method_set">set()</a>
     <span>
                                 &nbsp;: $this    </span>
@@ -340,7 +347,7 @@ $postMsgRequest = Artillery::request('post', '/inbox')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/RequestBase.php"><a href="files/src-requestbase.html"><abbr title="src/RequestBase.php">RequestBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">110</span>
+    <span class="phpdocumentor-element-found-in__line">106</span>
 
     </aside>
 
@@ -385,7 +392,7 @@ $postMsgRequest = Artillery::request('post', '/inbox')
                                                                                 
                                                  <section class="phpdocumentor-description"><p>Expectations are assertions that are checked after the request is made.
 If the assertion fails, the request is considered to have failed.<br>
-The built-in 'expect' plugin needs to be enabled with Artillery::addPlugin('expect') for this feature.</p>
+The built-in 'expect' plugin needs to be enabled with Artillery::setPlugin('expect') for this feature.</p>
 </section>
 
                                     </dd>
@@ -395,9 +402,103 @@ The built-in 'expect' plugin needs to be enabled with Artillery::addPlugin('expe
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
                                                  <section class="phpdocumentor-description"><pre class="prettyprint"><code class="prettyprint">npm i artillery-plugin-expect</pre></code><br>
-<pre class="prettyprint"><code class="language-php">$artillery->addPlugin('expect');
+<pre class="prettyprint"><code class="language-php">$artillery->setPlugin('expect');
 $ensureRequest = Artillery::request('get', '/users/1')
    ->addExpect('statusCode', [200, 201]);
+</code></pre>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions#expectations"> https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions#expectations </a>
+                    
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions"> https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions </a>
+                    
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The current Request instance.</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_addExpects">
+        addExpects()
+        <a href="classes/ArtilleryPhp-RequestBase.html#method_addExpects" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/RequestBase.php"><a href="files/src-requestbase.html"><abbr title="src/RequestBase.php">RequestBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">132</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Adds an array of expectation assertions to the request.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">addExpects</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$expects</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$expects</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">description</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Expectations are assertions that are checked after the request is made.
+If the assertion fails, the request is considered to have failed.<br>
+The built-in 'expect' plugin needs to be enabled with Artillery::setPlugin('expect') for this feature.</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="prettyprint">npm i artillery-plugin-expect</pre></code><br>
+<pre class="prettyprint"><code class="language-php">$artillery->setPlugin('expect');
+$expectJson200 = [
+    ['statusCode' => 200],
+    ['contentType' => 'application/json'],
+];
+$ensureRequest = Artillery::request('get', '/users/1')
+   ->addExpects($expectJson200);
 </code></pre>
 </section>
 
@@ -482,7 +583,7 @@ $ensureRequest = Artillery::request('get', '/users/1')
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$artillery->addPlugin('something', ['some' => 'option']);
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$artillery = Artillery::new()->setPlugin('something', ['some' => 'option']);
 $request = Artillery::request('get', '/users/1')
     ->set('something', ['pluginAction' => 'values']);
 </code></pre>

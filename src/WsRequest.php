@@ -27,6 +27,20 @@ class WsRequest extends RequestBase implements RequestInterface {
 		if ($request !== null) $this->request = $request;
 	}
 
+	/** @inheritDoc */
+	public function addCapture(string $as, string $type, string $expression, bool $strict = true, string $attr = null, int|string $index = null): self {
+		// compatability with ws request (capture)
+		// https://github.com/artilleryio/artillery/pull/917
+		if ($this->request && !@$this->request['payload']) $this->request['payload'] = $this->request;
+        return parent::addCapture($as, $type, $expression, $strict, $attr, $index);
+	}
+
+	/** @inheritDoc */
+	public function addExpect(string $type, mixed $value): self {
+		if ($this->request && !@$this->request['payload']) $this->request['payload'] = $this->request;
+		return parent::addExpect($type, $value);
+	}
+
 	/**
 	 * Todo: Investigate a bit https://github.com/artilleryio/artillery/issues/800
 	 * @link https://github.com/artilleryio/artillery/issues/800

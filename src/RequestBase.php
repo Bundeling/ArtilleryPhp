@@ -16,7 +16,7 @@ abstract class RequestBase implements RequestInterface {
 	 * Set arbitrary data in the request, such as those from third party extension.
 	 * @param mixed $data Arbitrary data to add to the request.
 	 * @return $this The current Request instance.
-	 * @example <pre><code class="language-php">$artillery->addPlugin('something', ['some' => 'option']);
+	 * @example <pre><code class="language-php">$artillery = Artillery::new()->setPlugin('something', ['some' => 'option']);
 	 * $request = Artillery::request('get', '/users/1')
 	 *     ->set('something', ['pluginAction' => 'values']);
 	 * </code></pre>
@@ -73,10 +73,6 @@ abstract class RequestBase implements RequestInterface {
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#extracting-and-re-using-parts-of-a-response-request-chaining
 	 */
 	public function addCapture(string $as, string $type, string $expression, bool $strict = true, string $attr = null, int|string $index = null): self {
-		// compatability with ws request (capture)
-		// https://github.com/artilleryio/artillery/pull/917
-		if ($this instanceof WsRequest && $this->request && !array_key_exists('payload', $this->request)) $this->request['payload'] = $this->request;
-
 		$capture = [$type => $expression];
 		if ($strict === false) $capture['strict'] = false;
 		if ($expression === 'selector') {
@@ -95,22 +91,46 @@ abstract class RequestBase implements RequestInterface {
 	 * Adds an expectation assertion to the request.
 	 * @description Expectations are assertions that are checked after the request is made.
 	 * If the assertion fails, the request is considered to have failed.<br>
-	 * The built-in 'expect' plugin needs to be enabled with Artillery::addPlugin('expect') for this feature.
-	 * @param 'statusCode'|'notStatusCode'|'contentType'|'hasProperty'|'notHasProperty'|'equals'|'hasHeader'|'headerEquals'|'matchesRegexp'|'cdnHit' $type The type of expectation to add.
-	 * @param mixed $value The value(s) to expect.
-	 * @return $this The current Request instance.
+	 * The built-in 'expect' plugin needs to be enabled with Artillery::setPlugin('expect') for this feature.
 	 * @example <pre><code>npm i artillery-plugin-expect</pre></code><br>
-	 * <pre><code class="language-php">$artillery->addPlugin('expect');
+	 * <pre><code class="language-php">$artillery->setPlugin('expect');
 	 * $ensureRequest = Artillery::request('get', '/users/1')
 	 *    ->addExpect('statusCode', [200, 201]);
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions#expectations
 	 * @link https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions
+	 * @param 'statusCode'|'notStatusCode'|'contentType'|'hasProperty'|'notHasProperty'|'equals'|'hasHeader'|'headerEquals'|'matchesRegexp'|'cdnHit' $type The type of expectation to add.
+	 * @param mixed $value The value(s) to expect.
+	 * @return $this The current Request instance.
 	 */
 	public function addExpect(string $type, mixed $value): self {
 		if ($this instanceof WsRequest && $this->request && !array_key_exists('payload', $this->request)) $this->request['payload'] = $this->request;
 		if (!array_key_exists('expect', $this->request)) $this->request['expect'] = [];
 		$this->request['expect'][] = [$type => $value];
+		return $this;
+	}
+
+	/**
+	 * Adds an array of expectation assertions to the request.
+	 * @description Expectations are assertions that are checked after the request is made.
+	 * If the assertion fails, the request is considered to have failed.<br>
+	 * The built-in 'expect' plugin needs to be enabled with Artillery::setPlugin('expect') for this feature.
+	 * @example <pre><code>npm i artillery-plugin-expect</pre></code><br>
+	 * <pre><code class="language-php">$artillery->setPlugin('expect');
+	 * $expectJson200 = [
+	 *     ['statusCode' => 200],
+	 *     ['contentType' => 'application/json'],
+	 * ];
+	 * $ensureRequest = Artillery::request('get', '/users/1')
+	 *    ->addExpects($expectJson200);
+	 * </code></pre>
+	 * @link https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions#expectations
+	 * @link https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions
+	 * @param array{'statusCode'|'notStatusCode'|'contentType'|'hasProperty'|'notHasProperty'|'equals'|'hasHeader'|'headerEquals'|'matchesRegexp'|'cdnHit', mixed} $expects
+	 * @return $this The current Request instance.
+	 */
+	public function addExpects(array $expects): self {
+		foreach ($expects as $type => $value) $this->addExpect($type, $value);
 		return $this;
 	}
 }

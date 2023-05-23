@@ -33,7 +33,7 @@ use ArtilleryPhp\Artillery;
 $artillery = Artillery::new('http://localhost:3000')
     ->addPhase(['duration' => 60, 'arrivalRate' => 5, 'rampTo' => 20], 'Warm up')
     ->addPhase(['duration' => 60, 'arrivalRate' => 20], 'Sustain')
-    ->addPlugin('expect');
+    ->setPlugin('expect');
 ```
 You can also create one from a full or partial array representation:
 ```php
@@ -173,11 +173,11 @@ $artillery->setBefore($login)->addScenario($inbox);
 Please refer to the docs: https://artilleryphp.netlify.app/classes/artilleryphp-artillery#methods
 - `addEnsureCondition(expression: string, [strict: bool = true])`
 - `addEnsureThreshold(metricName: string, value: int)`
-- `addEngine(name: string, [options: array = [...]])`
+- `setEngine(name: string, [options: array = [...]])`
 - `addEnvironment(name: string, config: array):`
 - `addPayload(path: string, fields: array, [options: array = [...]])`
 - `addPhase(phase: array, [name: null|string = null])`
-- `addPlugin(name: string, [options: array = [...]])`
+- `setPlugin(name: string, [options: array = [...]])`
 - `addVariable(name: string, value: mixed)`
 - `set(key: string, value: mixed)`
 - `setHttp(options: array)`
@@ -242,10 +242,10 @@ For custom config settings, there is a `set(key: string, value: mixed)` function
 Method and URL can be set in the constructor:
 ```php
 $getTarget = Artillery::request('get', '/inbox')  
-    ->setJson(['client_id' => '{{ id }}'])  
+    ->setJson('client_id', '{{ id }}')  
     ->addCapture('first_inbox_id', 'json', '$[0].id');  
 $postResponse = Artillery::request('post', '/inbox')  
-    ->setJson(['user_id' => '{{ first_inbox_id }}', 'message' => 'Hello, world!']);
+    ->setJsons(['user_id' => '{{ first_inbox_id }}', 'message' => 'Hello, world!']);
 ```
 
 ### Methods:
@@ -261,7 +261,8 @@ Please refer to the docs: https://artilleryphp.netlify.app/classes/artilleryphp-
 - `setHeaders(headers: array)`
 - `setHeader(key: string, value: string)`
 - `setIfTrue(expression: string)`
-- `setJson(json: array)`
+- `setJson(key: string, value: mixed)`
+- `setJsons(jsons: array)`
 - `setQueryStrings(qs: array)`
 - `setQueryString(key: string, value: mixed)`
 - `setUrl(url: string)`

@@ -104,7 +104,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 
     </aside>
 
@@ -125,10 +125,19 @@
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
                                                  <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$loginScenario = Artillery::scenario()
-   ->addRequest(Artillery::request('GET', 'https://example.com/login'))
-   ->addRequest(Artillery::request('POST', 'https://example.com/login', ['body' => ['username' => 'user', 'password' => 'pass']]));
+    ->addRequest(
+        Artillery::request('get', 'https://example.com/login')
+            ->setJsons(['username' => '{{ user }}', 'password' => '{{ pass }}'])
+            ->addCapture('token', 'json', '$.token')
+    )
+   ->addRequest(
+        Artillery::request('post', 'https://example.com/inbox')
+            ->setJson('token', '{{ token }}')
+    );
 
-$artillery->addBefore($loginScenario)
+$artillery = Artillery::new()
+    ->addScenario($loginScenario)
+    ->addLoop(
     ->addScenario(Artillery::request('GET', 'https://example.com/inbox'), 'inbox')
     ->addScenario(Artillery::request('GET', 'https://example.com/news'), 'news');
 </code></pre>
@@ -212,6 +221,13 @@ $artillery->addBefore($loginScenario)
 <dd>Add a request object directly to this scenario&#039;s flow.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/ArtilleryPhp-Scenario.html#method_addRequests">addRequests()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Add an array of request objects directly to this scenario&#039;s flow.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Scenario.html#method_addThink">addThink()</a>
     <span>
                                 &nbsp;: $this    </span>
@@ -265,7 +281,7 @@ $artillery->addBefore($loginScenario)
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">51</span>
 
     </aside>
 
@@ -332,7 +348,7 @@ $artillery->addBefore($loginScenario)
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">55</span>
+    <span class="phpdocumentor-element-found-in__line">65</span>
 
     </aside>
 
@@ -399,7 +415,7 @@ $artillery->addBefore($loginScenario)
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">119</span>
+    <span class="phpdocumentor-element-found-in__line">129</span>
 
     </aside>
 
@@ -474,7 +490,7 @@ $artillery->addBefore($loginScenario)
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">224</span>
+    <span class="phpdocumentor-element-found-in__line">254</span>
 
     </aside>
 
@@ -556,7 +572,7 @@ $scenario = Artillery::scenario()
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">189</span>
+    <span class="phpdocumentor-element-found-in__line">219</span>
 
     </aside>
 
@@ -648,7 +664,7 @@ Log messages will get printed to the console even when running the tests in &quo
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">156</span>
+    <span class="phpdocumentor-element-found-in__line">186</span>
 
     </aside>
 
@@ -726,7 +742,8 @@ Log messages will get printed to the console even when running the tests in &quo
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$scenario->addLoop(Artillery::request('get', '/pages/{{ $loopCount }}'), 100);
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php"> // Loop through 100 pages:
+$scenario = Artillery::scenario()->addLoop(Artillery::request('get', '/pages/{{ $loopCount }}'), 100);
 </code></pre>
 </section>
 
@@ -754,7 +771,7 @@ Log messages will get printed to the console even when running the tests in &quo
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">138</span>
+    <span class="phpdocumentor-element-found-in__line">148</span>
 
     </aside>
 
@@ -785,31 +802,113 @@ Log messages will get printed to the console even when running the tests in &quo
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">link</span>
+                    <span class="phpdocumentor-tag__name">example</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/http-reference"> https://www.artillery.io/docs/guides/guides/http-reference </a>
-                    
+                                                                                
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$scenario = Artillery::scenario()
+    ->addRequest(
+        Artillery::request('get', '/users')
+            ->addCapture('json', '$.users[0].id', 'userId'));
+</code></pre>
+</section>
+
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
+                                                <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">link</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                                         <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/http-reference#get--post--put--patch--delete-requests"> https://www.artillery.io/docs/guides/guides/http-reference#get--post--put--patch--delete-requests </a>
                     
                                     </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/http-reference"> https://www.artillery.io/docs/guides/guides/http-reference </a>
+                    
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The current Scenario instance.</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_addRequests">
+        addRequests()
+        <a href="classes/ArtilleryPhp-Scenario.html#method_addRequests" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">167</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Add an array of request objects directly to this scenario&#039;s flow.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">addRequests</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, <abbr title="\ArtilleryPhp\RequestInterface">RequestInterface</abbr>&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$requests</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$requests</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, <abbr title="\ArtilleryPhp\RequestInterface">RequestInterface</abbr>&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The requests to add.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">example</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$scenario->addRequest(
-    Artillery::request('get', '/users')
-        ->addCapture('json', '$.users[0].id', 'userId')
-    );
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$scenario = Artillery::scenario()
+    ->addRequests([
+        Artillery::request('get', '/'),
+        Artillery::request('get', '/home'),
+        Artillery::request('get', '/about')
+    ]);
 </code></pre>
 </section>
 
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/http-reference#get--post--put--patch--delete-requests"> https://www.artillery.io/docs/guides/guides/http-reference#get--post--put--patch--delete-requests </a>
+                    
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/http-reference"> https://www.artillery.io/docs/guides/guides/http-reference </a>
+                    
                                     </dd>
                         </dl>
 
@@ -834,7 +933,7 @@ Log messages will get printed to the console even when running the tests in &quo
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">207</span>
+    <span class="phpdocumentor-element-found-in__line">237</span>
 
     </aside>
 
@@ -925,7 +1024,7 @@ Floating numbers are supported, e.g., 0.5 pauses for half a second.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">74</span>
+    <span class="phpdocumentor-element-found-in__line">84</span>
 
     </aside>
 
@@ -960,7 +1059,7 @@ Floating numbers are supported, e.g., 0.5 pauses for half a second.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>Custom engines can be defined with Artillery::addEngine.<br>
+                                                 <section class="phpdocumentor-description"><p>Custom engines can be defined with Artillery::setEngine.<br>
 This library aims to fully support HTTP, partial support for WebSocket, and only raw support for others.</p>
 </section>
 
@@ -973,8 +1072,7 @@ This library aims to fully support HTTP, partial support for WebSocket, and only
                                                  <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$webSocketScenario = Artillery::scenario()
     ->setEngine('ws')
     ->addRequest(
-        Artillery::wsRequest('ws://localhost:8080', ['send' => 'Hello World!'])
-    );
+        Artillery::wsRequest('ws://localhost:8080', ['send' => 'Hello World!']));
 </code></pre>
 </section>
 
@@ -1002,7 +1100,7 @@ This library aims to fully support HTTP, partial support for WebSocket, and only
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">84</span>
+    <span class="phpdocumentor-element-found-in__line">94</span>
 
     </aside>
 
@@ -1049,7 +1147,7 @@ This library aims to fully support HTTP, partial support for WebSocket, and only
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">101</span>
+    <span class="phpdocumentor-element-found-in__line">111</span>
 
     </aside>
 

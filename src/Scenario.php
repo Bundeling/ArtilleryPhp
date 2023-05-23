@@ -6,10 +6,19 @@ namespace ArtilleryPhp;
  * The scenario is the core of an Artillery test script. It defines the flow of requests.
  * It has all methods related to a scenario and its flow.
  * @example <pre><code class="language-php">$loginScenario = Artillery::scenario()
- *    ->addRequest(Artillery::request('GET', 'https://example.com/login'))
- *    ->addRequest(Artillery::request('POST', 'https://example.com/login', ['body' => ['username' => 'user', 'password' => 'pass']]));
+ *     ->addRequest(
+ *         Artillery::request('get', 'https://example.com/login')
+ *             ->setJsons(['username' => '{{ user }}', 'password' => '{{ pass }}'])
+ *             ->addCapture('token', 'json', '$.token')
+ *     )
+ *    ->addRequest(
+ *         Artillery::request('post', 'https://example.com/inbox')
+ *             ->setJson('token', '{{ token }}')
+ *     );
  *
- * $artillery->addBefore($loginScenario)
+ * $artillery = Artillery::new()
+ *     ->addScenario($loginScenario)
+ *     ->addLoop(
  *     ->addScenario(Artillery::request('GET', 'https://example.com/inbox'), 'inbox')
  *     ->addScenario(Artillery::request('GET', 'https://example.com/news'), 'news');
  * </code></pre>
@@ -41,7 +50,8 @@ class Scenario {
 	 */
 	public function addAfterScenario(array|string $function): self {
 		if (!array_key_exists('afterScenario', $this->scenario)) $this->scenario['afterScenario'] = [];
-		$this->scenario['afterScenario'][] = $function;
+		if (is_array($function)) $this->scenario['afterScenario'] = array_merge($this->scenario['afterScenario'], $function);
+		else $this->scenario['afterScenario'][] = $function;
 		return $this;
 	}
 
@@ -54,21 +64,21 @@ class Scenario {
 	 */
 	public function addBeforeScenario(array|string $function): self {
 		if (!array_key_exists('beforeScenario', $this->scenario)) $this->scenario['beforeScenario'] = [];
-		$this->scenario['beforeScenario'][] = $function;
+		if (is_array($function)) $this->scenario['beforeScenario'] = array_merge($this->scenario['beforeScenario'], $function);
+		else $this->scenario['beforeScenario'][] = $function;
 		return $this;
 	}
 
 	/**
 	 * Set an engine to use for this scenario, if not set then the HTTP engine will be used. If 'ws' is set, then use WsRequest only in this Scenario.
-	 * @description Custom engines can be defined with Artillery::addEngine.<br>
+	 * @description Custom engines can be defined with Artillery::setEngine.<br>
 	 * This library aims to fully support HTTP, partial support for WebSocket, and only raw support for others.
 	 * @param string $engine Desired engine to use in this scenario.
 	 * @return $this The current Scenario instance.
 	 * @example <pre><code class="language-php">$webSocketScenario = Artillery::scenario()
 	 *     ->setEngine('ws')
 	 *     ->addRequest(
-	 *         Artillery::wsRequest('ws://localhost:8080', ['send' => 'Hello World!'])
-	 *     );
+	 *         Artillery::wsRequest('ws://localhost:8080', ['send' => 'Hello World!']));
 	 * </code></pre>
 	 */
 	public function setEngine(string $engine): self {
@@ -125,18 +135,37 @@ class Scenario {
 
 	/**
 	 * Add a request object directly to this scenario's flow.
-	 * @param RequestInterface $request The request to add.
-	 * @return $this The current Scenario instance.
-	 * @link https://www.artillery.io/docs/guides/guides/http-reference
-	 * @example <pre><code class="language-php">$scenario->addRequest(
-	 *     Artillery::request('get', '/users')
-	 *         ->addCapture('json', '$.users[0].id', 'userId')
-	 *     );
+	 * @example <pre><code class="language-php">$scenario = Artillery::scenario()
+	 *     ->addRequest(
+	 *         Artillery::request('get', '/users')
+	 *             ->addCapture('json', '$.users[0].id', 'userId'));
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#get--post--put--patch--delete-requests
+	 * @link https://www.artillery.io/docs/guides/guides/http-reference
+	 * @param RequestInterface $request The request to add.
+	 * @return $this The current Scenario instance.
 	 */
 	public function addRequest(RequestInterface $request): self {
 		$this->flow[] = $request->toArray();
+		return $this;
+	}
+
+	/**
+	 * Add an array of request objects directly to this scenario's flow.
+	 * @example <pre><code class="language-php">$scenario = Artillery::scenario()
+	 *     ->addRequests([
+	 *         Artillery::request('get', '/'),
+	 *         Artillery::request('get', '/home'),
+	 *         Artillery::request('get', '/about')
+	 *     ]);
+	 * </code></pre>
+	 * @link https://www.artillery.io/docs/guides/guides/http-reference#get--post--put--patch--delete-requests
+	 * @link https://www.artillery.io/docs/guides/guides/http-reference
+	 * @param RequestInterface[] $requests The requests to add.
+	 * @return $this The current Scenario instance.
+	 */
+	public function addRequests(array $requests): self {
+		foreach ($requests as $request) $this->addRequest($request);
 		return $this;
 	}
 
@@ -149,7 +178,8 @@ class Scenario {
 	 * @param string|null $whileTrue The condition to continue looping.
 	 * @return $this The current Scenario instance.
 	 * @link https://github.com/rjnienaber/artillery-test/blob/master/nested_loops/test.yml
-	 * @example <pre><code class="language-php">$scenario->addLoop(Artillery::request('get', '/pages/{{ $loopCount }}'), 100);
+	 * @example <pre><code class="language-php"> // Loop through 100 pages:
+	 * $scenario = Artillery::scenario()->addLoop(Artillery::request('get', '/pages/{{ $loopCount }}'), 100);
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#loops
 	 */
@@ -158,10 +188,10 @@ class Scenario {
 		elseif ($loop instanceof RequestInterface) $ret = ['loop' => [$loop->toArray()]];
 		else if (is_array($loop)) {
 			$ret = ['loop' => []];
-			foreach ($loop as $r) {
-				if ($r instanceof Scenario) $ret['loop'][] = $r->getFlow();
-				elseif ($r instanceof RequestInterface) $ret['loop'][] = [$r->toArray()];
-				else $ret['loop'][] = $r;
+			foreach ($loop as $l) {
+				if ($l instanceof Scenario) $ret['loop'] = array_merge($ret['loop'], $l->getFlow());
+				elseif ($l instanceof RequestInterface) $ret['loop'][] = $l->toArray();
+				else $ret['loop'][] = $l;
 			}
 		}
 

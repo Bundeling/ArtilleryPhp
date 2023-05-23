@@ -12,7 +12,7 @@ use Symfony\Component\Yaml\Yaml;
  * $artillery = Artillery::new('http://localhost:3000')
  *     ->addPhase(['duration' => 60, 'arrivalRate' => 5, 'rampTo' => 20], 'Warm up')
  *     ->addPhase(['duration' => 60, 'arrivalRate' => 20], 'Sustain')
- *     ->addPlugin('expect');
+ *     ->setPlugin('expect');
  *
  * // Define the flow of your scenario and add it to the Artillery instance
  * $flow = Artillery::scenario()
@@ -100,34 +100,41 @@ class Artillery {
 	/**
 	 * Creates a new Artillery instance from an array representation.
 	 * @param array{config?: array, before?: array, scenarios?: array, after?: array} $script Array representation of an Artillery instance.
-	 * @return $this A new Artillery instance.
+	 * @return Artillery A new Artillery instance.
 	 */
 	public static function fromArray(array $script): self {
 		$instance = new self();
-		if (isset($script['config'])) $instance->config = $script['config'];
-		if (isset($script['before'])) $instance->before = $script['before'];
-		if (isset($script['scenarios'])) $instance->scenarios = $script['scenarios'];
-		if (isset($script['after'])) $instance->after = $script['after'];
+		if (@$script['config']) $instance->config = $script['config'];
+		if (@$script['before']) $instance->before = $script['before'];
+		if (@$script['scenarios']) $instance->scenarios = $script['scenarios'];
+		if (@$script['after']) $instance->after = $script['after'];
 		return $instance;
+	}
+
+	/**
+	 * Creates a new Artillery instance copy from another Artillery instance.
+	 * @param Artillery $script Another Artillery instance.
+	 * @return Artillery A new Artillery instance.
+	 */
+	public static function from(Artillery $script): self {
+		return self::fromArray($script->toArray());
 	}
 
 	/**
 	 * Export the Artillery script as YAML string.
 	 * @link https://symfony.com/doc/current/components/yaml.html
-	 * @param bool $correctNewlines Whether to correct newlines in the YAML string, try turning this off if you have broken output.
+	 * @param bool $correctNewlines Keep array entries on the same line as its dash notation, try turning this off if you have broken output.
 	 * @param int $inline The level where you switch to inline YAML.
 	 * @param int $indent The number of spaces to use for indentation of nested nodes.
 	 * @param int $flags A bit field of Yaml::DUMP_* constants to customize the dumped YAML string.
 	 * @return string The YAML representation of the Artillery script.
 	 */
 	public function toYaml(bool $correctNewlines = true, int $inline = PHP_INT_MAX, int $indent = 2, int $flags = 0): string {
-		if ($correctNewlines) {
-			return preg_replace_callback('/-\s*\n\s*(\w+)/', function ($matches) {
-				return '- ' . $matches[1];
-			}, Yaml::dump($this->toArray(), $inline, $indent, $flags));
-		}
+		if (!$correctNewlines) return Yaml::dump($this->toArray(), $inline, $indent, $flags);
 
-		return Yaml::dump($this->toArray(), $inline, $indent, $flags);
+		return preg_replace_callback('/-\s*\n\s*(\w+)/', function ($matches) {
+			return '- ' . $matches[1];
+		}, Yaml::dump($this->toArray(), $inline, $indent, $flags));
 	}
 
 	/** @internal */
@@ -141,25 +148,27 @@ class Artillery {
 	}
 
 	/**
-	 * Set a Scenario or Flow to the 'after' section of the Artillery script, which will be executed after a scenario.
+	 * Set a Scenario or flow of Request(s) to the 'after' section of the Artillery script, which will be executed after a scenario.
 	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#before-and-after-sections
-	 * @param Scenario|Flow $scenario The Scenario or Flow instance to add.
+	 * @param RequestInterface[]|RequestInterface|Scenario $scenario The Scenario or Request(s) to set as the 'after' scenario.
 	 * @return $this The current Artillery instance.
 	 */
-	public function setAfter(Scenario|Flow $scenario): self {
+	public function setAfter(array|RequestInterface|Scenario $scenario): self {
 		if ($scenario instanceof Scenario) $this->after = $scenario->toArray();
+		elseif (is_array($scenario)) $this->after = ['flow' => array_map(fn($s) => $s->toArray(), $scenario)];
 		else $this->after = ['flow' => $scenario->toArray()];
 		return $this;
 	}
 
 	/**
-	 * Set a Scenario or Flow to the 'before' section of the Artillery script, which will be executed before a main scenario.
+	 * Set a Scenario or flow of Request(s) to the 'before' section of the Artillery script, which will be executed before a main scenario.
 	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#before-and-after-sections
-	 * @param Scenario|RequestInterface|RequestInterface[] $scenario The Scenario, or Request, or array of requests to add as a new entry in the scenarios section of the script.
+	 * @param RequestInterface[]|RequestInterface|Scenario $scenario The Scenario or Request(s) to set as the 'before' scenario.
 	 * @return $this The current Artillery instance.
 	 */
-	public function setBefore(array|Scenario|RequestInterface $scenario): self {
+	public function setBefore(array|RequestInterface|Scenario $scenario): self {
 		if ($scenario instanceof Scenario) $this->before = $scenario->toArray();
+		elseif (is_array($scenario)) $this->before = ['flow' => array_map(fn($s) => $s->toArray(), $scenario)];
 		else $this->before = ['flow' => $scenario->toArray()];
 		return $this;
 	}
@@ -179,8 +188,6 @@ class Artillery {
 	 *
 	 * $artillery = Artillery::new('https://example.com')
 	 *     ->addScenario(Artillery::scenario()->addLoop($scenario));
-	 *
-	 * file_put_contents('script.yml', $artillery->toYaml());
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#scenarios-section
 	 * @param Scenario|RequestInterface|RequestInterface[] $scenario The Scenario, or Request, or array of requests to add as a new entry in the scenarios section of the script.
@@ -194,13 +201,38 @@ class Artillery {
 		return $this;
 	}
 
+	/**
+	 * Adds an array of Scenarios to the main scenarios section of the Artillery script. You can also provide a single Request or array of Requests, and a scenario will be made from it.
+	 * @example <pre><code class="language-php"> // Define a set of scenarios to use in the script, in this case 3 different scenarios.
+	 * $defaultScenarios = [
+	 *     Artillery::scenario()->addRequest(Artillery::request('GET', '/')),
+	 *     Artillery::request('GET', '/about'),
+	 *     [Artillery::request('GET', '/contact'), Artillery::request('GET', '/contact-us')],
+	 * ];
+	 *
+	 * // Add the 3 scenarios to the Artillery script.
+	 * $artillery = Artillery::new()->addScenarios($defaultScenarios);
+	 * </code></pre>
+	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#scenarios-section
+	 * @param (Scenario|RequestInterface|RequestInterface[])[] $scenarios An array of Scenarios, or Requests, or arrays of Requests to add as new entries in the scenarios section of the script.
+	 * @return $this The current Artillery instance.
+	 */
+	public function addScenarios(array $scenarios): self {
+		foreach ($scenarios as $scenario) {
+			$this->addScenario($scenario);
+		}
+		return $this;
+	}
+
 	// region Config
 
 	/**
 	 * Adds an 'ensure' condition to the Artillery script. Metrics are listed in the report output.
 	 * @description Artillery can validate if a metrics value meets a predefined threshold. If it doesn't, it will exit with a non-zero exit code.<br>
-	 * The built-in 'ensure' plugin needs to be enabled with Artillery::addPlugin('ensure') for this feature.
+	 * Setting strict: false on a condition will make that check optional. Failing optional checks do not cause Artillery to exit with a non-zero exit code. Checks are strict by default.<br>
+	 * The built-in 'ensure' plugin needs to be enabled with Artillery::setPlugin('ensure') for this feature.
 	 * @example <pre><code class="language-php">$artillery = Artillery::new()
+	 *     ->setPlugin('ensure')
 	 *     ->addEnsureCondition('http.response_time.p95 < 250 and http.request_rate > 1000');
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#advanced-conditional-checks
@@ -211,8 +243,8 @@ class Artillery {
 	 * @return $this The current Artillery instance.
 	 */
 	public function addEnsureCondition(string $expression, bool $strict = true): self {
-		if (!array_key_exists('ensure', $this->config)) $this->config['ensure'] = [];
-		if (!array_key_exists('conditions', $this->config['ensure'])) $this->config['ensure']['conditions'] = [];
+		if (!@$this->config['ensure']) $this->config['ensure'] = [];
+		if (!@$this->config['ensure']['conditions']) $this->config['ensure']['conditions'] = [];
 		$condition = ['expression' => $expression];
 		if ($strict === false) $condition['strict'] = false;
 		$this->config['ensure']['conditions'][] = $condition;
@@ -222,8 +254,9 @@ class Artillery {
 	/**
 	 * Adds an 'ensure' threshold to the config section of the Artillery script.
 	 * @description Artillery can validate if a metrics value meets a predefined threshold. If it doesn't, it will exit with a non-zero exit code.<br>
-	 * The built-in 'ensure' plugin needs to be enabled with Artillery::addPlugin('ensure') for this feature.
+	 * The built-in 'ensure' plugin needs to be enabled with Artillery::setPlugin('ensure') for this feature.
 	 * @example <pre><code class="language-php">$artillery = Artillery::new()
+	 *     ->setPlugin('ensure')
 	 *     ->addEnsureThreshold('http.response_time.p99', 250)
 	 *     ->addEnsureThreshold('http.response_time.p95', 100);
 	 * </code></pre>
@@ -241,58 +274,156 @@ class Artillery {
 
 	/**
 	 * Add a custom engine to the config section of the Artillery script.
-	 * @example <pre><code class="language-php">$artillery->addEngine('custom');
+	 * @example <pre><code class="language-php">$artillery->setEngine('custom');
 	 * $artillery->set('custom', ['some' => 'setting']);</code></pre>
 	 * @param string $name The name of the engine.
 	 * @param array $options The options for this engine.
 	 * @return $this The current Artillery instance.
 	 */
-	public function addEngine(string $name, array $options = []): self {
+	public function setEngine(string $name, array $options = []): self {
 		if (!array_key_exists('engines', $this->config)) $this->config['engines'] = [];
 		$this->config['engines'][$name] = $options;
 		return $this;
 	}
 
 	/**
-	 * Adds an environment to the config section of the Artillery script.
+	 *  TODO: document
+	 * @param array $engines
+	 * @return $this
+	 */
+	public function setEngines(array $engines): self {
+		foreach ($engines as $name => $options) $this->setEngine($name, $options);
+		return $this;
+	}
+
+	/**
+	 * Adds an environment to the config's environments section of the Artillery script with environment-specific config overrides.
+	 * Either as an array or another Artillery instance (just make sure not to have nested environments defined).
 	 * @description When running your performance test, you can specify the environment on the command line using the -e flag.
-	 * @example <pre><code class="language-php">$artillery->addEnvironment('staging', ['target' => 'https://staging.example.com'])
-	 *     ->addEnvironment('production', ['target' => 'https://example.com'])
-	 *     ->addEnvironment('local', ['target' => 'http://localhost:8080']);
+	 * @example <pre><code class="language-php">$local = Artillery::new('http://localhost:8080')
+	 *     ->addPhase(['duration' => 30, 'arrivalRate' => 1, 'rampTo' => 10])
+	 *     ->setHttpTimeout(60);
+	 *
+	 * $production = Artillery::new('https://example.com')
+	 *     ->addPhase(['duration' => 300, 'arrivalRate' => 10, 'rampTo' => 100])
+	 *     ->setHttpTimeout(30);
+	 *
+	 * $artillery = Artillery::new()
+	 *     ->addEnvironment('staging', ['target' => 'https://staging.example.com'])
+	 *     ->addEnvironment('production', $production)
+	 *     ->addEnvironment('local', $local);
 	 * </code></pre>
 	 * <pre><code>artillery run -e local my-script.yml</code></pre>
 	 * @param string $name The name of the environment.
-	 * @param array $config Config overrides for this environment.
+	 * @param Artillery|array $config Config overrides for this environment, as an array or another Artillery instance.
 	 * @return $this The current Artillery instance.
 	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#environments---config-profiles
 	 * @example <pre><code class="language-php">$artillery->addEnvironment('staging', ['target' => 'https://staging.example.com']);
 	 * </code></pre>
 	 * <pre><code>artillery run -e staging my-script.yml</code></pre>
 	 */
-	public function addEnvironment(string $name, array $config): self {
+	public function addEnvironment(string $name, Artillery|array $config): self {
 		if (!array_key_exists('environments', $this->config)) $this->config['environments'] = [];
-		$this->config['environments'][$name] = $config;
+		if ($config instanceof Artillery) $this->config['environments'][$name] = $config->config;
+	    else $this->config['environments'][$name] = $config;
+		return $this;
+	}
+
+	/**
+	 * Adds an array of environments to the config's environments section of the Artillery script.
+	 * Either as arrays or Artillery instances (just make sure not to have nested environments defined).
+	 * @description When running your performance test, you can specify the environment on the command line using the -e flag.
+	 * @example <pre><code class="language-php">$local = Artillery::new('http://localhost:8080')
+	 *     ->addPhase(['duration' => 30, 'arrivalRate' => 1, 'rampTo' => 10])
+	 *     ->setHttpTimeout(60);
+	 *
+	 * $production = Artillery::new('https://example.com')
+	 *     ->addPhase(['duration' => 300, 'arrivalRate' => 10, 'rampTo' => 100])
+	 *     ->setHttpTimeout(30);
+	 *
+	 * $defaultEnvironments = [
+	 *     'staging' => ['target' => 'https://staging.example.com'],
+	 *     'production' => $production,
+	 *     'local' => $local
+	 * ];
+	 *
+	 * $artillery = Artillery::new()->addEnvironments($defaultEnvironments);
+	 * </code></pre>
+	 * <pre><code>artillery run -e local my-script.yml</code></pre>
+	 * @param array<string, array|Artillery> $environments Environment definitions, as arrays or Artillery instances.
+	 * @return $this The current Artillery instance.
+	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#environments---config-profiles
+	 * @example <pre><code class="language-php">$artillery->addEnvironment('staging', ['target' => 'https://staging.example.com']);
+	 * </code></pre>
+	 * <pre><code>artillery run -e staging my-script.yml</code></pre>
+	 */
+	public function addEnvironments(array $environments): self {
+		foreach ($environments as $name => $config) $this->addEnvironment($name, $config);
 		return $this;
 	}
 
 	/**
 	 * Adds a CSV file as payload the config section of the Artillery script.
-	 * @description You can use a CSV file to provide dynamic data to test scripts. For example, you might have a list of usernames and passwords that you want to use to test authentication in your API.
-	 * @example <pre><code class="language-php">$artillery->addPayload('users.csv', ['username', 'password']);
-	 * $artillery->addRequest(
-	 *     Artillery::request('post', '/login')
-	 *        ->setJson(['username' => '{{ username }}', 'password' => '{{ password }}']
-	 * );
+	 * @description You can use a CSV file to provide dynamic data to test scripts.<br>
+	 * For example, you might have a list of usernames and passwords that you want to use to test authentication in your API.<br>
+	 * Payload file options:<br>
+	 *  * order (default: random) - Control how rows are selected from the CSV file for each new virtual user. This option may be set to sequence to iterate through the rows in a sequence (looping around and starting from the beginning after reaching the last row). Note that this will not work as expected when running distributed tests, as each node will have its own copy of the CSV data.<br>
+	 *  * skipHeader (default: false) - Set to true to make Artillery skip the first row in the file (typically the header row).<br>
+	 *  * delimiter (default: ,) - If the payload file uses a delimiter other than a comma, set this option to the delimiter character.<br>
+	 *  * cast (default: true) - By default, Artillery will convert fields to native types (e.g. numbers or booleans). To keep those fields as strings, set this option to false.<br>
+	 *  * skipEmptyLines (default: true) - By default, Artillery skips empty lines in the payload. Set to false to include empty lines.<br>
+	 *  * loadAll and name - set loadAll to true to provide all rows to each VU, and name to a variable name which will contain the data
+	 * @example <pre><code class="language-php">$artillery = Artillery::new()
+	 *     ->addPayload('users.csv', ['username', 'password'], ['skipHeader' => true])
+	 *     ->addScenario(Artillery::request('post', '/login')
+	 *         ->setJsons(['username' => '{{ username }}', 'password' => '{{ password }}']));
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#payload---loading-data-from-csv-files
 	 * @param string $path The path of the payload file.
 	 * @param array $fields The fields to be used from the payload file.
-	 * @param array $options Additional options for the payload.
+	 * @param array<'order'|'skipHeader'|'delimiter'|'cast'|'skipEmptyLines'|'loadAll'|'name', string|bool> $options Additional options for the payload.
 	 * @return $this The current Artillery instance.
 	 */
 	public function addPayload(string $path, array $fields, array $options = []): self {
 		if (!array_key_exists('payload', $this->config)) $this->config['payload'] = [];
 		$this->config['payload'][] = ['path' => $path, 'fields' => $fields] + $options;
+		return $this;
+	}
+
+	/**
+	 * Adds an array of payloads the config section of the Artillery script.
+	 * @description You can use a CSV file to provide dynamic data to test scripts.<br>
+	 * For example, you might have a list of usernames and passwords that you want to use to test authentication in your API.<br>
+	 * Payload file options:<br>
+	 *  * fields - Names of variables to use for each column in the CSV file
+	 *  * order (default: random) - Control how rows are selected from the CSV file for each new virtual user. This option may be set to sequence to iterate through the rows in a sequence (looping around and starting from the beginning after reaching the last row). Note that this will not work as expected when running distributed tests, as each node will have its own copy of the CSV data.
+	 *  * skipHeader (default: false) - Set to true to make Artillery skip the first row in the file (typically the header row).
+	 *  * delimiter (default: ,) - If the payload file uses a delimiter other than a comma, set this option to the delimiter character.
+	 *  * cast (default: true) - By default, Artillery will convert fields to native types (e.g. numbers or booleans). To keep those fields as strings, set this option to false.
+	 *  * skipEmptyLines (default: true) - By default, Artillery skips empty lines in the payload. Set to false to include empty lines.
+	 *  * loadAll and name - set loadAll to true to provide all rows to each VU, and name to a variable name which will contain the data
+	 * @example <pre><code class="language-php">$defaultPayloads = [
+	 *     ['path' => 'users.csv', 'fields' => ['username', 'password'], 'skipHeader' => true]
+	 *     ['path' => 'animals.csv', 'fields' => ['name', 'specie'], 'skipHeader' => true]
+	 * ];
+	 *
+	 * $scenario = Artillery::scenario()
+	 *     ->addRequest(Artillery::request('post', '/login')
+	 *         ->setJsons(['username' => '{{ username }}', 'password' => '{{ password }}']))
+	 *     ->addRequest(Artillery::request('get', '/animals')
+	 *         ->setJsons(['name' => '{{ name }}', 'specie' => '{{ specie }}']));
+	 *
+	 * $artillery = Artillery::new()->addPayloads($defaultPayloads)->addScenario($scenario);
+	 * </code></pre>
+	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#payload---loading-data-from-csv-files
+	 * @param array<'path'|'fields'|'order'|'skipHeader'|'delimiter'|'cast'|'skipEmptyLines'|'loadAll'|'name', string|bool>[] $payloads Payloads to be added.
+	 * @return $this The current Artillery instance.
+	 */
+	public function addPayloads(array $payloads): self {
+		if (!array_key_exists('payload', $this->config)) $this->config['payload'] = [];
+		foreach ($payloads as $payload) {
+			$this->config['payload'][] = $payload;
+		}
 		return $this;
 	}
 
@@ -303,7 +434,8 @@ class Artillery {
 	 * @param string|null $name The name of the phase.
 	 * @return $this The current Artillery instance.
 	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#phases---load-phases
-	 * @example <pre><code class="language-php">$artillery->addPhase(['duration' => 60, 'arrivalRate' => 10], 'warm up')
+	 * @example <pre><code class="language-php">$artillery = Artillery::new()
+	 *     ->addPhase(['duration' => 60, 'arrivalRate' => 10], 'warm up')
 	 *     ->addPhase(['duration' => 300, 'arrivalRate' => 10, 'rampTo' => 100], 'ramp up')
 	 *     ->addPhase(['duration' => 600, 'arrivalRate' => 100], 'sustained load');
 	 * </code></pre>
@@ -316,17 +448,40 @@ class Artillery {
 	}
 
 	/**
+	 * Adds an array of phase to the config section of the Artillery script.
+	 * @description A load phase defines how Artillery generates new virtual users (VUs) in a specified time period. For example, a typical performance test will have a gentle warm-up phase, followed by a ramp-up phase, and finalizing with a maximum load for a duration of time.
+	 * @param array{duration?: int, arrivalCount?: int, arrivalRate?: int, rampTo?: int, pause?: int, name?: string}[] $phases The phases to be added.
+	 * @return $this The current Artillery instance.
+	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#phases---load-phases
+	 * @example <pre><code class="language-php">$defaultPhases = [
+	 *     ['duration' => 60, 'arrivalRate' => 10, 'name' => 'warm up'],
+	 *     ['duration' => 300, 'arrivalRate' => 10, 'rampTo' => 100, 'name' => 'ramp up'],
+	 *     ['duration' => 600, 'arrivalRate' => 100, 'name' => 'sustained load']
+	 * ];
+	 *
+	 * $artillery = Artillery::new()->addPhases($defaultPhases);
+	 * </code></pre>
+	 */
+	public function addPhases(array $phases): self {
+		if (!array_key_exists('phases', $this->config)) $this->config['phases'] = [];
+		foreach ($phases as $phase) {
+			$this->config['phases'][] = $phase;
+		}
+		return $this;
+	}
+
+	/**
 	 * Enables a plugin in the config section of the Artillery script.
 	 * @description Artillery has support for plugins, which can add functionality and extend its built-in features. Plugins can hook into Artillery's internal APIs and extend its behavior with new capabilities.<br>
 	 * Plugins are distributed as normal npm packages which are named with an artillery-plugin- prefix, e.g. artillery-plugin-expect.
 	 * @example <pre><code>npm install artillery-plugin-expect</code></pre>
 	 * <pre><code class="language-php">// There is built in support for 'expect' and 'ensure' plugins.
-	 * $artillery->addPlugin('expect');
+	 * $artillery->setPlugin('expect');
 	 * $expectRequest = Artillery::request('get', '/users/1')
 	 *     ->addExpect('statusCode', [200, 201]);
 	 *
 	 * // Others can be handled like this:
-	 * $artillery->addPlugin('hls');
+	 * $artillery->setPlugin('hls');
 	 * $customRequest = Artillery::request('get', '/users/1')
 	 *        ->set('hls', ['concurrency' => 200, 'throttle' => 128]);
 	 * </code></pre>
@@ -338,7 +493,7 @@ class Artillery {
 	 * @param array $options The options for the plugin.
 	 * @return $this The current Artillery instance.
 	 */
-	public function addPlugin(string $name, array $options = []): self {
+	public function setPlugin(string $name, array $options = []): self {
 		if (!array_key_exists('plugins', $this->config)) $this->config['plugins'] = [];
 		$this->config['plugins'][$name] = $options;
 		return $this;
@@ -353,7 +508,7 @@ class Artillery {
 	 * // Pick a random one for each scenario:
 	 * $artillery->addRequest(
 	 *    Artillery::request('post', '/login')
-	 *      ->setJson(['username' => '{{ username }}', 'password' => '12345678']);
+	 *      ->setJsons(['username' => '{{ username }}', 'password' => '12345678']);
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#variables---inline-variables
 	 * @param string $name The name of the variable, to be referenced later as '{{ name }}'.
@@ -367,16 +522,72 @@ class Artillery {
 	}
 
 	/**
-	 * Set the options for the http property in the config section of the Artillery script.
-	 * @example <pre><code class="language-php">// Set the timeout to 5 seconds and the maximum number of sockets per virtual user to 1.
-	 * $artillery->setHttp(['timeout' => 5, 'maxSockets' => 1]);
+	 * Set an option in the http property of the config section in the Artillery script.
+	 * @example <pre><code class="language-php">// Set the timeout to 30 seconds:
+	 * $artillery = Artillery::new()->setHttp('timeout', 30);
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#http-specific-configuration
-	 * @param array{timeout?: int, pool?: int, maxSockets?: int, extendedMetrics?: bool} $options The http options.
+	 * @param 'timeout'|'maxSockets'|'extendedMetrics' $key The key of the option.
+	 * @param int|bool $value The value of the option.
 	 * @return $this The current Artillery instance.
 	 */
-	public function setHttp(array $options): self {
-		$this->config['http'] = $options;
+	public function setHttp(string $key, mixed $value): self {
+		if (!array_key_exists('http', $this->config)) $this->config['http'] = [];
+		$this->config['http'][$key] = $value;
+		return $this;
+	}
+
+	/**
+	 * Set an array of options for the http property in the config section of the Artillery script.
+	 * @example <pre><code class="language-php">// Set the timeout to 30 seconds and the maximum number of sockets per virtual user to 1.
+	 * $artillery = Artillery::new()->setHttps(['timeout' => 30, 'maxSockets' => 1]);
+	 * </code></pre>
+	 * @link https://www.artillery.io/docs/guides/guides/http-reference#http-specific-configuration
+	 * @param array<'timeout'|'maxSockets'|'extendedMetrics', int|bool> $options The http options.
+	 * @return $this The current Artillery instance.
+	 */
+	public function setHttps(array $options): self {
+		foreach($options as $key => $value) $this->setHttp($key, $value);
+		return $this;
+	}
+
+	/**
+	 * Set the timeout option for the http property in the config section of the Artillery script.
+	 * @example <pre><code class="language-php">// Set the http timeout to 30 seconds
+	 * $artillery = Artillery::new()->setHttpTimeout(30);
+	 * </code></pre>
+	 * @link https://www.artillery.io/docs/guides/guides/http-reference#http-specific-configuration
+	 * @param int $timeout The timeout in seconds.
+	 * @return $this The current Artillery instance.
+	 */
+	public function setHttpTimeout(int $timeout): self {
+		$this->setHttp('timeout', $timeout);
+		return $this;
+	}
+
+	/**
+	 * By default, Artillery creates one TCP connection per virtual user. To allow for multiple sockets per virtual user (to mimic the behavior of a web browser, for example), specify the number of connections.
+	 * @link https://www.artillery.io/docs/guides/guides/http-reference#max-sockets-per-virtual-user
+	 * @param int $maxSockets The maximum number of sockets per virtual user.
+	 * @return $this The current Artillery instance.
+	 */
+	public function setHttpMaxSockets(int $maxSockets): self {
+		$this->setHttp('maxSockets', $maxSockets);
+		return $this;
+	}
+
+	/**
+	 * The HTTP engine can be configured to track additional performance metrics by setting extendedMetrics to true.
+     * @description The following additional metrics will be reported:<br>
+	 *  * 'http.dns' Time taken by DNS lookups<br>
+	 *  * 'http.tcp' Time taken to establish TCP connections<br>
+	 *  * 'http.tls' Time taken by completing TLS handshakes<br>
+	 *  * 'http.total' Time for the entire response to be downloaded
+	 * @param bool $extendedMetrics Whether to track additional performance metrics.
+	 * @return $this The current Artillery instance.
+	 */
+	public function setHttpExtendedMetrics(bool $extendedMetrics = true): self {
+		$this->setHttp('extendedMetrics', $extendedMetrics);
 		return $this;
 	}
 
@@ -434,11 +645,9 @@ class Artillery {
 
 	/**
 	 * Set the ws property of the config section of the Artillery script.
-	 * @example <pre><code class="language-php">$artillery->setWs(['subprotocols' => ['json']);
-	 * $scenario->addRequest(
-	 *     Artillery::wsRequest('send', ['message' => 'Hello World!'])
-	 *         ->addCapture('response', 'json', '$.message')
-	 *     );
+	 * @example <pre><code class="language-php">$artillery = Artillery::new()->setWs(['subprotocols' => ['json']);
+	 * $artillery->addScenario(Artillery::wsRequest('send', ['message' => 'Hello World!'])
+	 *         ->addCapture('response', 'json', '$.message'));
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/ws-reference#websocket-specific-configuration
 	 * @link https://www.artillery.io/docs/guides/guides/ws-reference#subprotocols

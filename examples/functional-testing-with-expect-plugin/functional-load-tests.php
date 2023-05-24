@@ -4,7 +4,7 @@ use ArtilleryPhp\Artillery;
 
 $artillery = Artillery::new('http://localhost:3000')
 	->addEnvironment('load', ['phases' => [['duration' => 600, 'arrivalRate' => 25]]])
-	->addEnvironment('functional', ['plugins' => ['expect' => new stdClass()]]);
+	->addEnvironment('functional', ['plugins' => ['expect' => []]]);
 
 $postUserRequest = Artillery::request('post', '/users')
 	->setJson('username', 'new-user')

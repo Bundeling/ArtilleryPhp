@@ -4,6 +4,8 @@ namespace ArtilleryPhp;
 
 use Symfony\Component\Yaml\Yaml;
 
+// todo: test config + scenario + request scope variables with just log
+
 /**
  * Main class for Artillery scripts, containing all methods for config and adding scenarios.
  * @example <pre><code class="language-php">use ArtilleryPhp\Artillery;
@@ -45,14 +47,8 @@ class Artillery {
 	protected array $config = [];
 	/** @internal */
 	protected array $scenarios = [];
-
-	/**
-	 * Artillery constructor, optionally with a target URL.
-	 * @param string|null $targetUrl Target base URL for the Artillery script.
-	 */
-	public function __construct(string $targetUrl = null) {
-		if ($targetUrl) $this->setTarget($targetUrl);
-	}
+	/** @internal */
+	protected string $filePath = '';
 
 	/**
 	 * Creates a new Artillery instance, optionally with a target URL.
@@ -60,7 +56,9 @@ class Artillery {
 	 * @return self A new Artillery instance.
 	 */
 	public static function new(string $targetUrl = null): self {
-		return new self($targetUrl);
+		$ret = new self();
+		if ($targetUrl) $ret->setTarget($targetUrl);
+		return $ret;
 	}
 
 	/**
@@ -71,7 +69,10 @@ class Artillery {
 	 * @return Request A new Request instance.
 	 */
 	public static function request(string $method = null, string $url = null): Request {
-		return new Request($method, $url);
+		$ret = new Request();
+		if ($method) $ret->setMethod($method);
+		if ($url) $ret->setUrl($url);
+		return $ret;
 	}
 
 	/**
@@ -82,7 +83,10 @@ class Artillery {
 	 * @return WsRequest A new WsRequest instance.
 	 */
 	public static function wsRequest(string $method = null, mixed $request = null): WsRequest {
-		return new WsRequest($method, $request);
+		$ret = new WsRequest();
+		if ($method) $ret->setMethod($method);
+		if ($request) $ret->setRequest($request);
+		return $ret;
 	}
 
 	/**
@@ -93,8 +97,23 @@ class Artillery {
 	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#scenarios-section
 	 * @return Scenario A new Scenario instance.
 	 */
-	public static function scenario(): Scenario {
-		return new Scenario();
+	public static function scenario(string $name = null): Scenario {
+		$ret = new Scenario();
+		if ($name) $ret->setName($name);
+		return $ret;
+	}
+
+	/**
+	 * Get the current Artillery script as an array.
+	 * @return array{config?: array, before?: array, scenarios?: array, after?: array} The array representation of the Artillery script.
+	 */
+	public function toArray(): array {
+		$ret = [];
+		if ($this->config) $ret['config'] = $this->config;
+		if ($this->before) $ret['before'] = $this->before;
+		if ($this->scenarios) $ret['scenarios'] = $this->scenarios;
+		if ($this->after) $ret['after'] = $this->after;
+		return $ret;
 	}
 
 	/**
@@ -104,10 +123,10 @@ class Artillery {
 	 */
 	public static function fromArray(array $script): self {
 		$instance = new self();
-		if (@$script['config']) $instance->config = $script['config'];
-		if (@$script['before']) $instance->before = $script['before'];
-		if (@$script['scenarios']) $instance->scenarios = $script['scenarios'];
-		if (@$script['after']) $instance->after = $script['after'];
+		if ($script['config']) $instance->config = $script['config'];
+		if ($script['before']) $instance->before = $script['before'];
+		if ($script['scenarios']) $instance->scenarios = $script['scenarios'];
+		if ($script['after']) $instance->after = $script['after'];
 		return $instance;
 	}
 
@@ -137,39 +156,65 @@ class Artillery {
 		}, Yaml::dump($this->toArray(), $inline, $indent, $flags));
 	}
 
-	/** @internal */
-	public function toArray(): array {
-		$ret = [];
-		if ($this->config) $ret['config'] = $this->config;
-		if ($this->before) $ret['before'] = $this->before;
-		if ($this->scenarios) $ret['scenarios'] = $this->scenarios;
-		if ($this->after) $ret['after'] = $this->after;
-		return $ret;
-	}
-
 	/**
-	 * Set a Scenario or flow of Request(s) to the 'after' section of the Artillery script, which will be executed after a scenario.
-	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#before-and-after-sections
-	 * @param RequestInterface[]|RequestInterface|Scenario $scenario The Scenario or Request(s) to set as the 'after' scenario.
+	 * Creates a Yaml file from the current Artillery instance.
+	 * @example <pre><code>$artillery = Artillery::new()
+	 *     ->addScenario(Artillery::request('get', 'https://www.example.com'))
+	 *     ->build('./artillery.yaml');
+	 * </code></pre>
+	 * @param string|null $file Path to the YAML file to create, default is __FILE__ . '.yml'.
 	 * @return $this The current Artillery instance.
 	 */
-	public function setAfter(array|RequestInterface|Scenario $scenario): self {
-		if ($scenario instanceof Scenario) $this->after = $scenario->toArray();
-		elseif (is_array($scenario)) $this->after = ['flow' => array_map(fn($s) => $s->toArray(), $scenario)];
-		else $this->after = ['flow' => $scenario->toArray()];
+	public function build(string $file = null): self {
+		$this->filePath = $file ?: __FILE__ . '.yml';
+		file_put_contents($this->filePath, $this->toYaml());
+		return $this;
+	}
+//DEBUG=http,http:response artillery run --output artillery-report.json artillery.yaml
+
+	/**
+	 * Run the Artillery script using passthru('artillery run ...').
+	 * @example <pre><code>$artillery = Artillery::new()
+	 *     ->addScenario(Artillery::request('get', 'https://www.example.com'))
+	 *     ->run();
+	 * </code></pre>
+	 * @param string|null $reportFile Path to the report file to create, default is __FILE__ . '-report-' . time() . '.json'.
+	 * @param string|null $debug If set, command is run with 'DEBUG=$debug ' prefix. E.g. 'http,http:response'.
+	 * @return $this The current Artillery instance.
+	 */
+	public function run(string $reportFile = null, string $debug = null): self {
+		if (!$this->filePath) $this->build();
+		$filePath = $this->filePath;
+		$reportFile = $reportFile ?: __FILE__ . '-report-' . time() . '.json';
+		$exec = "artillery run --output $reportFile $filePath";
+		if ($debug) $exec = "DEBUG=$debug $exec";
+		passthru($exec);
 		return $this;
 	}
 
 	/**
-	 * Set a Scenario or flow of Request(s) to the 'before' section of the Artillery script, which will be executed before a main scenario.
+	 * Set a Scenario, Request or array of Requests to the 'after' section of the Artillery script, which will be executed after a scenario.
 	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#before-and-after-sections
-	 * @param RequestInterface[]|RequestInterface|Scenario $scenario The Scenario or Request(s) to set as the 'before' scenario.
+	 * @param RequestInterface[]|RequestInterface|Scenario $after The Scenario or Request(s) to set as the 'after' scenario.
 	 * @return $this The current Artillery instance.
 	 */
-	public function setBefore(array|RequestInterface|Scenario $scenario): self {
-		if ($scenario instanceof Scenario) $this->before = $scenario->toArray();
-		elseif (is_array($scenario)) $this->before = ['flow' => array_map(fn($s) => $s->toArray(), $scenario)];
-		else $this->before = ['flow' => $scenario->toArray()];
+	public function setAfter(array|RequestInterface|Scenario $after): self {
+		if ($after instanceof Scenario) $this->after = $after->toArray();
+		elseif (is_array($after)) $this->after = ['flow' => array_map(fn($s) => $s->toArray(), $after)];
+		else $this->after = ['flow' => $after->toArray()];
+		return $this;
+	}
+
+	/**
+	 * Set a Scenario, Request or array of Requests to the 'before' section of the Artillery script, which will be executed before a main scenario.
+	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#before-and-after-sections
+	 * @param RequestInterface[]|RequestInterface|Scenario $before The Scenario or Request(s) to set as the 'before' scenario.
+	 * @return $this The current Artillery instance.
+	 */
+	public function setBefore(array|RequestInterface|Scenario $before): self {
+		if ($before instanceof Scenario) $this->before = $before->toArray();
+		elseif (is_array($before)) $this->before = ['flow' => array_map(fn($s) => $s->toArray(), $before)];
+		else $this->before = ['flow' => $before->toArray()];
 		return $this;
 	}
 
@@ -178,7 +223,6 @@ class Artillery {
 	 * Optionally, you can provide scenario-level options to set or override for the scenario, such as name or weight.
 	 * @example <pre><code class="language-php">// An extremely simple Artillery script with just one request as a scenario:
 	 * $artillery = Artillery::new()->addScenario(Artillery::request('GET', 'https://example.com'));
-	 * file_put_contents('script.yml', $artillery->toYaml());
 	 *
 	 * // More complex Scenario that loops over a set of pages from a target base url:
 	 * $scenario = Artillery::scenario()
@@ -242,11 +286,11 @@ class Artillery {
 	 * @param bool $strict If set to false, the condition is not strict.
 	 * @return $this The current Artillery instance.
 	 */
-	public function addEnsureCondition(string $expression, bool $strict = true): self {
+	public function addEnsureCondition(string $expression, bool $strict = null): self {
 		if (!@$this->config['ensure']) $this->config['ensure'] = [];
 		if (!@$this->config['ensure']['conditions']) $this->config['ensure']['conditions'] = [];
 		$condition = ['expression' => $expression];
-		if ($strict === false) $condition['strict'] = false;
+		if ($strict !== null) $condition['strict'] = $strict;
 		$this->config['ensure']['conditions'][] = $condition;
 		return $this;
 	}
@@ -266,8 +310,8 @@ class Artillery {
 	 * @return $this The current Artillery instance.
 	 */
 	public function addEnsureThreshold(string $metricName, int $value): self {
-		if (!array_key_exists('ensure', $this->config)) $this->config['ensure'] = [];
-		if (!array_key_exists('thresholds', $this->config['ensure'])) $this->config['ensure']['thresholds'] = [];
+		if (!@$this->config['ensure']) $this->config['ensure'] = [];
+		if (!@$this->config['ensure']['thresholds']) $this->config['ensure']['thresholds'] = [];
 		$this->config['ensure']['thresholds'][] = [$metricName => $value];
 		return $this;
 	}
@@ -281,7 +325,7 @@ class Artillery {
 	 * @return $this The current Artillery instance.
 	 */
 	public function setEngine(string $name, array $options = []): self {
-		if (!array_key_exists('engines', $this->config)) $this->config['engines'] = [];
+		if (!@$this->config['engines']) $this->config['engines'] = [];
 		$this->config['engines'][$name] = $options;
 		return $this;
 	}
@@ -323,7 +367,7 @@ class Artillery {
 	 * <pre><code>artillery run -e staging my-script.yml</code></pre>
 	 */
 	public function addEnvironment(string $name, Artillery|array $config): self {
-		if (!array_key_exists('environments', $this->config)) $this->config['environments'] = [];
+		if (!@$this->config['environments']) $this->config['environments'] = [];
 		if ($config instanceof Artillery) $this->config['environments'][$name] = $config->config;
 	    else $this->config['environments'][$name] = $config;
 		return $this;
@@ -385,7 +429,7 @@ class Artillery {
 	 * @return $this The current Artillery instance.
 	 */
 	public function addPayload(string $path, array $fields, array $options = []): self {
-		if (!array_key_exists('payload', $this->config)) $this->config['payload'] = [];
+		if (!@$this->config['payload']) $this->config['payload'] = [];
 		$this->config['payload'][] = ['path' => $path, 'fields' => $fields] + $options;
 		return $this;
 	}
@@ -420,10 +464,7 @@ class Artillery {
 	 * @return $this The current Artillery instance.
 	 */
 	public function addPayloads(array $payloads): self {
-		if (!array_key_exists('payload', $this->config)) $this->config['payload'] = [];
-		foreach ($payloads as $payload) {
-			$this->config['payload'][] = $payload;
-		}
+		foreach ($payloads as $payload) $this->addPayload($payload['path'], $payload['fields'], $payload);
 		return $this;
 	}
 
@@ -441,8 +482,8 @@ class Artillery {
 	 * </code></pre>
 	 */
 	public function addPhase(array $phase, string $name = null): self {
-		if (!array_key_exists('phases', $this->config)) $this->config['phases'] = [];
-		if ($name) $phase['name'] = $name;
+		if (!@$this->config['phases']) $this->config['phases'] = [];
+		if ($name !== null) $phase['name'] = $name;
 		$this->config['phases'][] = $phase;
 		return $this;
 	}
@@ -463,10 +504,7 @@ class Artillery {
 	 * </code></pre>
 	 */
 	public function addPhases(array $phases): self {
-		if (!array_key_exists('phases', $this->config)) $this->config['phases'] = [];
-		foreach ($phases as $phase) {
-			$this->config['phases'][] = $phase;
-		}
+		foreach ($phases as $phase) $this->addPhase($phase);
 		return $this;
 	}
 
@@ -476,7 +514,8 @@ class Artillery {
 	 * Plugins are distributed as normal npm packages which are named with an artillery-plugin- prefix, e.g. artillery-plugin-expect.
 	 * @example <pre><code>npm install artillery-plugin-expect</code></pre>
 	 * <pre><code class="language-php">// There is built in support for 'expect' and 'ensure' plugins.
-	 * $artillery->setPlugin('expect');
+	 * $artillery = Artillery::new()->setPlugin('expect');
+	 *
 	 * $expectRequest = Artillery::request('get', '/users/1')
 	 *     ->addExpect('statusCode', [200, 201]);
 	 *
@@ -494,8 +533,40 @@ class Artillery {
 	 * @return $this The current Artillery instance.
 	 */
 	public function setPlugin(string $name, array $options = []): self {
-		if (!array_key_exists('plugins', $this->config)) $this->config['plugins'] = [];
+		if (!@$this->config['plugins']) $this->config['plugins'] = [];
 		$this->config['plugins'][$name] = $options;
+		return $this;
+	}
+
+	/**
+	 * Enables an array of plugin (just names or with options as value) in the config section of the Artillery script.
+	 * @description Artillery has support for plugins, which can add functionality and extend its built-in features. Plugins can hook into Artillery's internal APIs and extend its behavior with new capabilities.<br>
+	 * Plugins are distributed as normal npm packages which are named with an artillery-plugin- prefix, e.g. artillery-plugin-expect.
+	 * @example <pre><code>npm install artillery-plugin-expect</code></pre>
+	 * <pre><code class="language-php">// There is built in support for 'expect' and 'ensure' plugins.
+	 * $artillery = Artillery::new->setPlugins(['expect', 'ensure'])
+	 *     ->addEnsureThreshold('http.response_time.p99', 250)
+	 *     ->addEnsureThreshold('http.response_time.p95', 100);
+	 *
+	 * $expectRequest = Artillery::request('get', '/users/1')
+	 *     ->addExpect('statusCode', [200, 201]);
+	 * </code></pre>
+	 * @link https://www.artillery.io/docs/guides/plugins/plugins-overview
+	 * @link https://www.npmjs.com/search?ranking=popularity&q=artillery-plugin-
+	 * @link https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions
+	 * @link https://www.npmjs.com/package/artillery-plugin-hls
+	 * @param array $plugins The plugins to be enabled, e,g, ['name1', 'name2' => [..options]].
+	 * @return $this The current Artillery instance.
+	 */
+	public function setPlugins(array $plugins): self {
+		foreach ($plugins as $name => $options) {
+			if (is_int($name)) {
+				$name = $options;
+				$options = [];
+			}
+
+			$this->setPlugin($name, $options);
+		}
 		return $this;
 	}
 
@@ -504,7 +575,7 @@ class Artillery {
 	 * @description Variables can be defined in the config section and used in scenarios as '{{ name }}'.<br>
 	 * If you define multiple values for a variable, they will be accessed randomly in your scenarios.
 	 * @example <pre><code class="language-php">// Define 3 users:
-	 * $artillery->addVariable('username', ['user1', 'user2', 'user3']);
+	 * $artillery->setVariable('username', ['user1', 'user2', 'user3']);
 	 * // Pick a random one for each scenario:
 	 * $artillery->addRequest(
 	 *    Artillery::request('post', '/login')
@@ -515,9 +586,34 @@ class Artillery {
 	 * @param mixed $value The value of the variable.
 	 * @return $this The current Artillery instance.
 	 */
-	public function addVariable(string $name, mixed $value): self {
-		if (!array_key_exists('variables', $this->config)) $this->config['variables'] = [];
+	public function setVariable(string $name, mixed $value): self {
+		if (!@$this->config['variables']) $this->config['variables'] = [];
 		$this->config['variables'][$name] = $value;
+		return $this;
+	}
+
+	/**
+	 * Set an array of variables in the config section of the Artillery script.
+	 * @description Variables can be defined in the config section and used in scenarios as '{{ name }}'.<br>
+	 * If you define multiple values for a variable, they will be accessed randomly in your scenarios.
+	 * @example <pre><code class="language-php">// Define 3 users and a password:
+	 * $artillery->setVariables([
+	 *     'username' => ['user1', 'user2', 'user3'],
+	 *     'password' => '12345678']);
+	 *
+	 * // Pick a random one for each scenario:
+	 * $artillery->addRequest(
+	 *    Artillery::request('post', '/login')
+	 *      ->setJsons(['username' => '{{ username }}', 'password' => '{{ password }}']);
+	 * </code></pre>
+	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#variables---inline-variables
+	 * @param array<string, mixed> $variables The variables to be set with name as key.
+	 * @return $this The current Artillery instance.
+	 */
+	public function setVariables(array $variables): self {
+		foreach ($variables as $name => $value) {
+			$this->setVariable($name, $value);
+		}
 		return $this;
 	}
 
@@ -532,7 +628,7 @@ class Artillery {
 	 * @return $this The current Artillery instance.
 	 */
 	public function setHttp(string $key, mixed $value): self {
-		if (!array_key_exists('http', $this->config)) $this->config['http'] = [];
+		if (!@$this->config['http']) $this->config['http'] = [];
 		$this->config['http'][$key] = $value;
 		return $this;
 	}
@@ -632,8 +728,9 @@ class Artillery {
 	}
 
 	/**
-	 * Set the tls property of the config section of the Artillery script.
-	 * @description This setting may be used to tell Artillery to accept self-signed TLS certificates, which it does not do by default.
+	 * Reject self-signed Tls certificates.
+	 * Set the tls 'rejectUnauthorized' property of the config section of the Artillery script.
+	 * @description If false tell Artillery to accept self-signed TLS certificates, which it does not do by default.
 	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#tls---self-signed-certificates
 	 * @param bool $rejectUnauthorized Whether to reject unauthorized tls certificates.
 	 * @return $this The current Artillery instance.

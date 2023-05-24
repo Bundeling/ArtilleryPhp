@@ -12,21 +12,6 @@ namespace ArtilleryPhp;
  */
 class WsRequest extends RequestBase implements RequestInterface {
 
-	/**
-	 * WebSocket Request constructor.
-	 * @param 'connect'|'send'|null $method The WebSocket command for this request.
-	 * @param mixed $request The data to accompany the request.
-	 * @example <pre><code class="language-php">$scenario = Artillery::scenario()
-	 *     ->setEngine('ws')
-	 *     ->addRequest(Artillery::wsRequest('send', 'Hello World!'));
-	 * </code></pre>
-	 * @link https://www.artillery.io/docs/guides/guides/ws-reference
-	 */
-	public function __construct(string $method = null, mixed $request = null) {
-		if (!$method) $this->method = $method;
-		if ($request !== null) $this->request = $request;
-	}
-
 	/** @inheritDoc */
 	public function addCapture(string $as, string $type, string $expression, bool $strict = true, string $attr = null, int|string $index = null): self {
 		// compatability with ws request (capture)

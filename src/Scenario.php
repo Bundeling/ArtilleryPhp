@@ -49,7 +49,7 @@ class Scenario {
 	 * @return $this The current Scenario instance.
 	 */
 	public function addAfterScenario(array|string $function): self {
-		if (!array_key_exists('afterScenario', $this->scenario)) $this->scenario['afterScenario'] = [];
+		if (!@$this->scenario['afterScenario']) $this->scenario['afterScenario'] = [];
 		if (is_array($function)) $this->scenario['afterScenario'] = array_merge($this->scenario['afterScenario'], $function);
 		else $this->scenario['afterScenario'][] = $function;
 		return $this;
@@ -63,14 +63,15 @@ class Scenario {
 	 * @return $this The current Scenario instance.
 	 */
 	public function addBeforeScenario(array|string $function): self {
-		if (!array_key_exists('beforeScenario', $this->scenario)) $this->scenario['beforeScenario'] = [];
+		if (!@$this->scenario['beforeScenario'] ) $this->scenario['beforeScenario'] = [];
 		if (is_array($function)) $this->scenario['beforeScenario'] = array_merge($this->scenario['beforeScenario'], $function);
 		else $this->scenario['beforeScenario'][] = $function;
 		return $this;
 	}
 
 	/**
-	 * Set an engine to use for this scenario, if not set then the HTTP engine will be used. If 'ws' is set, then use WsRequest only in this Scenario.
+	 * Set an engine to use for this scenario, if it's ot set then the HTTP engine will be used.
+	 * If 'ws' is set, then use WsRequest only in this Scenario.
 	 * @description Custom engines can be defined with Artillery::setEngine.<br>
 	 * This library aims to fully support HTTP, partial support for WebSocket, and only raw support for others.
 	 * @param string $engine Desired engine to use in this scenario.
@@ -171,7 +172,7 @@ class Scenario {
 
 	/**
 	 * Adds a loop to the flow, which can be another Scenario, a request or an array of either.
-	 * To make it even more fun; loops can be nested.
+	 * To make it even more fun, loops can be nested.
 	 * @param Scenario|RequestInterface|(Scenario|RequestInterface)[]  $loop A Scenario, Request or array containing these types.
 	 * @param ?int $count The number of times to loop.
 	 * @param string|null $over The variable reference to loop over.

@@ -81,7 +81,7 @@ abstract class RequestBase implements RequestInterface {
 		}
 		$capture['as'] = $as;
 
-		if (!array_key_exists('capture', $this->request)) $this->request['capture'] = $capture;
+		if (!@$this->request['capture']) $this->request['capture'] = $capture;
 		elseif (!is_array($this->request['capture'])) $this->request['capture'] = [$this->request['capture'], $capture];
 		else $this->request['capture'][] = $capture;
 		return $this;
@@ -104,8 +104,7 @@ abstract class RequestBase implements RequestInterface {
 	 * @return $this The current Request instance.
 	 */
 	public function addExpect(string $type, mixed $value): self {
-		if ($this instanceof WsRequest && $this->request && !array_key_exists('payload', $this->request)) $this->request['payload'] = $this->request;
-		if (!array_key_exists('expect', $this->request)) $this->request['expect'] = [];
+		if (!@$this->request['expect']) $this->request['expect'] = [];
 		$this->request['expect'][] = [$type => $value];
 		return $this;
 	}

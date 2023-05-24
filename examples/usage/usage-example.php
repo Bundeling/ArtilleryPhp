@@ -22,7 +22,5 @@ $flow = Artillery::scenario()
 
 $scenario = Artillery::scenario()->addLoop($flow, 10);
 
-$artillery->addScenario($scenario);
-
-file_put_contents(__DIR__ . '/artillery.yaml', $artillery->toYaml());
-// shell_exec('artillery run --output artillery-report.json artillery.yaml');
+$artillery->addScenario($scenario)->build();
+// passthru('artillery run --output artillery-report.json artillery.yaml');

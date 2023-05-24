@@ -15,24 +15,13 @@ namespace ArtilleryPhp;
 class Request extends RequestBase {
 
 	/**
-	 * Request constructor.
-	 * @param 'get'|'post'|'put'|'patch'|'delete'|null $method The HTTP method to use for the request.
-	 * @param string|null $url The URL to send the request to.
-	 * @example <pre><code class="language-php">$request = Artillery::request('get', '/inbox');</code></pre>
-	 */
-	public function __construct(string $method = null, string $url = null) {
-		if ($method) $this->method = $method;
-		if ($url) $this->request = ['url' => $url];
-	}
-
-	/**
 	 * Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed after the response is received where the response can be inspected, and custom variables can be set.
 	 * @param string|string[] $function The function(s) to execute.
 	 * @return $this The current Request instance.
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#afterresponse-hooks
 	 */
 	public function addAfterResponse(array|string $function): self {
-		if (!array_key_exists('afterResponse', $this->request)) $this->request['afterResponse'] = [];
+		if (!@$this->request['afterResponse']) $this->request['afterResponse'] = [];
 		if (is_array($function)) $this->request['afterResponse'] = array_merge($this->request['afterResponse'], $function);
 		else $this->request['afterResponse'][] = $function;
 		return $this;
@@ -45,7 +34,7 @@ class Request extends RequestBase {
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#beforerequest-hooks
 	 */
 	public function addBeforeRequest(array|string $function): self {
-		if (!array_key_exists('beforeRequest', $this->request)) $this->request['beforeRequest'] = [];
+		if (!@$this->request['beforeRequest']) $this->request['beforeRequest'] = [];
 		if (is_array($function)) $this->request['beforeRequest'] = array_merge($this->request['beforeRequest'], $function);
 		else $this->request['beforeRequest'][] = $function;
 		return $this;
@@ -75,7 +64,7 @@ class Request extends RequestBase {
 	}
 
 	/**
-	 * Cookie to send with the request. These will be merged with any cookies that have been set globally.
+	 * Set a Cookie to send with the request. These will be merged with any cookies that have been set globally.
 	 * @param string $name The name of the cookie to set.
 	 * @param string $value The value of the cookie to set.
 	 * @return $this The current Request instance.
@@ -83,21 +72,20 @@ class Request extends RequestBase {
 	 * @example <pre><code class="language-php">$request->setCookie('session_id', '1234567890');</code></pre>
 	 */
 	public function setCookie(string $name, string $value): self {
-		if (!array_key_exists('cookie', $this->request)) $this->request['cookie'] = [];
+		if (!@$this->request['cookie']) $this->request['cookie'] = [];
 		$this->request['cookie'][$name] = $value;
 		return $this;
 	}
 
 	/**
-	 * Cookies to send with the request. These will be merged with any cookies that have been set globally.
+	 * Set an array of Cookies to send with the request. These will be merged with any cookies that have been set globally.
 	 * @param array<string, string> $cookies An array of cookies to set.
 	 * @return $this The current Request instance.
 	 * @example <pre><code class="language-php">$request->setCookies(['session_id' => '1234567890', 'name' => 'Geraldo']);</code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#cookies
 	 */
 	public function setCookies(array $cookies): self {
-		if (array_key_exists('cookies', $this->request)) $this->request['cookies'] = array_merge($this->request['cookies'], $cookies);
-		else $this->request['cookies'] = $cookies;
+		foreach ($cookies as $name => $value) $this->setCookie($name, $value);
 		return $this;
 	}
 
@@ -148,29 +136,28 @@ class Request extends RequestBase {
 	}
 
 	/**
-	 * Arbitrary headers may be sent under the 'headers' option for a request.
-	 * @param array{string, string} $headers A key-value array of headers to set.
-	 * @return $this The current Request instance.
-	 * @example <pre><code class="language-php">$request->setHeaders(['User-Agent' => 'Mozilla/5.0 (Linux; Android 12; ...']);</code></pre>
-	 * @link https://www.artillery.io/docs/guides/guides/http-reference#setting-headers
-	 */
-	public function setHeaders(array $headers): self {
-		if (array_key_exists('headers', $this->request)) $this->request['headers'] = array_merge($this->request['headers'], $headers);
-		else $this->request['headers'] = $headers;
-		return $this;
-	}
-
-	/**
 	 * Arbitrary header may be sent under the 'headers' option for a request.
 	 * @param string $key The name of the header to set.
 	 * @param string $value The value of the header to set.
 	 * @return $this The current Request instance.
-	 * @example <pre><code class="language-php">$request->setHeader('User-Agent', 'Mozilla/5.0 (Linux; Android 12; ...');</code></pre>
+	 * @example <pre><code class="language-php">$request = Artillery::request()->setHeader('User-Agent', 'Mozilla/5.0 (Linux; Android 12; ...');</code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#setting-headers
 	 */
 	public function setHeader(string $key, string $value): self {
-		if (!array_key_exists('headers', $this->request)) $this->request['headers'] = [];
+		if (!@$this->request['headers']) $this->request['headers'] = [];
 		$this->request['headers'][$key] = $value;
+		return $this;
+	}
+
+	/**
+	 * Array of arbitrary headers may be sent under the 'headers' option for a request.
+	 * @param array<string, string> $headers A key-value array of headers to set.
+	 * @return $this The current Request instance.
+	 * @example <pre><code class="language-php">$request = Artillery::request()->setHeaders(['User-Agent' => 'Mozilla/5.0 (Linux; Android 12; ...']);</code></pre>
+	 * @link https://www.artillery.io/docs/guides/guides/http-reference#setting-headers
+	 */
+	public function setHeaders(array $headers): self {
+		foreach ($headers as $key => $value) $this->setHeader($key, $value);
 		return $this;
 	}
 
@@ -190,18 +177,29 @@ class Request extends RequestBase {
 
 	/**
 	 * Set a JSON field for the request.
-	 * @param string $key The name of the JSON field to set.
+	 * @example <pre><code class="language-php">$request = Artillery::request('post', '/submit')
+	 *     ->setJson('name', 'Swanson')
+	 *     ->setJson('vote', 'Hamburger');
+	 * </code></pre>
+	 * @link https://www.artillery.io/docs/guides/guides/http-reference#get--post--put--patch--delete-requests
+	 * @param string|null $key The name of the JSON field to set.
 	 * @param mixed $value The value of the JSON field to set.
 	 * @return $this The current Request instance.
 	 */
-	public function setJson(string $key, mixed $value): self {
-		if (!array_key_exists('json', $this->request)) $this->request['json'] = [];
-		$this->request['json'][$key] = $value;
+	public function setJson(string $key = null, mixed $value = null): self {
+		if (!@$this->request['json']) $this->request['json'] = [];
+		if ($key) $this->request['json'][$key] = $value;
 		return $this;
 	}
 
 	/**
-	 * Set JSON data for the request.
+	 * Set an array of JSON fields for the request.
+	 * @example <pre><code class="language-php">$request = Artillery::request('post', '/submit')
+	 *     ->setJsons([
+	 *         'name' => 'Swanson',
+	 *         'vote' => 'Hamburger']);
+	 * </code></pre>
+	 * @link https://www.artillery.io/docs/guides/guides/http-reference#get--post--put--patch--delete-requests
 	 * @param array<string, mixed> $jsons An array of data to be stringified as JSON data for the request.
 	 * @return $this The current Request instance.
 	 */
@@ -221,29 +219,28 @@ class Request extends RequestBase {
 	}
 
 	/**
-	 * Set an array of query strings for the request. ['page' => 1, 'limit' => 10] is equivalent to url?page=1&limit=10.
-	 * @param array{string, string} $qs An array of query string parameters to set as ['param' => value, ..].
-	 * @return $this The current Request instance.
-	 * @example <pre><code class="language-php">$request->setQueryStrings(['page' => 1, 'limit' => 10]);</code></pre>
+	 * Set a query string for the request. This is equivalent to url?key=value.
+	 * @example <pre><code class="language-php">$request->setQueryString('page', 1);</code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#query-strings
+	 * @param string $key The key of the query string.
+	 * @param mixed $value The value of the query string.
+	 * @return $this The current Request instance.
 	 */
-	public function setQueryStrings(array $qs): self {
-		if (array_key_exists('qs', $this->request)) $this->request['qs'] = array_merge($this->request['qs'], $qs);
-		else $this->request['qs'] = $qs;
+	public function setQueryString(string $key, mixed $value): self {
+		if (!@$this->request['qs']) $this->request['qs'] = [];
+		$this->request['qs'][$key] = $value;
 		return $this;
 	}
 
 	/**
-	 * Set a query string for the request. This is equivalent to url?key=value.
-	 * @param string $key The key of the query string.
-	 * @param mixed $value The value of the query string.
-	 * @return $this The current Request instance.
+	 * Set an array of query strings for the request. ['page' => 1, 'limit' => 10] is equivalent to url?page=1&limit=10.
+	 * @example <pre><code class="language-php">$request->setQueryStrings(['page' => 1, 'limit' => 10]);</code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#query-strings
-	 * @example <pre><code class="language-php">$request->setQueryString('page', 1);</code></pre>
+	 * @param array{string, string} $qs An array of query string parameters to set as ['param' => value, ..].
+	 * @return $this The current Request instance.
 	 */
-	public function setQueryString(string $key, mixed $value): self {
-		if (!array_key_exists('qs', $this->request)) $this->request['qs'] = [];
-		$this->request['qs'][$key] = $value;
+	public function setQueryStrings(array $qs): self {
+		foreach ($qs as $key => $value) $this->setQueryString($key, $value);
 		return $this;
 	}
 

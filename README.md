@@ -72,10 +72,11 @@ $artillery->addScenario($loopedScenario);
 ```
 ### Step 3: Export the YAML:
 ```php
-file_put_contents(__DIR__ . '/artillery.yaml', $artillery->toYaml());
+$filePath = __DIR__ . '/artillery.yaml';
+$artillery->build($filePath);
 
 // Maybe even run the script right away:
-// shell_exec('artillery run --output artillery-report.json ' . __DIR__ . '/artillery.yaml');
+// $artillery->run();
 ```
 This will produce the following `artillery.yaml` file:
 ```yaml
@@ -117,7 +118,6 @@ For a very simple script you can also add Requests (single or array) directly to
 ```php
 $artillery = Artillery::new()
     ->addScenario(Artillery::request('get', 'http://www.google.com'));
-file_put_contents(__DIR__ . '/artillery.yaml', $artillery->toYaml());
 ```
 This creates a new scenario out of the request(s).
 ## Artillery Class
@@ -178,7 +178,7 @@ Please refer to the docs: https://artilleryphp.netlify.app/classes/artilleryphp-
 - `addPayload(path: string, fields: array, [options: array = [...]])`
 - `addPhase(phase: array, [name: null|string = null])`
 - `setPlugin(name: string, [options: array = [...]])`
-- `addVariable(name: string, value: mixed)`
+- `setVariable(name: string, value: mixed)`
 - `set(key: string, value: mixed)`
 - `setHttp(options: array)`
 - `setProcessor(path: string)`

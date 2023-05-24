@@ -6,11 +6,6 @@ Search.appendIndex(
             "summary": "Main\u0020class\u0020for\u0020Artillery\u0020scripts,\u0020containing\u0020all\u0020methods\u0020for\u0020config\u0020and\u0020adding\u0020scenarios.",
             "url": "classes/ArtilleryPhp-Artillery.html"
         },                {
-            "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Artillery\u0020constructor,\u0020optionally\u0020with\u0020a\u0020target\u0020URL.",
-            "url": "classes/ArtilleryPhp-Artillery.html#method___construct"
-        },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003Anew\u0028\u0029",
             "name": "new",
             "summary": "Creates\u0020a\u0020new\u0020Artillery\u0020instance,\u0020optionally\u0020with\u0020a\u0020target\u0020URL.",
@@ -31,6 +26,11 @@ Search.appendIndex(
             "summary": "Creates\u0020a\u0020new\u0020Scenario\u0020which\u0020contains\u0020a\u0020Flow\u0020of\u0020Requests.",
             "url": "classes/ArtilleryPhp-Artillery.html#method_scenario"
         },                {
+            "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AtoArray\u0028\u0029",
+            "name": "toArray",
+            "summary": "Get\u0020the\u0020current\u0020Artillery\u0020script\u0020as\u0020an\u0020array.",
+            "url": "classes/ArtilleryPhp-Artillery.html#method_toArray"
+        },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AfromArray\u0028\u0029",
             "name": "fromArray",
             "summary": "Creates\u0020a\u0020new\u0020Artillery\u0020instance\u0020from\u0020an\u0020array\u0020representation.",
@@ -46,14 +46,24 @@ Search.appendIndex(
             "summary": "Export\u0020the\u0020Artillery\u0020script\u0020as\u0020YAML\u0020string.",
             "url": "classes/ArtilleryPhp-Artillery.html#method_toYaml"
         },                {
+            "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003Abuild\u0028\u0029",
+            "name": "build",
+            "summary": "Creates\u0020a\u0020Yaml\u0020file\u0020from\u0020the\u0020current\u0020Artillery\u0020instance.",
+            "url": "classes/ArtilleryPhp-Artillery.html#method_build"
+        },                {
+            "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003Arun\u0028\u0029",
+            "name": "run",
+            "summary": "Run\u0020the\u0020Artillery\u0020script\u0020using\u0020passthru\u0028\u0027artillery\u0020run\u0020...\u0027\u0029.",
+            "url": "classes/ArtilleryPhp-Artillery.html#method_run"
+        },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AsetAfter\u0028\u0029",
             "name": "setAfter",
-            "summary": "Set\u0020a\u0020Scenario\u0020or\u0020flow\u0020of\u0020Request\u0028s\u0029\u0020to\u0020the\u0020\u0027after\u0027\u0020section\u0020of\u0020the\u0020Artillery\u0020script,\u0020which\u0020will\u0020be\u0020executed\u0020after\u0020a\u0020scenario.",
+            "summary": "Set\u0020a\u0020Scenario,\u0020Request\u0020or\u0020array\u0020of\u0020Requests\u0020to\u0020the\u0020\u0027after\u0027\u0020section\u0020of\u0020the\u0020Artillery\u0020script,\u0020which\u0020will\u0020be\u0020executed\u0020after\u0020a\u0020scenario.",
             "url": "classes/ArtilleryPhp-Artillery.html#method_setAfter"
         },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AsetBefore\u0028\u0029",
             "name": "setBefore",
-            "summary": "Set\u0020a\u0020Scenario\u0020or\u0020flow\u0020of\u0020Request\u0028s\u0029\u0020to\u0020the\u0020\u0027before\u0027\u0020section\u0020of\u0020the\u0020Artillery\u0020script,\u0020which\u0020will\u0020be\u0020executed\u0020before\u0020a\u0020main\u0020scenario.",
+            "summary": "Set\u0020a\u0020Scenario,\u0020Request\u0020or\u0020array\u0020of\u0020Requests\u0020to\u0020the\u0020\u0027before\u0027\u0020section\u0020of\u0020the\u0020Artillery\u0020script,\u0020which\u0020will\u0020be\u0020executed\u0020before\u0020a\u0020main\u0020scenario.",
             "url": "classes/ArtilleryPhp-Artillery.html#method_setBefore"
         },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AaddScenario\u0028\u0029",
@@ -121,10 +131,20 @@ Search.appendIndex(
             "summary": "Enables\u0020a\u0020plugin\u0020in\u0020the\u0020config\u0020section\u0020of\u0020the\u0020Artillery\u0020script.",
             "url": "classes/ArtilleryPhp-Artillery.html#method_setPlugin"
         },                {
-            "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AaddVariable\u0028\u0029",
-            "name": "addVariable",
+            "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AsetPlugins\u0028\u0029",
+            "name": "setPlugins",
+            "summary": "Enables\u0020an\u0020array\u0020of\u0020plugin\u0020\u0028just\u0020names\u0020or\u0020with\u0020options\u0020as\u0020value\u0029\u0020in\u0020the\u0020config\u0020section\u0020of\u0020the\u0020Artillery\u0020script.",
+            "url": "classes/ArtilleryPhp-Artillery.html#method_setPlugins"
+        },                {
+            "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AsetVariable\u0028\u0029",
+            "name": "setVariable",
             "summary": "Set\u0020a\u0020variable\u0020in\u0020the\u0020config\u0020section\u0020of\u0020the\u0020Artillery\u0020script.",
-            "url": "classes/ArtilleryPhp-Artillery.html#method_addVariable"
+            "url": "classes/ArtilleryPhp-Artillery.html#method_setVariable"
+        },                {
+            "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AsetVariables\u0028\u0029",
+            "name": "setVariables",
+            "summary": "Set\u0020an\u0020array\u0020of\u0020variables\u0020in\u0020the\u0020config\u0020section\u0020of\u0020the\u0020Artillery\u0020script.",
+            "url": "classes/ArtilleryPhp-Artillery.html#method_setVariables"
         },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AsetHttp\u0028\u0029",
             "name": "setHttp",
@@ -168,7 +188,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AsetTls\u0028\u0029",
             "name": "setTls",
-            "summary": "Set\u0020the\u0020tls\u0020property\u0020of\u0020the\u0020config\u0020section\u0020of\u0020the\u0020Artillery\u0020script.",
+            "summary": "Reject\u0020self\u002Dsigned\u0020Tls\u0020certificates.",
             "url": "classes/ArtilleryPhp-Artillery.html#method_setTls"
         },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AsetWs\u0028\u0029",
@@ -180,11 +200,6 @@ Search.appendIndex(
             "name": "Request",
             "summary": "The\u0020Request\u0020class\u0020represents\u0020a\u0020single\u0020HTTP\u0020request\u0020to\u0020be\u0020made\u0020by\u0020Artillery\u0020within\u0020the\u0020flow\u0020section\u0020of\u0020a\u0020scenario.",
             "url": "classes/ArtilleryPhp-Request.html"
-        },                {
-            "fqsen": "\\ArtilleryPhp\\Request\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Request\u0020constructor.",
-            "url": "classes/ArtilleryPhp-Request.html#method___construct"
         },                {
             "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AaddAfterResponse\u0028\u0029",
             "name": "addAfterResponse",
@@ -208,12 +223,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetCookie\u0028\u0029",
             "name": "setCookie",
-            "summary": "Cookie\u0020to\u0020send\u0020with\u0020the\u0020request.\u0020These\u0020will\u0020be\u0020merged\u0020with\u0020any\u0020cookies\u0020that\u0020have\u0020been\u0020set\u0020globally.",
+            "summary": "Set\u0020a\u0020Cookie\u0020to\u0020send\u0020with\u0020the\u0020request.\u0020These\u0020will\u0020be\u0020merged\u0020with\u0020any\u0020cookies\u0020that\u0020have\u0020been\u0020set\u0020globally.",
             "url": "classes/ArtilleryPhp-Request.html#method_setCookie"
         },                {
             "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetCookies\u0028\u0029",
             "name": "setCookies",
-            "summary": "Cookies\u0020to\u0020send\u0020with\u0020the\u0020request.\u0020These\u0020will\u0020be\u0020merged\u0020with\u0020any\u0020cookies\u0020that\u0020have\u0020been\u0020set\u0020globally.",
+            "summary": "Set\u0020an\u0020array\u0020of\u0020Cookies\u0020to\u0020send\u0020with\u0020the\u0020request.\u0020These\u0020will\u0020be\u0020merged\u0020with\u0020any\u0020cookies\u0020that\u0020have\u0020been\u0020set\u0020globally.",
             "url": "classes/ArtilleryPhp-Request.html#method_setCookies"
         },                {
             "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetFollowRedirect\u0028\u0029",
@@ -236,15 +251,15 @@ Search.appendIndex(
             "summary": "Set\u0020gzip\u0020to\u0020true\u0020for\u0020Artillery\u0020to\u0020add\u0020an\u0020Accept\u002DEncoding\u0020header\u0020to\u0020the\u0020request,\u0020and\u0020decode\u0020compressed\u0020responses\u0020encoded\u0020with\u0020gzip.",
             "url": "classes/ArtilleryPhp-Request.html#method_setGzip"
         },                {
-            "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetHeaders\u0028\u0029",
-            "name": "setHeaders",
-            "summary": "Arbitrary\u0020headers\u0020may\u0020be\u0020sent\u0020under\u0020the\u0020\u0027headers\u0027\u0020option\u0020for\u0020a\u0020request.",
-            "url": "classes/ArtilleryPhp-Request.html#method_setHeaders"
-        },                {
             "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetHeader\u0028\u0029",
             "name": "setHeader",
             "summary": "Arbitrary\u0020header\u0020may\u0020be\u0020sent\u0020under\u0020the\u0020\u0027headers\u0027\u0020option\u0020for\u0020a\u0020request.",
             "url": "classes/ArtilleryPhp-Request.html#method_setHeader"
+        },                {
+            "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetHeaders\u0028\u0029",
+            "name": "setHeaders",
+            "summary": "Array\u0020of\u0020arbitrary\u0020headers\u0020may\u0020be\u0020sent\u0020under\u0020the\u0020\u0027headers\u0027\u0020option\u0020for\u0020a\u0020request.",
+            "url": "classes/ArtilleryPhp-Request.html#method_setHeaders"
         },                {
             "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetIfTrue\u0028\u0029",
             "name": "setIfTrue",
@@ -258,7 +273,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetJsons\u0028\u0029",
             "name": "setJsons",
-            "summary": "Set\u0020JSON\u0020data\u0020for\u0020the\u0020request.",
+            "summary": "Set\u0020an\u0020array\u0020of\u0020JSON\u0020fields\u0020for\u0020the\u0020request.",
             "url": "classes/ArtilleryPhp-Request.html#method_setJsons"
         },                {
             "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetMethod\u0028\u0029",
@@ -266,15 +281,15 @@ Search.appendIndex(
             "summary": "Set\u0020the\u0020HTTP\u0020method\u0020to\u0020use\u0020for\u0020the\u0020request,\u0020e.g\u0020\u0027get\u0027,\u0020\u0027post\u0027,\u0020\u0027put\u0027,\u0020\u0027patch\u0027,\u0020\u0027delete\u0027.",
             "url": "classes/ArtilleryPhp-Request.html#method_setMethod"
         },                {
-            "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetQueryStrings\u0028\u0029",
-            "name": "setQueryStrings",
-            "summary": "Set\u0020an\u0020array\u0020of\u0020query\u0020strings\u0020for\u0020the\u0020request.\u0020\u005B\u0027page\u0027\u0020\u003D\u003E\u00201,\u0020\u0027limit\u0027\u0020\u003D\u003E\u002010\u005D\u0020is\u0020equivalent\u0020to\u0020url\u003Fpage\u003D1\u0026limit\u003D10.",
-            "url": "classes/ArtilleryPhp-Request.html#method_setQueryStrings"
-        },                {
             "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetQueryString\u0028\u0029",
             "name": "setQueryString",
             "summary": "Set\u0020a\u0020query\u0020string\u0020for\u0020the\u0020request.\u0020This\u0020is\u0020equivalent\u0020to\u0020url\u003Fkey\u003Dvalue.",
             "url": "classes/ArtilleryPhp-Request.html#method_setQueryString"
+        },                {
+            "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetQueryStrings\u0028\u0029",
+            "name": "setQueryStrings",
+            "summary": "Set\u0020an\u0020array\u0020of\u0020query\u0020strings\u0020for\u0020the\u0020request.\u0020\u005B\u0027page\u0027\u0020\u003D\u003E\u00201,\u0020\u0027limit\u0027\u0020\u003D\u003E\u002010\u005D\u0020is\u0020equivalent\u0020to\u0020url\u003Fpage\u003D1\u0026limit\u003D10.",
+            "url": "classes/ArtilleryPhp-Request.html#method_setQueryStrings"
         },                {
             "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetUrl\u0028\u0029",
             "name": "setUrl",
@@ -333,7 +348,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ArtilleryPhp\\Scenario\u003A\u003AsetEngine\u0028\u0029",
             "name": "setEngine",
-            "summary": "Set\u0020an\u0020engine\u0020to\u0020use\u0020for\u0020this\u0020scenario,\u0020if\u0020not\u0020set\u0020then\u0020the\u0020HTTP\u0020engine\u0020will\u0020be\u0020used.\u0020If\u0020\u0027ws\u0027\u0020is\u0020set,\u0020then\u0020use\u0020WsRequest\u0020only\u0020in\u0020this\u0020Scenario.",
+            "summary": "Set\u0020an\u0020engine\u0020to\u0020use\u0020for\u0020this\u0020scenario,\u0020if\u0020it\u0027s\u0020ot\u0020set\u0020then\u0020the\u0020HTTP\u0020engine\u0020will\u0020be\u0020used.",
             "url": "classes/ArtilleryPhp-Scenario.html#method_setEngine"
         },                {
             "fqsen": "\\ArtilleryPhp\\Scenario\u003A\u003AsetName\u0028\u0029",
@@ -385,11 +400,6 @@ Search.appendIndex(
             "name": "WsRequest",
             "summary": "WebSocket\u0020Request.\u0020Crude\u0020implementation.",
             "url": "classes/ArtilleryPhp-WsRequest.html"
-        },                {
-            "fqsen": "\\ArtilleryPhp\\WsRequest\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "WebSocket\u0020Request\u0020constructor.",
-            "url": "classes/ArtilleryPhp-WsRequest.html#method___construct"
         },                {
             "fqsen": "\\ArtilleryPhp\\WsRequest\u003A\u003AaddCapture\u0028\u0029",
             "name": "addCapture",

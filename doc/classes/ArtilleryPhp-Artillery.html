@@ -104,7 +104,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">39</span>
+    <span class="phpdocumentor-element-found-in__line">41</span>
 
     </aside>
 
@@ -174,13 +174,6 @@ file_put_contents(__DIR__ . '/artillery.yaml', $artillery->toYaml());
 
 <dl class="phpdocumentor-table-of-contents">
                         <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/ArtilleryPhp-Artillery.html#method___construct">__construct()</a>
-    <span>
-                                &nbsp;: mixed    </span>
-</dt>
-<dd>Artillery constructor, optionally with a target URL.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Artillery.html#method_addEnsureCondition">addEnsureCondition()</a>
     <span>
                                 &nbsp;: $this    </span>
@@ -251,11 +244,11 @@ file_put_contents(__DIR__ . '/artillery.yaml', $artillery->toYaml());
 <dd>Adds an array of Scenarios to the main scenarios section of the Artillery script. You can also provide a single Request or array of Requests, and a scenario will be made from it.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/ArtilleryPhp-Artillery.html#method_addVariable">addVariable()</a>
+    <a href="classes/ArtilleryPhp-Artillery.html#method_build">build()</a>
     <span>
                                 &nbsp;: $this    </span>
 </dt>
-<dd>Set a variable in the config section of the Artillery script.</dd>
+<dd>Creates a Yaml file from the current Artillery instance.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Artillery.html#method_from">from()</a>
@@ -286,6 +279,13 @@ file_put_contents(__DIR__ . '/artillery.yaml', $artillery->toYaml());
 <dd>Creates a new Request for HTTP Scenarios with the given HTTP method and URL.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/ArtilleryPhp-Artillery.html#method_run">run()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Run the Artillery script using passthru(&#039;artillery run ...&#039;).</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Artillery.html#method_scenario">scenario()</a>
     <span>
                                 &nbsp;: <a href="classes/ArtilleryPhp-Scenario.html"><abbr title="\ArtilleryPhp\Scenario">Scenario</abbr></a>    </span>
@@ -304,14 +304,14 @@ file_put_contents(__DIR__ . '/artillery.yaml', $artillery->toYaml());
     <span>
                                 &nbsp;: $this    </span>
 </dt>
-<dd>Set a Scenario or flow of Request(s) to the &#039;after&#039; section of the Artillery script, which will be executed after a scenario.</dd>
+<dd>Set a Scenario, Request or array of Requests to the &#039;after&#039; section of the Artillery script, which will be executed after a scenario.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Artillery.html#method_setBefore">setBefore()</a>
     <span>
                                 &nbsp;: $this    </span>
 </dt>
-<dd>Set a Scenario or flow of Request(s) to the &#039;before&#039; section of the Artillery script, which will be executed before a main scenario.</dd>
+<dd>Set a Scenario, Request or array of Requests to the &#039;before&#039; section of the Artillery script, which will be executed before a main scenario.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Artillery.html#method_setEngine">setEngine()</a>
@@ -370,6 +370,13 @@ file_put_contents(__DIR__ . '/artillery.yaml', $artillery->toYaml());
 <dd>Enables a plugin in the config section of the Artillery script.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/ArtilleryPhp-Artillery.html#method_setPlugins">setPlugins()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Enables an array of plugin (just names or with options as value) in the config section of the Artillery script.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Artillery.html#method_setProcessor">setProcessor()</a>
     <span>
                                 &nbsp;: $this    </span>
@@ -388,7 +395,21 @@ file_put_contents(__DIR__ . '/artillery.yaml', $artillery->toYaml());
     <span>
                                 &nbsp;: $this    </span>
 </dt>
-<dd>Set the tls property of the config section of the Artillery script.</dd>
+<dd>Reject self-signed Tls certificates.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/ArtilleryPhp-Artillery.html#method_setVariable">setVariable()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Set a variable in the config section of the Artillery script.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/ArtilleryPhp-Artillery.html#method_setVariables">setVariables()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Set an array of variables in the config section of the Artillery script.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Artillery.html#method_setWs">setWs()</a>
@@ -396,6 +417,13 @@ file_put_contents(__DIR__ . '/artillery.yaml', $artillery->toYaml());
                                 &nbsp;: $this    </span>
 </dt>
 <dd>Set the ws property of the config section of the Artillery script.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/ArtilleryPhp-Artillery.html#method_toArray">toArray()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Get the current Artillery script as an array.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Artillery.html#method_toYaml">toYaml()</a>
@@ -430,51 +458,6 @@ file_put_contents(__DIR__ . '/artillery.yaml', $artillery->toYaml());
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method___construct">
-        __construct()
-        <a href="classes/ArtilleryPhp-Artillery.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">53</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Artillery constructor, optionally with a target URL.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$targetUrl</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$targetUrl</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Target base URL for the Artillery script.</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="method_addEnsureCondition">
         addEnsureCondition()
         <a href="classes/ArtilleryPhp-Artillery.html#method_addEnsureCondition" class="headerlink"><i class="fas fa-link"></i></a>
@@ -482,7 +465,7 @@ file_put_contents(__DIR__ . '/artillery.yaml', $artillery->toYaml());
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">245</span>
+    <span class="phpdocumentor-element-found-in__line">289</span>
 
     </aside>
 
@@ -490,7 +473,7 @@ file_put_contents(__DIR__ . '/artillery.yaml', $artillery->toYaml());
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">addEnsureCondition</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$expression</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$strict</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">addEnsureCondition</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$expression</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$strict</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -507,7 +490,7 @@ file_put_contents(__DIR__ . '/artillery.yaml', $artillery->toYaml());
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$strict</span>
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">true</span>            </dt>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>If set to false, the condition is not strict.</p>
 </section>
@@ -588,7 +571,7 @@ The built-in 'ensure' plugin needs to be enabled with Artillery::setPlugin('ensu
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">268</span>
+    <span class="phpdocumentor-element-found-in__line">312</span>
 
     </aside>
 
@@ -680,7 +663,7 @@ The built-in 'ensure' plugin needs to be enabled with Artillery::setPlugin('ensu
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">325</span>
+    <span class="phpdocumentor-element-found-in__line">369</span>
 
     </aside>
 
@@ -793,7 +776,7 @@ $artillery = Artillery::new()
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">360</span>
+    <span class="phpdocumentor-element-found-in__line">404</span>
 
     </aside>
 
@@ -900,7 +883,7 @@ $artillery = Artillery::new()->addEnvironments($defaultEnvironments);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">387</span>
+    <span class="phpdocumentor-element-found-in__line">431</span>
 
     </aside>
 
@@ -1014,7 +997,7 @@ Payload file options:<br></p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">422</span>
+    <span class="phpdocumentor-element-found-in__line">466</span>
 
     </aside>
 
@@ -1114,7 +1097,7 @@ $artillery = Artillery::new()->addPayloads($defaultPayloads)->addScenario($scena
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">443</span>
+    <span class="phpdocumentor-element-found-in__line">484</span>
 
     </aside>
 
@@ -1204,7 +1187,7 @@ $artillery = Artillery::new()->addPayloads($defaultPayloads)->addScenario($scena
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">465</span>
+    <span class="phpdocumentor-element-found-in__line">506</span>
 
     </aside>
 
@@ -1288,7 +1271,7 @@ $artillery = Artillery::new()->addPhases($defaultPhases);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">197</span>
+    <span class="phpdocumentor-element-found-in__line">241</span>
 
     </aside>
 
@@ -1336,7 +1319,6 @@ $artillery = Artillery::new()->addPhases($defaultPhases);
                                                                                 
                                                  <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">// An extremely simple Artillery script with just one request as a scenario:
 $artillery = Artillery::new()->addScenario(Artillery::request('GET', 'https://example.com'));
-file_put_contents('script.yml', $artillery->toYaml());
 
 // More complex Scenario that loops over a set of pages from a target base url:
 $scenario = Artillery::scenario()
@@ -1380,7 +1362,7 @@ $artillery = Artillery::new('https://example.com')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">220</span>
+    <span class="phpdocumentor-element-found-in__line">264</span>
 
     </aside>
 
@@ -1451,41 +1433,32 @@ $artillery = Artillery::new()->addScenarios($defaultScenarios);
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_addVariable">
-        addVariable()
-        <a href="classes/ArtilleryPhp-Artillery.html#method_addVariable" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_build">
+        build()
+        <a href="classes/ArtilleryPhp-Artillery.html#method_build" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">518</span>
+    <span class="phpdocumentor-element-found-in__line">168</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Set a variable in the config section of the Artillery script.</p>
+        <p class="phpdocumentor-summary">Creates a Yaml file from the current Artillery instance.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">addVariable</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">build</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$file</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$name</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
+                <span class="phpdocumentor-signature__argument__name">$file</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The name of the variable, to be referenced later as '{{ name }}'.</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The value of the variable.</p>
+                    <section class="phpdocumentor-description"><p>Path to the YAML file to create, default is <strong>FILE</strong> . '.yml'.</p>
 </section>
 
             </dd>
@@ -1498,36 +1471,16 @@ $artillery = Artillery::new()->addScenarios($defaultScenarios);
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">description</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>Variables can be defined in the config section and used in scenarios as '{{ name }}'.<br>
-If you define multiple values for a variable, they will be accessed randomly in your scenarios.</p>
-</section>
-
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">example</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">// Define 3 users:
-$artillery->addVariable('username', ['user1', 'user2', 'user3']);
-// Pick a random one for each scenario:
-$artillery->addRequest(
-   Artillery::request('post', '/login')
-     ->setJsons(['username' => '{{ username }}', 'password' => '12345678']);
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="prettyprint">$artillery = Artillery::new()
+    ->addScenario(Artillery::request('get', 'https://www.example.com'))
+    ->build('./artillery.yaml');
 </code></pre>
 </section>
 
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">link</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/test-script-reference#variables---inline-variables"> https://www.artillery.io/docs/guides/guides/test-script-reference#variables---inline-variables </a>
-                    
                                     </dd>
                         </dl>
 
@@ -1552,7 +1505,7 @@ $artillery->addRequest(
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">119</span>
+    <span class="phpdocumentor-element-found-in__line">138</span>
 
     </aside>
 
@@ -1599,7 +1552,7 @@ $artillery->addRequest(
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">105</span>
+    <span class="phpdocumentor-element-found-in__line">124</span>
 
     </aside>
 
@@ -1645,7 +1598,7 @@ $artillery->addRequest(
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">62</span>
+    <span class="phpdocumentor-element-found-in__line">58</span>
 
     </aside>
 
@@ -1692,7 +1645,7 @@ $artillery->addRequest(
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">73</span>
+    <span class="phpdocumentor-element-found-in__line">71</span>
 
     </aside>
 
@@ -1751,6 +1704,80 @@ $artillery->addRequest(
         class="phpdocumentor-element
             -method
             -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_run">
+        run()
+        <a href="classes/ArtilleryPhp-Artillery.html#method_run" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">185</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Run the Artillery script using passthru(&#039;artillery run ...&#039;).</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">run</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$reportFile</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$debug</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$reportFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Path to the report file to create, default is <strong>FILE</strong> . '-report-' . time() . '.json'.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$debug</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>If set, command is run with 'DEBUG=$debug ' prefix. E.g. 'http,http:response'.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="prettyprint">$artillery = Artillery::new()
+    ->addScenario(Artillery::request('get', 'https://www.example.com'))
+    ->run();
+</code></pre>
+</section>
+
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The current Artillery instance.</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                     -static                    "
 >
     <h4 class="phpdocumentor-element__name" id="method_scenario">
@@ -1760,7 +1787,7 @@ $artillery->addRequest(
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">96</span>
+    <span class="phpdocumentor-element-found-in__line">100</span>
 
     </aside>
 
@@ -1768,10 +1795,21 @@ $artillery->addRequest(
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">scenario</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/ArtilleryPhp-Scenario.html"><abbr title="\ArtilleryPhp\Scenario">Scenario</abbr></a></span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">scenario</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/ArtilleryPhp-Scenario.html"><abbr title="\ArtilleryPhp\Scenario">Scenario</abbr></a></span></code>
 
     
-    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
     
     <h5 class="phpdocumentor-tag-list__heading" id="tags">
         Tags
@@ -1829,7 +1867,7 @@ $artillery->addRequest(
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">600</span>
+    <span class="phpdocumentor-element-found-in__line">696</span>
 
     </aside>
 
@@ -1885,21 +1923,21 @@ $artillery->addRequest(
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">156</span>
+    <span class="phpdocumentor-element-found-in__line">201</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Set a Scenario or flow of Request(s) to the &#039;after&#039; section of the Artillery script, which will be executed after a scenario.</p>
+        <p class="phpdocumentor-summary">Set a Scenario, Request or array of Requests to the &#039;after&#039; section of the Artillery script, which will be executed after a scenario.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setAfter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, <abbr title="\ArtilleryPhp\RequestInterface">RequestInterface</abbr>&gt;|<abbr title="\ArtilleryPhp\RequestInterface">RequestInterface</abbr>|<a href="classes/ArtilleryPhp-Scenario.html"><abbr title="\ArtilleryPhp\Scenario">Scenario</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$scenario</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setAfter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, <abbr title="\ArtilleryPhp\RequestInterface">RequestInterface</abbr>&gt;|<abbr title="\ArtilleryPhp\RequestInterface">RequestInterface</abbr>|<a href="classes/ArtilleryPhp-Scenario.html"><abbr title="\ArtilleryPhp\Scenario">Scenario</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$after</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$scenario</span>
+                <span class="phpdocumentor-signature__argument__name">$after</span>
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, <abbr title="\ArtilleryPhp\RequestInterface">RequestInterface</abbr>&gt;|<abbr title="\ArtilleryPhp\RequestInterface">RequestInterface</abbr>|<a href="classes/ArtilleryPhp-Scenario.html"><abbr title="\ArtilleryPhp\Scenario">Scenario</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -1945,21 +1983,21 @@ $artillery->addRequest(
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">169</span>
+    <span class="phpdocumentor-element-found-in__line">214</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Set a Scenario or flow of Request(s) to the &#039;before&#039; section of the Artillery script, which will be executed before a main scenario.</p>
+        <p class="phpdocumentor-summary">Set a Scenario, Request or array of Requests to the &#039;before&#039; section of the Artillery script, which will be executed before a main scenario.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setBefore</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, <abbr title="\ArtilleryPhp\RequestInterface">RequestInterface</abbr>&gt;|<abbr title="\ArtilleryPhp\RequestInterface">RequestInterface</abbr>|<a href="classes/ArtilleryPhp-Scenario.html"><abbr title="\ArtilleryPhp\Scenario">Scenario</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$scenario</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setBefore</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, <abbr title="\ArtilleryPhp\RequestInterface">RequestInterface</abbr>&gt;|<abbr title="\ArtilleryPhp\RequestInterface">RequestInterface</abbr>|<a href="classes/ArtilleryPhp-Scenario.html"><abbr title="\ArtilleryPhp\Scenario">Scenario</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$before</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$scenario</span>
+                <span class="phpdocumentor-signature__argument__name">$before</span>
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, <abbr title="\ArtilleryPhp\RequestInterface">RequestInterface</abbr>&gt;|<abbr title="\ArtilleryPhp\RequestInterface">RequestInterface</abbr>|<a href="classes/ArtilleryPhp-Scenario.html"><abbr title="\ArtilleryPhp\Scenario">Scenario</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -2005,7 +2043,7 @@ $artillery->addRequest(
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">283</span>
+    <span class="phpdocumentor-element-found-in__line">327</span>
 
     </aside>
 
@@ -2077,7 +2115,7 @@ $artillery->set('custom', ['some' => 'setting']);</code></pre>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">294</span>
+    <span class="phpdocumentor-element-found-in__line">338</span>
 
     </aside>
 
@@ -2120,7 +2158,7 @@ $artillery->set('custom', ['some' => 'setting']);</code></pre>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">534</span>
+    <span class="phpdocumentor-element-found-in__line">630</span>
 
     </aside>
 
@@ -2199,7 +2237,7 @@ $artillery = Artillery::new()->setHttp('timeout', 30);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">589</span>
+    <span class="phpdocumentor-element-found-in__line">685</span>
 
     </aside>
 
@@ -2270,7 +2308,7 @@ $artillery = Artillery::new()->setHttp('timeout', 30);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">574</span>
+    <span class="phpdocumentor-element-found-in__line">670</span>
 
     </aside>
 
@@ -2330,7 +2368,7 @@ $artillery = Artillery::new()->setHttp('timeout', 30);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">549</span>
+    <span class="phpdocumentor-element-found-in__line">645</span>
 
     </aside>
 
@@ -2400,7 +2438,7 @@ $artillery = Artillery::new()->setHttps(['timeout' => 30, 'maxSockets' => 1]);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">563</span>
+    <span class="phpdocumentor-element-found-in__line">659</span>
 
     </aside>
 
@@ -2471,7 +2509,7 @@ $artillery = Artillery::new()->setHttpTimeout(30);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">496</span>
+    <span class="phpdocumentor-element-found-in__line">535</span>
 
     </aside>
 
@@ -2527,7 +2565,8 @@ Plugins are distributed as normal npm packages which are named with an artillery
                                                                                 
                                                  <section class="phpdocumentor-description"><pre class="prettyprint"><code class="prettyprint">npm install artillery-plugin-expect</code></pre>
 <pre class="prettyprint"><code class="language-php">// There is built in support for 'expect' and 'ensure' plugins.
-$artillery->setPlugin('expect');
+$artillery = Artillery::new()->setPlugin('expect');
+
 $expectRequest = Artillery::request('get', '/users/1')
     ->addExpect('statusCode', [200, 201]);
 
@@ -2583,6 +2622,114 @@ $customRequest = Artillery::request('get', '/users/1')
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_setPlugins">
+        setPlugins()
+        <a href="classes/ArtilleryPhp-Artillery.html#method_setPlugins" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">561</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Enables an array of plugin (just names or with options as value) in the config section of the Artillery script.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setPlugins</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$plugins</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$plugins</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The plugins to be enabled, e,g, ['name1', 'name2' =&gt; [..options]].</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">description</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Artillery has support for plugins, which can add functionality and extend its built-in features. Plugins can hook into Artillery's internal APIs and extend its behavior with new capabilities.<br>
+Plugins are distributed as normal npm packages which are named with an artillery-plugin- prefix, e.g. artillery-plugin-expect.</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="prettyprint">npm install artillery-plugin-expect</code></pre>
+<pre class="prettyprint"><code class="language-php">// There is built in support for 'expect' and 'ensure' plugins.
+$artillery = Artillery::new->setPlugins(['expect', 'ensure'])
+    ->addEnsureThreshold('http.response_time.p99', 250)
+    ->addEnsureThreshold('http.response_time.p95', 100);
+
+$expectRequest = Artillery::request('get', '/users/1')
+    ->addExpect('statusCode', [200, 201]);
+</code></pre>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/plugins/plugins-overview"> https://www.artillery.io/docs/guides/plugins/plugins-overview </a>
+                    
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.npmjs.com/search?ranking=popularity&amp;q=artillery-plugin-"> https://www.npmjs.com/search?ranking=popularity&amp;q=artillery-plugin- </a>
+                    
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions"> https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions </a>
+                    
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.npmjs.com/package/artillery-plugin-hls"> https://www.npmjs.com/package/artillery-plugin-hls </a>
+                    
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The current Artillery instance.</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_setProcessor">
         setProcessor()
         <a href="classes/ArtilleryPhp-Artillery.html#method_setProcessor" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2590,7 +2737,7 @@ $customRequest = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">616</span>
+    <span class="phpdocumentor-element-found-in__line">712</span>
 
     </aside>
 
@@ -2671,7 +2818,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">629</span>
+    <span class="phpdocumentor-element-found-in__line">725</span>
 
     </aside>
 
@@ -2735,17 +2882,19 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">641</span>
+    <span class="phpdocumentor-element-found-in__line">738</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Set the tls property of the config section of the Artillery script.</p>
+        <p class="phpdocumentor-summary">Reject self-signed Tls certificates.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">setTls</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rejectUnauthorized</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
-    
+        <section class="phpdocumentor-description"><p>Set the tls 'rejectUnauthorized' property of the config section of the Artillery script.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -2770,7 +2919,7 @@ $request = Artillery::request('get', '/users/1')
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>This setting may be used to tell Artillery to accept self-signed TLS certificates, which it does not do by default.</p>
+                                                 <section class="phpdocumentor-description"><p>If false tell Artillery to accept self-signed TLS certificates, which it does not do by default.</p>
 </section>
 
                                     </dd>
@@ -2797,6 +2946,188 @@ $request = Artillery::request('get', '/users/1')
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_setVariable">
+        setVariable()
+        <a href="classes/ArtilleryPhp-Artillery.html#method_setVariable" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">589</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set a variable in the config section of the Artillery script.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setVariable</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The name of the variable, to be referenced later as '{{ name }}'.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The value of the variable.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">description</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Variables can be defined in the config section and used in scenarios as '{{ name }}'.<br>
+If you define multiple values for a variable, they will be accessed randomly in your scenarios.</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">// Define 3 users:
+$artillery->setVariable('username', ['user1', 'user2', 'user3']);
+// Pick a random one for each scenario:
+$artillery->addRequest(
+   Artillery::request('post', '/login')
+     ->setJsons(['username' => '{{ username }}', 'password' => '12345678']);
+</code></pre>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/test-script-reference#variables---inline-variables"> https://www.artillery.io/docs/guides/guides/test-script-reference#variables---inline-variables </a>
+                    
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The current Artillery instance.</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setVariables">
+        setVariables()
+        <a href="classes/ArtilleryPhp-Artillery.html#method_setVariables" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">613</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set an array of variables in the config section of the Artillery script.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setVariables</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$variables</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$variables</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The variables to be set with name as key.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">description</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Variables can be defined in the config section and used in scenarios as '{{ name }}'.<br>
+If you define multiple values for a variable, they will be accessed randomly in your scenarios.</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">// Define 3 users and a password:
+$artillery->setVariables([
+    'username' => ['user1', 'user2', 'user3'],
+    'password' => '12345678']);
+
+// Pick a random one for each scenario:
+$artillery->addRequest(
+   Artillery::request('post', '/login')
+     ->setJsons(['username' => '{{ username }}', 'password' => '{{ password }}']);
+</code></pre>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/test-script-reference#variables---inline-variables"> https://www.artillery.io/docs/guides/guides/test-script-reference#variables---inline-variables </a>
+                    
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The current Artillery instance.</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_setWs">
         setWs()
         <a href="classes/ArtilleryPhp-Artillery.html#method_setWs" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2804,7 +3135,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">659</span>
+    <span class="phpdocumentor-element-found-in__line">756</span>
 
     </aside>
 
@@ -2891,6 +3222,39 @@ $artillery->addScenario(Artillery::wsRequest('send', ['message' => 'Hello World!
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_toArray">
+        toArray()
+        <a href="classes/ArtilleryPhp-Artillery.html#method_toArray" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">110</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get the current Artillery script as an array.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">toArray</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_toYaml">
         toYaml()
         <a href="classes/ArtilleryPhp-Artillery.html#method_toYaml" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2898,7 +3262,7 @@ $artillery->addScenario(Artillery::wsRequest('send', ['message' => 'Hello World!
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">132</span>
+    <span class="phpdocumentor-element-found-in__line">151</span>
 
     </aside>
 
@@ -2985,7 +3349,7 @@ $artillery->addScenario(Artillery::wsRequest('send', ['message' => 'Hello World!
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">84</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 
     </aside>
 

@@ -2,6 +2,7 @@
     "name": "bundeling/artilleryphp",
     "description": "Wrapper for Artillery.io in PHP.",
     "homepage": "https://github.com/Bundeling/artilleryphp",
+    "license": "MIT",
     "keywords": [
         "artillery.io",
         "artillery",
@@ -14,10 +15,14 @@
     "authors": [
         {
             "name": "Erik Sundlöf",
-            "homepage": "https://github.com/eslof",
-            "email": "eslof.github@gmail.com"
+            "homepage": "https://github.com/Bundeling",
+            "email": "development@bundeling.com",
+            "role": "Developer"
         }
     ],
+    "support": {
+        "email": "development@bundeling.com"
+    },
     "autoload": {
         "psr-4": {
             "ArtilleryPhp\\": "src/"

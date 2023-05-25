@@ -393,7 +393,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ArtilleryPhp\\Scenario\u003A\u003AaddFunction\u0028\u0029",
             "name": "addFunction",
-            "summary": "Set\u0020a\u0020function\u0020or\u0020array\u0020of\u0020functions\u0020from\u0020the\u0020JavaScript\u0020file\u0020defined\u0020with\u0020Artillery\u003A\u003AsetProcessor\u0028\u0029\u0020to\u0020be\u0020executed\u0020at\u0020this\u0020point\u0020in\u0020the\u0020Scenario\u0027s\u0020flow.",
+            "summary": "Adds\u0020a\u0020function\u0020or\u0020array\u0020of\u0020functions\u0020from\u0020the\u0020JavaScript\u0020file\u0020defined\u0020with\u0020Artillery\u003A\u003AsetProcessor\u0028\u0029\u0020to\u0020be\u0020executed\u0020at\u0020this\u0020point\u0020in\u0020the\u0020Scenario\u0027s\u0020flow.",
             "url": "classes/ArtilleryPhp-Scenario.html#method_addFunction"
         },                {
             "fqsen": "\\ArtilleryPhp\\WsRequest",

@@ -258,7 +258,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetHeaders\u0028\u0029",
             "name": "setHeaders",
-            "summary": "Array\u0020of\u0020arbitrary\u0020headers\u0020may\u0020be\u0020sent\u0020under\u0020the\u0020\u0027headers\u0027\u0020option\u0020for\u0020a\u0020request.",
+            "summary": "Associative\u0020array\u0020of\u0020\u005Bname\u0020\u003D\u003E\u0020value,\u0020...\u005D\u0020arbitrary\u0020headers\u0020may\u0020be\u0020sent\u0020under\u0020the\u0020\u0027headers\u0027\u0020option\u0020for\u0020a\u0020request.",
             "url": "classes/ArtilleryPhp-Request.html#method_setHeaders"
         },                {
             "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetIfTrue\u0028\u0029",

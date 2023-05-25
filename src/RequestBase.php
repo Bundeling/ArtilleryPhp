@@ -74,15 +74,15 @@ abstract class RequestBase implements RequestInterface {
 	 */
 	public function addCapture(string $as, string $type, string $expression, bool $strict = true, string $attr = null, int|string $index = null): self {
 		$capture = [$type => $expression];
-		if ($strict === false) $capture['strict'] = false;
 		if ($expression === 'selector') {
 			if ($index !== null) $capture['index'] = $index;
 			if ($attr) $capture['attr'] = $attr;
 		}
 		$capture['as'] = $as;
+		if ($strict === false) $capture['strict'] = false;
 
 		if (!@$this->request['capture']) $this->request['capture'] = $capture;
-		elseif (!is_array($this->request['capture'])) $this->request['capture'] = [$this->request['capture'], $capture];
+		elseif (!is_array(array_values($this->request['capture'])[0])) $this->request['capture'] = [$this->request['capture'], $capture];
 		else $this->request['capture'][] = $capture;
 		return $this;
 	}
@@ -114,7 +114,7 @@ abstract class RequestBase implements RequestInterface {
 	 */
 	public function addCaptures(array $captures): self {
 		if (!@$this->request['capture']) $this->request['capture'] = $captures;
-		elseif (!is_array($this->request['capture'])) $this->request['capture'] = array_merge([$this->request['capture']], $captures);
+		elseif (!is_array(array_values($this->request['capture'])[0])) $this->request['capture'] = [$this->request['capture'], ...$captures];
 		else $this->request['capture'][] = array_merge($this->request['capture'], $captures);
 		return $this;
 	}
@@ -161,7 +161,7 @@ abstract class RequestBase implements RequestInterface {
 	 * @return $this The current Request instance.
 	 */
 	public function addExpects(array $expects): self {
-		foreach ($expects as $type => $value) $this->addExpect($type, $value);
+		foreach ($expects as $expect) foreach ($expect as $type => $value) $this->addExpect($type, $value);
 		return $this;
 	}
 }

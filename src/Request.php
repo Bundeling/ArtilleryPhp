@@ -150,7 +150,7 @@ class Request extends RequestBase {
 	}
 
 	/**
-	 * Array of arbitrary headers may be sent under the 'headers' option for a request.
+	 * Associative array of [name => value, ...] arbitrary headers may be sent under the 'headers' option for a request.
 	 * @param array<string, string> $headers A key-value array of headers to set.
 	 * @return $this The current Request instance.
 	 * @example <pre><code class="language-php">$request = Artillery::request()->setHeaders(['User-Agent' => 'Mozilla/5.0 (Linux; Android 12; ...']);</code></pre>

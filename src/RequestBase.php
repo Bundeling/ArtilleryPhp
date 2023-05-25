@@ -88,6 +88,38 @@ abstract class RequestBase implements RequestInterface {
 	}
 
 	/**
+	 * Adds an array of capture objects to the request.
+	 * @description The capture option must always have an as attribute, which names the value for use in subsequent requests. It also requires one of the following attributes:<br>
+	 *  * json - Allows you to define a JSONPath expression.<br>
+	 *  * xpath - Allows you to define an XPath expression.<br>
+	 *  * regexp - Allows you to define a regular expression that gets passed to a RegExp constructor. A specific capturing group to return may be set with the group attribute (set to an integer index of the group in the regular expression). Flags for the regular expression may be set with the flags attribute.<br>
+	 *  * header - Allows you to set the name of the response header whose value you want to capture.<br>
+	 *  * selector - Allows you to define a Cheerio element selector. The attr attribute will contain the name of the attribute whose value we want. An optional index attribute may be set to a number to grab an element matching a selector at the specified index, "random" to grab an element at random, or "last" to grab the last matching element. If the index attribute is not specified, the first matching element will get captured.
+	 * @example <pre><code class="language-php">// Cheerio element selector: $request->addCapture(as: "productUrl", type: "selector", expression: "a[class^=productLink]", index: "random", attr: "href")<br>
+	 * // Xpath: $request->addCapture(as: "JourneyId", type: "xpath", expression: "(//Journey)[1]/JourneyId/text()")<br>
+	 * // Header: $request->addCapture(as: "headerValue", type: "header", expression: "x-my-custom-header")
+	 * // Json:
+	 * $getIdRequest = Artillery::request('get', '/users')
+	 *     ->addCaptures([
+	 *         ['as' => 'id', 'json' => '$[0].id'],
+	 * 	       ['as' => 'name', 'json' => '$[0].name'],
+	 *     ]);
+	 *
+	 * $postMsgRequest = Artillery::request('post', '/inbox')
+	 *   ->setPayload(['id' => '{{ id }}', 'msg' => 'Hello {{ name }}!']);
+	 * </code></pre>
+	 * @link https://www.artillery.io/docs/guides/guides/http-reference#extracting-and-re-using-parts-of-a-response-request-chaining
+	 * @param array<string, string> $captures An array of capture objects. E.g. [['as' => 'user_id', 'json' => '$.id'], [...etc]].
+	 * @return $this The current Request instance.
+	 */
+	public function addCaptures(array $captures): self {
+		if (!@$this->request['capture']) $this->request['capture'] = $captures;
+		elseif (!is_array($this->request['capture'])) $this->request['capture'] = [$this->request['capture'], ...$captures];
+		else $this->request['capture'][] = array_merge($this->request['capture'], $captures);
+		return $this;
+	}
+
+	/**
 	 * Adds an expectation assertion to the request.
 	 * @description Expectations are assertions that are checked after the request is made.
 	 * If the assertion fails, the request is considered to have failed.<br>

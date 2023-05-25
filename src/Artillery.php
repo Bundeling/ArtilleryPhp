@@ -48,7 +48,7 @@ class Artillery {
 	/** @internal */
 	protected array $scenarios = [];
 	/** @internal */
-	protected string $filePath = '';
+	public string $filePath = '';
 
 	/**
 	 * Creates a new Artillery instance, optionally with a target URL.

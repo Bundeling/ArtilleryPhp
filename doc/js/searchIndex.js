@@ -321,6 +321,11 @@ Search.appendIndex(
             "summary": "Adds\u0020a\u0020capture\u0020to\u0020the\u0020request\u0020to\u0020parse\u0020responses\u0020and\u0020re\u002Duse\u0020those\u0020values\u0020in\u0020subsequent\u0020requests\u0020as\u0020\u0027\u007B\u007B\u0020alias\u0020\u007D\u007D\u0027.",
             "url": "classes/ArtilleryPhp-RequestBase.html#method_addCapture"
         },                {
+            "fqsen": "\\ArtilleryPhp\\RequestBase\u003A\u003AaddCaptures\u0028\u0029",
+            "name": "addCaptures",
+            "summary": "Adds\u0020an\u0020array\u0020of\u0020capture\u0020objects\u0020to\u0020the\u0020request.",
+            "url": "classes/ArtilleryPhp-RequestBase.html#method_addCaptures"
+        },                {
             "fqsen": "\\ArtilleryPhp\\RequestBase\u003A\u003AaddExpect\u0028\u0029",
             "name": "addExpect",
             "summary": "Adds\u0020an\u0020expectation\u0020assertion\u0020to\u0020the\u0020request.",

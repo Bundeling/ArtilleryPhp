@@ -175,6 +175,13 @@
 <dd>Adds a capture to the request to parse responses and re-use those values in subsequent requests as &#039;{{ alias }}&#039;.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/ArtilleryPhp-RequestBase.html#method_addCaptures">addCaptures()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Adds an array of capture objects to the request.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-WsRequest.html#method_addExpect">addExpect()</a>
     <span>
                                 &nbsp;: $this    </span>
@@ -338,6 +345,107 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_addCaptures">
+        addCaptures()
+        <a href="classes/ArtilleryPhp-RequestBase.html#method_addCaptures" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/RequestBase.php"><a href="files/src-requestbase.html"><abbr title="src/RequestBase.php">RequestBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">115</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Adds an array of capture objects to the request.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">addCaptures</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, array&lt;string, string&gt;&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$captures</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$captures</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, array&lt;string, string&gt;&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>An array of capture objects. E.g. [['as' =&gt; 'user_id', 'json' =&gt; '$.id'], [...etc]].</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">description</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>The capture option must always have an as attribute, which names the value for use in subsequent requests. It also requires one of the following attributes:<br></p>
+<ul>
+<li>json - Allows you to define a JSONPath expression.<br>
+</li>
+<li>xpath - Allows you to define an XPath expression.<br>
+</li>
+<li>regexp - Allows you to define a regular expression that gets passed to a RegExp constructor. A specific capturing group to return may be set with the group attribute (set to an integer index of the group in the regular expression). Flags for the regular expression may be set with the flags attribute.<br>
+</li>
+<li>header - Allows you to set the name of the response header whose value you want to capture.<br>
+</li>
+<li>selector - Allows you to define a Cheerio element selector. The attr attribute will contain the name of the attribute whose value we want. An optional index attribute may be set to a number to grab an element matching a selector at the specified index, &quot;random&quot; to grab an element at random, or &quot;last&quot; to grab the last matching element. If the index attribute is not specified, the first matching element will get captured.</li>
+</ul>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">// Cheerio element selector: $request->addCapture(as: "productUrl", type: "selector", expression: "a[class^=productLink]", index: "random", attr: "href")<br>
+// Xpath: $request->addCapture(as: "JourneyId", type: "xpath", expression: "(//Journey)[1]/JourneyId/text()")<br>
+// Header: $request->addCapture(as: "headerValue", type: "header", expression: "x-my-custom-header")
+// Json:
+$getIdRequest = Artillery::request('get', '/users')
+    ->addCaptures([
+        ['as' => 'id', 'json' => '$[0].id'],
+	       ['as' => 'name', 'json' => '$[0].name'],
+    ]);
+
+$postMsgRequest = Artillery::request('post', '/inbox')
+  ->setPayload(['id' => '{{ id }}', 'msg' => 'Hello {{ name }}!']);
+</code></pre>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/http-reference#extracting-and-re-using-parts-of-a-response-request-chaining"> https://www.artillery.io/docs/guides/guides/http-reference#extracting-and-re-using-parts-of-a-response-request-chaining </a>
+                    
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The current Request instance.</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_addExpect">
         addExpect()
         <a href="classes/ArtilleryPhp-WsRequest.html#method_addExpect" class="headerlink"><i class="fas fa-link"></i></a>
@@ -413,7 +521,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/RequestBase.php"><a href="files/src-requestbase.html"><abbr title="src/RequestBase.php">RequestBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">131</span>
+    <span class="phpdocumentor-element-found-in__line">163</span>
 
     </aside>
 

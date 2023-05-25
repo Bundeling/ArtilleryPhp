@@ -114,7 +114,7 @@ abstract class RequestBase implements RequestInterface {
 	 */
 	public function addCaptures(array $captures): self {
 		if (!@$this->request['capture']) $this->request['capture'] = $captures;
-		elseif (!is_array($this->request['capture'])) $this->request['capture'] = [$this->request['capture'], ...$captures];
+		elseif (!is_array($this->request['capture'])) $this->request['capture'] = array_merge([$this->request['capture']], $captures);
 		else $this->request['capture'][] = array_merge($this->request['capture'], $captures);
 		return $this;
 	}

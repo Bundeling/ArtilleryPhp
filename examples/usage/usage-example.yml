@@ -15,8 +15,6 @@ scenarios:
       - loop:
           - get:
               url: /login
-              payload:
-                url: /login
               capture:
                 json: $.token
                 as: token

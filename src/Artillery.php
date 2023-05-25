@@ -166,11 +166,18 @@ class Artillery {
 	 * @return $this The current Artillery instance.
 	 */
 	public function build(string $file = null): self {
-		$this->filePath = $file ?: __FILE__ . '.yml';
+		if (!$file) {
+			$backtrace = debug_backtrace();
+			if (count($backtrace) < 1) $this->filePath = __DIR__ . '/artillery.yml';
+			else {
+				$caller = $backtrace[count($backtrace) - 1];
+				$info = pathinfo($caller['file']);
+				$this->filePath = $info['dirname'] . '/' . $info['filename'] . '.yml';
+			}
+		} else $this->filePath = $file;
 		file_put_contents($this->filePath, $this->toYaml());
 		return $this;
 	}
-//DEBUG=http,http:response artillery run --output artillery-report.json artillery.yaml
 
 	/**
 	 * Run the Artillery script using passthru('artillery run ...').
@@ -184,6 +191,15 @@ class Artillery {
 	 */
 	public function run(string $reportFile = null, string $debug = null): self {
 		if (!$this->filePath) $this->build();
+		if (!$reportFile) {
+			$backtrace = debug_backtrace();
+			if (count($backtrace) < 2) $reportFile = __DIR__ . '/artillery-report-' . time() . '.json';
+			else {
+				$caller = $backtrace[1];
+				$info = pathinfo($caller['file']);
+				$reportFile = $info['dirname'] . '/' . $info['filename'] . '-report-' . time() . '.json';
+			}
+		}
 		$filePath = $this->filePath;
 		$reportFile = $reportFile ?: __FILE__ . '-report-' . time() . '.json';
 		$exec = "artillery run --output $reportFile $filePath";

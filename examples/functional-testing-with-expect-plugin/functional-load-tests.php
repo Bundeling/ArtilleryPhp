@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+require __DIR__ . '/../../vendor/autoload.php';
 
 use ArtilleryPhp\Artillery;
 
@@ -12,13 +13,13 @@ $postUserRequest = Artillery::request('post', '/users')
 	->addExpect('statusCode', 201)
 	->addExpect('contentType', 'json')
 	->addExpect('hasProperty', 'username')
-	->addExpect('equals', 'new-user');
+	->addExpect('equals', ['new-user']);
 
 $getUserRequest = Artillery::request('get', '/users/{{ id }}')
 	->addExpect('statusCode', 200)
 	->addExpect('contentType', 'json')
 	->addExpect('hasProperty', 'username')
-	->addExpect('equals', 'new-user');
+	->addExpect('equals', ['new-user']);
 
 $deleteUserRequest = Artillery::request('delete', '/users/{{ id }}')
 	->addExpect('statusCode', 204);

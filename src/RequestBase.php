@@ -109,7 +109,7 @@ abstract class RequestBase implements RequestInterface {
 	 *   ->setPayload(['id' => '{{ id }}', 'msg' => 'Hello {{ name }}!']);
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#extracting-and-re-using-parts-of-a-response-request-chaining
-	 * @param array<string, string> $captures An array of capture objects. E.g. [['as' => 'user_id', 'json' => '$.id'], [...etc]].
+	 * @param array<string, string>[] $captures An array of capture objects. E.g. [['as' => 'user_id', 'json' => '$.id'], [...etc]].
 	 * @return $this The current Request instance.
 	 */
 	public function addCaptures(array $captures): self {

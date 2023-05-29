@@ -2,7 +2,8 @@
 ArtilleryPhp is a PHP library that provides a fluent interface for [Artillery.io](https://www.artillery.io/) scripts.
 
 Library documentation: [https://artilleryphp.netlify.app](https://artilleryphp.netlify.app/packages/application)
-Examples (look for the .php files): [examples/](examples/)
+
+Examples (look for the .php files): [ArtilleryPhp-Examples]([examples/](https://github.com/eslof/artilleryphp-examples))
 
 Documentation contains:
 - Full explanation for each class and method.

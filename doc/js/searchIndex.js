@@ -346,6 +346,16 @@ Search.appendIndex(
             "summary": "Adds\u0020an\u0020array\u0020of\u0020expectation\u0020assertions\u0020to\u0020the\u0020request.",
             "url": "classes/ArtilleryPhp-RequestBase.html#method_addExpects"
         },                {
+            "fqsen": "\\ArtilleryPhp\\RequestBase\u003A\u003AaddMatch\u0028\u0029",
+            "name": "addMatch",
+            "summary": "Adds\u0020a\u0020matching\u0020statement\u0020to\u0020the\u0020request,\u0020similar\u0020to\u0020a\u0020capture\u0020but\u0020without\u0020an\u0020\u0027as\u0027\u0020alias.",
+            "url": "classes/ArtilleryPhp-RequestBase.html#method_addMatch"
+        },                {
+            "fqsen": "\\ArtilleryPhp\\RequestBase\u003A\u003AaddMatches\u0028\u0029",
+            "name": "addMatches",
+            "summary": "Adds\u0020an\u0020array\u0020of\u0020matching\u0020statement\u0020to\u0020the\u0020request,\u0020similar\u0020to\u0020a\u0020capture\u0020but\u0020without\u0020an\u0020\u0027as\u0027\u0020alias.",
+            "url": "classes/ArtilleryPhp-RequestBase.html#method_addMatches"
+        },                {
             "fqsen": "\\ArtilleryPhp\\Scenario",
             "name": "Scenario",
             "summary": "The\u0020scenario\u0020is\u0020the\u0020core\u0020of\u0020an\u0020Artillery\u0020test\u0020script.\u0020It\u0020defines\u0020the\u0020flow\u0020of\u0020requests.",

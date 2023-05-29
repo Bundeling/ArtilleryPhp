@@ -122,6 +122,8 @@ abstract class RequestBase implements RequestInterface {
 	 * @description Expectations are assertions that are checked after the request is made.
 	 * If the assertion fails, the request is considered to have failed.<br>
 	 * The built-in 'expect' plugin needs to be enabled with Artillery::setPlugin('expect') for this feature.
+	 * Here's a list of the available expectations:<br>
+	 * contentType, statusCode, notStatusCode: expectNotStatusCode, hasHeader, headerEquals, hasProperty, equals, matchesRegexp, notHasProperty, cdnHit.
 	 * @example <pre><code>npm i artillery-plugin-expect</pre></code><br>
 	 * <pre><code class="language-php">$artillery->setPlugin('expect');
 	 * $ensureRequest = Artillery::request('get', '/users/1')
@@ -129,13 +131,22 @@ abstract class RequestBase implements RequestInterface {
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions#expectations
 	 * @link https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions
-	 * @param 'statusCode'|'notStatusCode'|'contentType'|'hasProperty'|'notHasProperty'|'equals'|'hasHeader'|'headerEquals'|'matchesRegexp'|'cdnHit' $type The type of expectation to add.
+	 * @param 'contentType'|'statusCode'|'notStatusCode'|'hasHeader'|'headerEquals'|'hasProperty'|'equals'|'matchesRegexp'|'notHasProperty'|'cdnHit' $type The type of expectation to add.
 	 * @param mixed $value The value(s) to expect.
+	 * @param mixed $equals Equals can be added after hasHeader and hasProperty to do an equality check.
 	 * @return $this The current Request instance.
 	 */
-	public function addExpect(string $type, mixed $value): self {
+	public function addExpect(string $type, mixed $value, mixed $equals = null): self {
 		if (!@$this->request['expect']) $this->request['expect'] = [];
 		$this->request['expect'][] = [$type => $value];
+
+		if ($equals !== null) {
+			if ($type === 'hasProperty') {
+				$this->request['expect'][] = ['equals' => $equals];
+			} elseif ($type === 'hasHeader') {
+				$this->request['expect'][] = ['headerEquals' => $equals];
+			}
+		}
 		return $this;
 	}
 
@@ -159,7 +170,8 @@ abstract class RequestBase implements RequestInterface {
 	 * @return $this The current Request instance.
 	 */
 	public function addExpects(array $expects): self {
-		foreach ($expects as $expect) foreach ($expect as $type => $value) $this->addExpect($type, $value);
+		if (!@$this->request['expect']) $this->request['expect'] = [];
+		$this->request['expect'] = array_merge($this->request['expect'], $expects);
 		return $this;
 	}
 

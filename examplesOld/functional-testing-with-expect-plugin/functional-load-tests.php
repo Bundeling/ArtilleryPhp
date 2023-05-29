@@ -3,9 +3,12 @@ require __DIR__ . '/../../vendor/autoload.php';
 
 use ArtilleryPhp\Artillery;
 
+$loadEnvironment = Artillery::new()->addPhase(['duration' => 600, 'arrivalRate' => 25]);
+$functionalEnvironment = Artillery::new()->setPlugin('expect');
+
 $artillery = Artillery::new('http://localhost:3000')
-	->setEnvironment('load', ['phases' => [['duration' => 600, 'arrivalRate' => 25]]])
-	->setEnvironment('functional', ['plugins' => ['expect' => []]]);
+	->setEnvironment('load', $loadEnvironment)
+	->setEnvironment('functional', $functionalEnvironment);
 
 $postUserRequest = Artillery::request('post', '/users')
 	->setJson('username', 'new-user')

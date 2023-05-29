@@ -164,4 +164,19 @@ abstract class RequestBase implements RequestInterface {
 		foreach ($expects as $expect) foreach ($expect as $type => $value) $this->addExpect($type, $value);
 		return $this;
 	}
+
+	/**
+	 * Warning: I can't find much about this.
+	 * See {@link https://github.com/search?q=repo%3Aartilleryio%2Fartillery%20match%3A&type=code}.
+	 * @todo Test this.
+	 * @param 'json'|'xpath'|'regexp'|'header'|'selector' $type The type of capture expression.
+	 * @param string $expression The capture expression.
+	 * @param string $value The value to match against the capture.
+	 * @return $this The current Request instance.
+	 */
+	public function addMatch(string $type, string $expression, string $value): self {
+		if (!@$this->request['match']) $this->request['match'] = [];
+		$this->request['match'][] = [$expression => $expression, 'value' => $value];
+		return $this;
+	}
 }

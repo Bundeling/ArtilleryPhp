@@ -50,9 +50,9 @@ class Artillery {
 	/** @internal */
 	public string $filePath = '';
 	/** @internal */
-	public const EMPTY_ARRAY = '[ARTILLERYPHP_EMPTY_ARRAY]';
+	public const EMPTY_ARRAY = "'[ARTILLERYPHP_EMPTY_ARRAY]'";
 	/** @internal */
-	public const EMPTY_OBJECT = '{ARTILLERYPHP_EMPTY_OBJECT}';
+	public const EMPTY_OBJECT = "'{ARTILLERYPHP_EMPTY_OBJECT}'";
 
 	/**
 	 * Creates a new Artillery instance, optionally with a target URL.

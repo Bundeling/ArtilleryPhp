@@ -544,7 +544,7 @@ class Artillery {
 	/**
 	 * Adds a phase to the config section of the Artillery script.
 	 * @description A load phase defines how Artillery generates new virtual users (VUs) in a specified time period. For example, a typical performance test will have a gentle warm-up phase, followed by a ramp-up phase, and finalizing with a maximum load for a duration of time.
-	 * @param array{duration?: int, arrivalCount?: int, arrivalRate?: int, rampTo?: int, pause?: int} $phase The phase to be added.
+	 * @param array{duration?: int, arrivalCount?: int, arrivalRate?: int, rampTo?: int, maxVusers?: int, pause?: int} $phase The phase to be added.
 	 * @param string|null $name The name of the phase.
 	 * @return $this The current Artillery instance.
 	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#phases---load-phases

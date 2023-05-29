@@ -33,7 +33,7 @@ class Scenario {
 
 	/** @internal */
 	public function toArray(): array {
-		return $this->scenario + ['flow' => $this->flow];
+		return $this->scenario + ['flow' => $this->flow ?: Artillery::EMPTY_ARRAY];
 	}
 
 	/** @internal */

@@ -49,6 +49,10 @@ class Artillery {
 	protected array $scenarios = [];
 	/** @internal */
 	public string $filePath = '';
+	/** @internal */
+	public const EMPTY_ARRAY = '[ARTILLERYPHP_EMPTY_ARRAY]';
+	/** @internal */
+	public const EMPTY_OBJECT = '{ARTILLERYPHP_EMPTY_OBJECT}';
 
 	/**
 	 * Creates a new Artillery instance, optionally with a target URL.
@@ -149,11 +153,15 @@ class Artillery {
 	 * @return string The YAML representation of the Artillery script.
 	 */
 	public function toYaml(bool $correctNewlines = true, int $inline = PHP_INT_MAX, int $indent = 2, int $flags = 0): string {
-		if (!$correctNewlines) return Yaml::dump($this->toArray(), $inline, $indent, $flags);
+		$yml = preg_replace_callback('/\s*(' . static::EMPTY_OBJECT . '|' . static::EMPTY_ARRAY . ')\s*/', function ($matches) {
+			return $matches[1] === static::EMPTY_OBJECT ? '{}' : '[]';
+		}, Yaml::dump($this->toArray(), $inline, $indent, $flags));
+
+		if (!$correctNewlines) return $yml;
 
 		return preg_replace_callback('/-\s*\n\s*(\w+)/', function ($matches) {
 			return '- ' . $matches[1];
-		}, Yaml::dump($this->toArray(), $inline, $indent, $flags));
+		}, $yml);
 	}
 
 	/**
@@ -388,7 +396,7 @@ class Artillery {
 	public function setEngine(string $name, array $options = null): self {
 		$options ??= [];
 		if (!@$this->config['engines']) $this->config['engines'] = [];
-		$this->config['engines'][$name] = $options;
+		$this->config['engines'][$name] = $options ?: static::EMPTY_OBJECT;
 		return $this;
 	}
 
@@ -605,9 +613,9 @@ class Artillery {
 	 * @param array $options The options for the plugin.
 	 * @return $this The current Artillery instance.
 	 */
-	public function setPlugin(string $name, array $options = []): self {
+	public function setPlugin(string $name, array $options = null): self {
 		if (!@$this->config['plugins']) $this->config['plugins'] = [];
-		$this->config['plugins'][$name] = $options;
+		$this->config['plugins'][$name] = $options ?: static::EMPTY_OBJECT;
 		return $this;
 	}
 
@@ -635,7 +643,7 @@ class Artillery {
 		foreach ($plugins as $name => $options) {
 			if (is_int($name)) {
 				$name = $options;
-				$options = [];
+				$options = static::EMPTY_OBJECT;
 			}
 
 			$this->setPlugin($name, $options);

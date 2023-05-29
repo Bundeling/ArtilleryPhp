@@ -172,11 +172,25 @@ $artillery = Artillery::new()
 
 <dl class="phpdocumentor-table-of-contents">
                         <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/ArtilleryPhp-Scenario.html#method_addAfterResponse">addAfterResponse()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed after a response is received where the response can be inspected, and custom variables can be set.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Scenario.html#method_addAfterScenario">addAfterScenario()</a>
     <span>
                                 &nbsp;: $this    </span>
 </dt>
 <dd>Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be run at the end of this scenario.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/ArtilleryPhp-Scenario.html#method_addBeforeRequest">addBeforeRequest()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed before a request is sent, where you can set headers or body dynamically.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Scenario.html#method_addBeforeScenario">addBeforeScenario()</a>
@@ -274,6 +288,66 @@ $artillery = Artillery::new()
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_addAfterResponse">
+        addAfterResponse()
+        <a href="classes/ArtilleryPhp-Scenario.html#method_addAfterResponse" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">50</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed after a response is received where the response can be inspected, and custom variables can be set.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">addAfterResponse</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$function</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$function</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The function(s) to execute.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/http-reference#afterresponse-hooks"> https://www.artillery.io/docs/guides/guides/http-reference#afterresponse-hooks </a>
+                    
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The current Request instance.</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_addAfterScenario">
         addAfterScenario()
         <a href="classes/ArtilleryPhp-Scenario.html#method_addAfterScenario" class="headerlink"><i class="fas fa-link"></i></a>
@@ -281,7 +355,7 @@ $artillery = Artillery::new()
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">58</span>
+    <span class="phpdocumentor-element-found-in__line">84</span>
 
     </aside>
 
@@ -356,6 +430,66 @@ $scenario = Artillery::scenario()
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_addBeforeRequest">
+        addBeforeRequest()
+        <a href="classes/ArtilleryPhp-Scenario.html#method_addBeforeRequest" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">63</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed before a request is sent, where you can set headers or body dynamically.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">addBeforeRequest</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$function</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$function</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The function(s) to execute.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/http-reference#beforerequest-hooks"> https://www.artillery.io/docs/guides/guides/http-reference#beforerequest-hooks </a>
+                    
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The current Request instance.</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_addBeforeScenario">
         addBeforeScenario()
         <a href="classes/ArtilleryPhp-Scenario.html#method_addBeforeScenario" class="headerlink"><i class="fas fa-link"></i></a>
@@ -363,7 +497,7 @@ $scenario = Artillery::scenario()
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">81</span>
+    <span class="phpdocumentor-element-found-in__line">107</span>
 
     </aside>
 
@@ -447,7 +581,7 @@ $scenario = Artillery::scenario()
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">148</span>
+    <span class="phpdocumentor-element-found-in__line">174</span>
 
     </aside>
 
@@ -522,7 +656,7 @@ $scenario = Artillery::scenario()
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">280</span>
+    <span class="phpdocumentor-element-found-in__line">306</span>
 
     </aside>
 
@@ -604,7 +738,7 @@ $scenario = Artillery::scenario()
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">243</span>
+    <span class="phpdocumentor-element-found-in__line">269</span>
 
     </aside>
 
@@ -698,7 +832,7 @@ Log messages will get printed to the console even when running the tests in &quo
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">208</span>
+    <span class="phpdocumentor-element-found-in__line">234</span>
 
     </aside>
 
@@ -808,7 +942,7 @@ $scenario = Artillery::scenario()
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">167</span>
+    <span class="phpdocumentor-element-found-in__line">193</span>
 
     </aside>
 
@@ -888,7 +1022,7 @@ $scenario = Artillery::scenario()
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">186</span>
+    <span class="phpdocumentor-element-found-in__line">212</span>
 
     </aside>
 
@@ -970,7 +1104,7 @@ $scenario = Artillery::scenario()
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">263</span>
+    <span class="phpdocumentor-element-found-in__line">289</span>
 
     </aside>
 
@@ -1063,7 +1197,7 @@ Floating numbers are supported, e.g., 0.5 pauses for half a second.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">103</span>
+    <span class="phpdocumentor-element-found-in__line">129</span>
 
     </aside>
 
@@ -1155,7 +1289,7 @@ This library aims to fully support HTTP, partial support for WebSocket, and only
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">113</span>
+    <span class="phpdocumentor-element-found-in__line">139</span>
 
     </aside>
 
@@ -1202,7 +1336,7 @@ This library aims to fully support HTTP, partial support for WebSocket, and only
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Scenario.php"><a href="files/src-scenario.html"><abbr title="src/Scenario.php">Scenario.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">130</span>
+    <span class="phpdocumentor-element-found-in__line">156</span>
 
     </aside>
 

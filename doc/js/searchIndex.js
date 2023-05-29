@@ -361,6 +361,16 @@ Search.appendIndex(
             "summary": "The\u0020scenario\u0020is\u0020the\u0020core\u0020of\u0020an\u0020Artillery\u0020test\u0020script.\u0020It\u0020defines\u0020the\u0020flow\u0020of\u0020requests.",
             "url": "classes/ArtilleryPhp-Scenario.html"
         },                {
+            "fqsen": "\\ArtilleryPhp\\Scenario\u003A\u003AaddAfterResponse\u0028\u0029",
+            "name": "addAfterResponse",
+            "summary": "Add\u0020a\u0020function\u0020or\u0020array\u0020of\u0020functions\u0020from\u0020the\u0020JavaScript\u0020file\u0020defined\u0020with\u0020Artillery\u003A\u003AsetProcessor\u0020to\u0020be\u0020executed\u0020after\u0020a\u0020response\u0020is\u0020received\u0020where\u0020the\u0020response\u0020can\u0020be\u0020inspected,\u0020and\u0020custom\u0020variables\u0020can\u0020be\u0020set.",
+            "url": "classes/ArtilleryPhp-Scenario.html#method_addAfterResponse"
+        },                {
+            "fqsen": "\\ArtilleryPhp\\Scenario\u003A\u003AaddBeforeRequest\u0028\u0029",
+            "name": "addBeforeRequest",
+            "summary": "Add\u0020a\u0020function\u0020or\u0020array\u0020of\u0020functions\u0020from\u0020the\u0020JavaScript\u0020file\u0020defined\u0020with\u0020Artillery\u003A\u003AsetProcessor\u0020to\u0020be\u0020executed\u0020before\u0020a\u0020request\u0020is\u0020sent,\u0020where\u0020you\u0020can\u0020set\u0020headers\u0020or\u0020body\u0020dynamically.",
+            "url": "classes/ArtilleryPhp-Scenario.html#method_addBeforeRequest"
+        },                {
             "fqsen": "\\ArtilleryPhp\\Scenario\u003A\u003AaddAfterScenario\u0028\u0029",
             "name": "addAfterScenario",
             "summary": "Add\u0020a\u0020function\u0020or\u0020array\u0020of\u0020functions\u0020from\u0020the\u0020JavaScript\u0020file\u0020defined\u0020with\u0020Artillery\u003A\u003AsetProcessor\u0020to\u0020be\u0020run\u0020at\u0020the\u0020end\u0020of\u0020this\u0020scenario.",

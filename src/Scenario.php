@@ -42,6 +42,32 @@ class Scenario {
 	}
 
 	/**
+	 * Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed after a response is received where the response can be inspected, and custom variables can be set.
+	 * @param string|string[] $function The function(s) to execute.
+	 * @return $this The current Request instance.
+	 * @link https://www.artillery.io/docs/guides/guides/http-reference#afterresponse-hooks
+	 */
+	public function addAfterResponse(array|string $function): self {
+		if (!@$this->request['afterResponse']) $this->scenario['afterResponse'] = [];
+		if (is_array($function)) $this->scenario['afterResponse'] = array_merge($this->scenario['afterResponse'], $function);
+		else $this->scenario['afterResponse'][] = $function;
+		return $this;
+	}
+
+	/**
+	 * Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed before a request is sent, where you can set headers or body dynamically.
+	 * @param string|string[] $function The function(s) to execute.
+	 * @return $this The current Request instance.
+	 * @link https://www.artillery.io/docs/guides/guides/http-reference#beforerequest-hooks
+	 */
+	public function addBeforeRequest(array|string $function): self {
+		if (!@$this->scenario['beforeRequest']) $this->scenario['beforeRequest'] = [];
+		if (is_array($function)) $this->scenario['beforeRequest'] = array_merge($this->scenario['beforeRequest'], $function);
+		else $this->scenario['beforeRequest'][] = $function;
+		return $this;
+	}
+
+	/**
 	 * Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be run at the end of this scenario.
 	 * @example <pre><code class="language-php">$artillery = Artillery::new()
 	 *     	->setProcessor('./helpers.js');

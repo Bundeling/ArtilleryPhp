@@ -188,20 +188,6 @@ file_put_contents(__DIR__ . '/artillery.yaml', $artillery->toYaml());
 <dd>Adds an &#039;ensure&#039; threshold to the config section of the Artillery script.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/ArtilleryPhp-Artillery.html#method_addEnvironment">addEnvironment()</a>
-    <span>
-                                &nbsp;: $this    </span>
-</dt>
-<dd>Adds an environment to the config&#039;s environments section of the Artillery script with environment-specific config overrides.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/ArtilleryPhp-Artillery.html#method_addEnvironments">addEnvironments()</a>
-    <span>
-                                &nbsp;: $this    </span>
-</dt>
-<dd>Adds an array of environments to the config&#039;s environments section of the Artillery script.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Artillery.html#method_addPayload">addPayload()</a>
     <span>
                                 &nbsp;: $this    </span>
@@ -318,14 +304,28 @@ file_put_contents(__DIR__ . '/artillery.yaml', $artillery->toYaml());
     <span>
                                 &nbsp;: $this    </span>
 </dt>
-<dd>Add a custom engine to the config section of the Artillery script.</dd>
+<dd>Set a custom engine to the config section of the Artillery script.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Artillery.html#method_setEngines">setEngines()</a>
     <span>
                                 &nbsp;: $this    </span>
 </dt>
-<dd>TODO: document</dd>
+<dd>Set an array of custom engine to the config section of the Artillery script.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/ArtilleryPhp-Artillery.html#method_setEnvironment">setEnvironment()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Adds an environment to the config&#039;s environments section of the Artillery script with environment-specific config overrides.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/ArtilleryPhp-Artillery.html#method_setEnvironments">setEnvironments()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Adds an array of environments to the config&#039;s environments section of the Artillery script.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Artillery.html#method_setHttp">setHttp()</a>
@@ -465,7 +465,7 @@ file_put_contents(__DIR__ . '/artillery.yaml', $artillery->toYaml());
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">305</span>
+    <span class="phpdocumentor-element-found-in__line">306</span>
 
     </aside>
 
@@ -571,7 +571,7 @@ The built-in 'ensure' plugin needs to be enabled with Artillery::setPlugin('ensu
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">328</span>
+    <span class="phpdocumentor-element-found-in__line">329</span>
 
     </aside>
 
@@ -656,226 +656,6 @@ The built-in 'ensure' plugin needs to be enabled with Artillery::setPlugin('ensu
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_addEnvironment">
-        addEnvironment()
-        <a href="classes/ArtilleryPhp-Artillery.html#method_addEnvironment" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">385</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Adds an environment to the config&#039;s environments section of the Artillery script with environment-specific config overrides.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">addEnvironment</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/ArtilleryPhp-Artillery.html"><abbr title="\ArtilleryPhp\Artillery">Artillery</abbr></a>|array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$config</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
-
-        <section class="phpdocumentor-description"><p>Either as an array or another Artillery instance (just make sure not to have nested environments defined).</p>
-</section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$name</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The name of the environment.</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$config</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/ArtilleryPhp-Artillery.html"><abbr title="\ArtilleryPhp\Artillery">Artillery</abbr></a>|array&lt;string|int, mixed&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Config overrides for this environment, as an array or another Artillery instance.</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">description</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>When running your performance test, you can specify the environment on the command line using the -e flag.</p>
-</section>
-
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$local = Artillery::new('http://localhost:8080')
-    ->addPhase(['duration' => 30, 'arrivalRate' => 1, 'rampTo' => 10])
-    ->setHttpTimeout(60);
-
-$production = Artillery::new('https://example.com')
-    ->addPhase(['duration' => 300, 'arrivalRate' => 10, 'rampTo' => 100])
-    ->setHttpTimeout(30);
-
-$artillery = Artillery::new()
-    ->addEnvironment('staging', ['target' => 'https://staging.example.com'])
-    ->addEnvironment('production', $production)
-    ->addEnvironment('local', $local);
-</code></pre>
-<pre class="prettyprint"><code class="prettyprint">artillery run -e local my-script.yml</code></pre>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$artillery->addEnvironment('staging', ['target' => 'https://staging.example.com']);
-</code></pre>
-<pre class="prettyprint"><code class="prettyprint">artillery run -e staging my-script.yml</code></pre>
-</section>
-
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">link</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/test-script-reference#environments---config-profiles"> https://www.artillery.io/docs/guides/guides/test-script-reference#environments---config-profiles </a>
-                    
-                                    </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The current Artillery instance.</p>
-</section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_addEnvironments">
-        addEnvironments()
-        <a href="classes/ArtilleryPhp-Artillery.html#method_addEnvironments" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">420</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Adds an array of environments to the config&#039;s environments section of the Artillery script.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">addEnvironments</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string, array|\ArtilleryPhp\Artillery&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$environments</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
-
-        <section class="phpdocumentor-description"><p>Either as arrays or Artillery instances (just make sure not to have nested environments defined).</p>
-</section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$environments</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string, array|\ArtilleryPhp\Artillery&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Environment definitions, as arrays or Artillery instances.</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">description</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>When running your performance test, you can specify the environment on the command line using the -e flag.</p>
-</section>
-
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$local = Artillery::new('http://localhost:8080')
-    ->addPhase(['duration' => 30, 'arrivalRate' => 1, 'rampTo' => 10])
-    ->setHttpTimeout(60);
-
-$production = Artillery::new('https://example.com')
-    ->addPhase(['duration' => 300, 'arrivalRate' => 10, 'rampTo' => 100])
-    ->setHttpTimeout(30);
-
-$defaultEnvironments = [
-    'staging' => ['target' => 'https://staging.example.com'],
-    'production' => $production,
-    'local' => $local
-];
-
-$artillery = Artillery::new()->addEnvironments($defaultEnvironments);
-</code></pre>
-<pre class="prettyprint"><code class="prettyprint">artillery run -e local my-script.yml</code></pre>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$artillery->addEnvironment('staging', ['target' => 'https://staging.example.com']);
-</code></pre>
-<pre class="prettyprint"><code class="prettyprint">artillery run -e staging my-script.yml</code></pre>
-</section>
-
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">link</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/test-script-reference#environments---config-profiles"> https://www.artillery.io/docs/guides/guides/test-script-reference#environments---config-profiles </a>
-                    
-                                    </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The current Artillery instance.</p>
-</section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="method_addPayload">
         addPayload()
         <a href="classes/ArtilleryPhp-Artillery.html#method_addPayload" class="headerlink"><i class="fas fa-link"></i></a>
@@ -883,7 +663,7 @@ $artillery = Artillery::new()->addEnvironments($defaultEnvironments);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">447</span>
+    <span class="phpdocumentor-element-found-in__line">456</span>
 
     </aside>
 
@@ -947,7 +727,7 @@ Payload file options:<br></p>
 </li>
 <li>cast (default: true) - By default, Artillery will convert fields to native types (e.g. numbers or booleans). To keep those fields as strings, set this option to false.<br>
 </li>
-<li>skipEmptyLines (default: true) - By default, Artillery skips empty lines in the payload. Set to false to include empty lines.<br>
+<li>skipEmptyLines (default: true) - By default, Artillery skips empty lines in the payload. Set as false to include empty lines.<br>
 </li>
 <li>loadAll and name - set loadAll to true to provide all rows to each VU, and name to a variable name which will contain the data</li>
 </ul>
@@ -997,7 +777,7 @@ Payload file options:<br></p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">482</span>
+    <span class="phpdocumentor-element-found-in__line">494</span>
 
     </aside>
 
@@ -1035,12 +815,13 @@ Payload file options:<br></p>
 For example, you might have a list of usernames and passwords that you want to use to test authentication in your API.<br>
 Payload file options:<br></p>
 <ul>
+<li>path - Path to the CSV file</li>
 <li>fields - Names of variables to use for each column in the CSV file</li>
 <li>order (default: random) - Control how rows are selected from the CSV file for each new virtual user. This option may be set to sequence to iterate through the rows in a sequence (looping around and starting from the beginning after reaching the last row). Note that this will not work as expected when running distributed tests, as each node will have its own copy of the CSV data.</li>
 <li>skipHeader (default: false) - Set to true to make Artillery skip the first row in the file (typically the header row).</li>
 <li>delimiter (default: ,) - If the payload file uses a delimiter other than a comma, set this option to the delimiter character.</li>
-<li>cast (default: true) - By default, Artillery will convert fields to native types (e.g. numbers or booleans). To keep those fields as strings, set this option to false.</li>
-<li>skipEmptyLines (default: true) - By default, Artillery skips empty lines in the payload. Set to false to include empty lines.</li>
+<li>cast (default: true) - By default, Artillery will convert fields to native types (e.g., numbers or booleans). To keep those fields as strings, set this option to false.</li>
+<li>skipEmptyLines (default: true) - By default, Artillery skips empty lines in the payload. Set as false to include empty lines.</li>
 <li>loadAll and name - set loadAll to true to provide all rows to each VU, and name to a variable name which will contain the data</li>
 </ul>
 </section>
@@ -1056,13 +837,15 @@ Payload file options:<br></p>
     ['path' => 'animals.csv', 'fields' => ['name', 'specie'], 'skipHeader' => true]
 ];
 
-$scenario = Artillery::scenario()
-    ->addRequest(Artillery::request('post', '/login')
-        ->setJsons(['username' => '{{ username }}', 'password' => '{{ password }}']))
-    ->addRequest(Artillery::request('get', '/animals')
-        ->setJsons(['name' => '{{ name }}', 'specie' => '{{ specie }}']));
-
-$artillery = Artillery::new()->addPayloads($defaultPayloads)->addScenario($scenario);
+$artillery = Artillery::new()
+    ->addPayloads($defaultPayloads)
+    ->addScenario(
+        Artillery::scenario()
+            ->addRequest(Artillery::request('post', '/login')
+            ->setJsons(['username' => '{{ username }}', 'password' => '{{ password }}']))
+            ->addRequest(Artillery::request('get', '/animals')
+            ->setJsons(['name' => '{{ name }}', 'specie' => '{{ specie }}']))
+    );
 </code></pre>
 </section>
 
@@ -1097,7 +880,7 @@ $artillery = Artillery::new()->addPayloads($defaultPayloads)->addScenario($scena
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">500</span>
+    <span class="phpdocumentor-element-found-in__line">512</span>
 
     </aside>
 
@@ -1187,7 +970,7 @@ $artillery = Artillery::new()->addPayloads($defaultPayloads)->addScenario($scena
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">522</span>
+    <span class="phpdocumentor-element-found-in__line">534</span>
 
     </aside>
 
@@ -1362,7 +1145,7 @@ $artillery = Artillery::new('https://example.com')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">280</span>
+    <span class="phpdocumentor-element-found-in__line">281</span>
 
     </aside>
 
@@ -1867,7 +1650,7 @@ $artillery = Artillery::new()->addScenarios($defaultScenarios);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">712</span>
+    <span class="phpdocumentor-element-found-in__line">724</span>
 
     </aside>
 
@@ -2047,11 +1830,11 @@ $artillery = Artillery::new()->addScenarios($defaultScenarios);
 
     </aside>
 
-        <p class="phpdocumentor-summary">Add a custom engine to the config section of the Artillery script.</p>
+        <p class="phpdocumentor-summary">Set a custom engine to the config section of the Artillery script.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setEngine</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$options</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setEngine</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$options</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -2067,8 +1850,8 @@ $artillery = Artillery::new()->addScenarios($defaultScenarios);
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$options</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The options for this engine.</p>
 </section>
@@ -2087,8 +1870,7 @@ $artillery = Artillery::new()->addScenarios($defaultScenarios);
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$artillery->setEngine('custom');
-$artillery->set('custom', ['some' => 'setting']);</code></pre>
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$artillery->setEngine('custom');</code></pre>
 </section>
 
                                     </dd>
@@ -2115,34 +1897,273 @@ $artillery->set('custom', ['some' => 'setting']);</code></pre>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">354</span>
+    <span class="phpdocumentor-element-found-in__line">356</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">TODO: document</p>
+        <p class="phpdocumentor-summary">Set an array of custom engine to the config section of the Artillery script.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setEngines</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$engines</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setEngines</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, array|string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$engines</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$engines</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, array|string&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Engines to set. Either just the name of the engine, or an array with the name as the key and the options as value.</p>
+</section>
+
             </dd>
             </dl>
 
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$artillery->setEngines(['custom1', 'custom2' => ['some' => 'setting']]);</code></pre>
+</section>
+
+                                    </dd>
+                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">$this</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>The current Artillery instance.</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setEnvironment">
+        setEnvironment()
+        <a href="classes/ArtilleryPhp-Artillery.html#method_setEnvironment" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">394</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Adds an environment to the config&#039;s environments section of the Artillery script with environment-specific config overrides.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setEnvironment</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/ArtilleryPhp-Artillery.html"><abbr title="\ArtilleryPhp\Artillery">Artillery</abbr></a>|array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$config</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+        <section class="phpdocumentor-description"><p>Either as an array or another Artillery instance (just make sure not to have nested environments defined).</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The name of the environment.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$config</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/ArtilleryPhp-Artillery.html"><abbr title="\ArtilleryPhp\Artillery">Artillery</abbr></a>|array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Config overrides for this environment, as an array or another Artillery instance.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">description</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>When running your performance test, you can specify the environment on the command line using the -e flag.</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$local = Artillery::new('http://localhost:8080')
+    ->addPhase(['duration' => 30, 'arrivalRate' => 1, 'rampTo' => 10])
+    ->setHttpTimeout(60);
+
+$production = Artillery::new('https://example.com')
+    ->addPhase(['duration' => 300, 'arrivalRate' => 10, 'rampTo' => 100])
+    ->setHttpTimeout(30);
+
+$artillery = Artillery::new()
+    ->setEnvironment('staging', ['target' => 'https://staging.example.com'])
+    ->setEnvironment('production', $production)
+    ->setEnvironment('local', $local);
+</code></pre>
+<pre class="prettyprint"><code class="prettyprint">artillery run -e local my-script.yml</code></pre>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$artillery->setEnvironment('staging', ['target' => 'https://staging.example.com']);
+</code></pre>
+<pre class="prettyprint"><code class="prettyprint">artillery run -e staging my-script.yml</code></pre>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/test-script-reference#environments---config-profiles"> https://www.artillery.io/docs/guides/guides/test-script-reference#environments---config-profiles </a>
+                    
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The current Artillery instance.</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setEnvironments">
+        setEnvironments()
+        <a href="classes/ArtilleryPhp-Artillery.html#method_setEnvironments" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">429</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Adds an array of environments to the config&#039;s environments section of the Artillery script.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setEnvironments</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string, array|\ArtilleryPhp\Artillery&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$environments</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+        <section class="phpdocumentor-description"><p>Either as arrays or Artillery instances (just make sure not to have nested environments defined).</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$environments</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string, array|\ArtilleryPhp\Artillery&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Environment definitions, as arrays or Artillery instances.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">description</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>When running your performance test, you can specify the environment on the command line using the -e flag.</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$local = Artillery::new('http://localhost:8080')
+    ->addPhase(['duration' => 30, 'arrivalRate' => 1, 'rampTo' => 10])
+    ->setHttpTimeout(60);
+
+$production = Artillery::new('https://example.com')
+    ->addPhase(['duration' => 300, 'arrivalRate' => 10, 'rampTo' => 100])
+    ->setHttpTimeout(30);
+
+$defaultEnvironments = [
+    'staging' => ['target' => 'https://staging.example.com'],
+    'production' => $production,
+    'local' => $local
+];
+
+$artillery = Artillery::new()->setEnvironments($defaultEnvironments);
+</code></pre>
+<pre class="prettyprint"><code class="prettyprint">artillery run -e local my-script.yml</code></pre>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$artillery->setEnvironment('staging', ['target' => 'https://staging.example.com']);
+</code></pre>
+<pre class="prettyprint"><code class="prettyprint">artillery run -e staging my-script.yml</code></pre>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/test-script-reference#environments---config-profiles"> https://www.artillery.io/docs/guides/guides/test-script-reference#environments---config-profiles </a>
+                    
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The current Artillery instance.</p>
+</section>
+
     
 </article>
                     <article
@@ -2158,7 +2179,7 @@ $artillery->set('custom', ['some' => 'setting']);</code></pre>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">646</span>
+    <span class="phpdocumentor-element-found-in__line">658</span>
 
     </aside>
 
@@ -2237,7 +2258,7 @@ $artillery = Artillery::new()->setHttp('timeout', 30);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">701</span>
+    <span class="phpdocumentor-element-found-in__line">713</span>
 
     </aside>
 
@@ -2308,7 +2329,7 @@ $artillery = Artillery::new()->setHttp('timeout', 30);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">686</span>
+    <span class="phpdocumentor-element-found-in__line">698</span>
 
     </aside>
 
@@ -2368,7 +2389,7 @@ $artillery = Artillery::new()->setHttp('timeout', 30);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">661</span>
+    <span class="phpdocumentor-element-found-in__line">673</span>
 
     </aside>
 
@@ -2438,7 +2459,7 @@ $artillery = Artillery::new()->setHttps(['timeout' => 30, 'maxSockets' => 1]);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">675</span>
+    <span class="phpdocumentor-element-found-in__line">687</span>
 
     </aside>
 
@@ -2509,7 +2530,7 @@ $artillery = Artillery::new()->setHttpTimeout(30);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">551</span>
+    <span class="phpdocumentor-element-found-in__line">563</span>
 
     </aside>
 
@@ -2629,7 +2650,7 @@ $customRequest = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">577</span>
+    <span class="phpdocumentor-element-found-in__line">589</span>
 
     </aside>
 
@@ -2737,7 +2758,7 @@ $expectRequest = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">728</span>
+    <span class="phpdocumentor-element-found-in__line">740</span>
 
     </aside>
 
@@ -2818,7 +2839,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">741</span>
+    <span class="phpdocumentor-element-found-in__line">753</span>
 
     </aside>
 
@@ -2882,7 +2903,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">754</span>
+    <span class="phpdocumentor-element-found-in__line">766</span>
 
     </aside>
 
@@ -2919,7 +2940,7 @@ $request = Artillery::request('get', '/users/1')
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>If false tell Artillery to accept self-signed TLS certificates, which it does not do by default.</p>
+                                                 <section class="phpdocumentor-description"><p>If false, tell Artillery to accept self-signed TLS certificates, which it does not do by default.</p>
 </section>
 
                                     </dd>
@@ -2953,7 +2974,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">605</span>
+    <span class="phpdocumentor-element-found-in__line">617</span>
 
     </aside>
 
@@ -3047,7 +3068,7 @@ $artillery->addRequest(
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">629</span>
+    <span class="phpdocumentor-element-found-in__line">641</span>
 
     </aside>
 
@@ -3065,7 +3086,7 @@ $artillery->addRequest(
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The variables to be set with name as key.</p>
+                    <section class="phpdocumentor-description"><p>The variables to be set with name as the key.</p>
 </section>
 
             </dd>
@@ -3135,7 +3156,7 @@ $artillery->addRequest(
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">772</span>
+    <span class="phpdocumentor-element-found-in__line">784</span>
 
     </aside>
 

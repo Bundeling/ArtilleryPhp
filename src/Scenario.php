@@ -43,6 +43,13 @@ class Scenario {
 
 	/**
 	 * Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be run at the end of this scenario.
+	 * @example <pre><code class="language-php">$artillery = Artillery::new()
+	 *     	->setProcessor('./helpers.js');
+	 *
+	 * $scenario = Artillery::scenario()
+	 *     ->addAfterScenario('validateResponse')
+	 *     ->addRequest(Artillery::request('get', '/users/1'));
+	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#setting-scenario-level-hooks
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#function-actions-and-beforescenario--afterscenario-hooks
 	 * @param string|string[] $function The function or array of functions to add.
@@ -61,10 +68,11 @@ class Scenario {
 	 *     	->setProcessor('./helpers.js');
 	 *
 	 * $scenario = Artillery::scenario()
-	 *     ->addBeforeScenario(['message', 'random'])
+	 *     ->addBeforeScenario(['setMessageVar', 'setRandomVar'])
 	 *     ->addRequest(Artillery::request('post', '/message')
 	 *         ->setJson('message', '{{ message }}')
 	 *         ->setJson('number', '{{ random }}'));
+	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#setting-scenario-level-hooks
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#function-actions-and-beforescenario--afterscenario-hooks
 	 * @param string|string[] $function The function or array of functions to add.
@@ -184,7 +192,7 @@ class Scenario {
 	 * Adds a loop to the flow, which can be another Scenario, a request or an array of either.
 	 * To make it even more fun, loops can be nested.
 	 * @param Scenario|RequestInterface|(Scenario|RequestInterface)[]  $loop A Scenario, Request or array containing these types.
-	 * @param ?int $count The number of times to loop.
+	 * @param int|null $count The number of times to loop.
 	 * @param string|null $over The variable reference to loop over.
 	 * @param string|null $whileTrue The condition to continue looping.
 	 * @return $this The current Scenario instance.
@@ -200,7 +208,7 @@ class Scenario {
 	public function addLoop(array|Scenario|RequestInterface $loop, int $count = null, string $over = null, string $whileTrue = null): self {
 		if ($loop instanceof Scenario) $ret = ['loop' => $loop->getFlow()];
 		elseif ($loop instanceof RequestInterface) $ret = ['loop' => [$loop->toArray()]];
-		else if (is_array($loop)) {
+		elseif (is_array($loop)) {
 			$ret = ['loop' => []];
 			foreach ($loop as $l) {
 				if ($l instanceof Scenario) $ret['loop'] = array_merge($ret['loop'], $l->getFlow());
@@ -227,7 +235,8 @@ class Scenario {
 	 *     ->addLog('Creating user {{ username }}.')
 	 *     ->addRequest(Artillery::request('post', '/new/{{ username }}'))
 	 *     ->addLog('Changing name to {{ name }}.')
-	 *     ->addRequest(Artillery::request('put', '/change/{{ username }}', ['name' => '{{ name }}']));
+	 *     ->addRequest(Artillery::request('put', '/change/{{ username }}')
+	 *         ->setJson('name', '{{ name }}'));
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#logging
 	 */
@@ -240,17 +249,18 @@ class Scenario {
 	 * Adds a pause segment to the flow to pause the virtual user for N seconds.
 	 * @description The argument to think is the number of second to pause for.<br>
 	 * Floating numbers are supported, e.g., 0.5 pauses for half a second.
-	 * @param float|int $duration The duration of the pause in seconds.
+	 * @param float $duration The duration of the pause in seconds.
 	 * @param string|null $ifTrue The condition for this pause to be run
 	 * @return $this The current Scenario instance.
 	 * @example <pre><code class="language-php">$scenario = Artillery::scenario()
 	 *     ->addRequest(Artillery::request('post', '/new/{{ username }}'))
 	 *     ->addThink(0.5)
-	 *     ->addRequest(Artillery::request('put', '/change/{{ username }}', ['name' => '{{ name }}']));
+	 *     ->addRequest(Artillery::request('put', '/change/{{ username }}')
+	 *         ->setJson('name', '{{ name }}'));
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#pausing-execution-with-think
 	 */
-	public function addThink(float|int $duration, string $ifTrue = null): self {
+	public function addThink(float $duration, string $ifTrue = null): self {
 		$this->flow[] = ['think' => $duration] + ($ifTrue ? ['ifTrue' => $ifTrue] : []);
 		return $this;
 	}

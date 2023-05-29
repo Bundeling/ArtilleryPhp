@@ -88,23 +88,23 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AsetEngine\u0028\u0029",
             "name": "setEngine",
-            "summary": "Add\u0020a\u0020custom\u0020engine\u0020to\u0020the\u0020config\u0020section\u0020of\u0020the\u0020Artillery\u0020script.",
+            "summary": "Set\u0020a\u0020custom\u0020engine\u0020to\u0020the\u0020config\u0020section\u0020of\u0020the\u0020Artillery\u0020script.",
             "url": "classes/ArtilleryPhp-Artillery.html#method_setEngine"
         },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AsetEngines\u0028\u0029",
             "name": "setEngines",
-            "summary": "TODO\u003A\u0020document",
+            "summary": "Set\u0020an\u0020array\u0020of\u0020custom\u0020engine\u0020to\u0020the\u0020config\u0020section\u0020of\u0020the\u0020Artillery\u0020script.",
             "url": "classes/ArtilleryPhp-Artillery.html#method_setEngines"
         },                {
-            "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AaddEnvironment\u0028\u0029",
-            "name": "addEnvironment",
+            "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AsetEnvironment\u0028\u0029",
+            "name": "setEnvironment",
             "summary": "Adds\u0020an\u0020environment\u0020to\u0020the\u0020config\u0027s\u0020environments\u0020section\u0020of\u0020the\u0020Artillery\u0020script\u0020with\u0020environment\u002Dspecific\u0020config\u0020overrides.",
-            "url": "classes/ArtilleryPhp-Artillery.html#method_addEnvironment"
+            "url": "classes/ArtilleryPhp-Artillery.html#method_setEnvironment"
         },                {
-            "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AaddEnvironments\u0028\u0029",
-            "name": "addEnvironments",
+            "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AsetEnvironments\u0028\u0029",
+            "name": "setEnvironments",
             "summary": "Adds\u0020an\u0020array\u0020of\u0020environments\u0020to\u0020the\u0020config\u0027s\u0020environments\u0020section\u0020of\u0020the\u0020Artillery\u0020script.",
-            "url": "classes/ArtilleryPhp-Artillery.html#method_addEnvironments"
+            "url": "classes/ArtilleryPhp-Artillery.html#method_setEnvironments"
         },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AaddPayload\u0028\u0029",
             "name": "addPayload",
@@ -238,12 +238,22 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetForm\u0028\u0029",
             "name": "setForm",
-            "summary": "URL\u002Dencoded\u0020form\u0020\u0028application\/x\u002Dwww\u002Dform\u002Durlencoded\u0029.",
+            "summary": "Set\u0020a\u0020URL\u002Dencoded\u0020form\u0020attribute\u0020\u0028application\/x\u002Dwww\u002Dform\u002Durlencoded\u0029.",
             "url": "classes/ArtilleryPhp-Request.html#method_setForm"
+        },                {
+            "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetForms\u0028\u0029",
+            "name": "setForms",
+            "summary": "Set\u0020an\u0020array\u0020of\u0020URL\u002Dencoded\u0020form\u0020attributes\u0020\u0028application\/x\u002Dwww\u002Dform\u002Durlencoded\u0029.",
+            "url": "classes/ArtilleryPhp-Request.html#method_setForms"
+        },                {
+            "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetFormDatas\u0028\u0029",
+            "name": "setFormDatas",
+            "summary": "Set\u0020an\u0020array\u0020of\u0020Multipart\/form\u002Ddata\u0020form\u0020attributes\u0020\u0028forms\u0020containing\u0020files,\u0020non\u002DASCII\u0020data,\u0020and\u0020binary\u0020data\u0029.",
+            "url": "classes/ArtilleryPhp-Request.html#method_setFormDatas"
         },                {
             "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetFormData\u0028\u0029",
             "name": "setFormData",
-            "summary": "Multipart\/form\u002Ddata\u0020form\u0020\u0028forms\u0020containing\u0020files,\u0020non\u002DASCII\u0020data,\u0020and\u0020binary\u0020data\u0029.",
+            "summary": "Set\u0020a\u0020Multipart\/form\u002Ddata\u0020form\u0020attribute\u0020\u0028forms\u0020containing\u0020files,\u0020non\u002DASCII\u0020data,\u0020and\u0020binary\u0020data\u0029.",
             "url": "classes/ArtilleryPhp-Request.html#method_setFormData"
         },                {
             "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetGzip\u0028\u0029",

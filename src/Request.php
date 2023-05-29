@@ -100,27 +100,57 @@ class Request extends RequestBase {
 	}
 
 	/**
-	 * URL-encoded form (application/x-www-form-urlencoded).
-	 * @param array $form An array of form data to set.
+	 * Set a URL-encoded form attribute (application/x-www-form-urlencoded).
+	 * @param string $key The key of the form data to set.
+	 * @param mixed $value The value of the form data to set.
 	 * @return $this The current Request instance.
 	 * @example <pre><code class="language-php">$request = Artillery::request('post', '/submit')
-	 *     ->setForm(['name' => 'Swanson', 'vote' => 'Hamburger']);
+	 *     ->setForm('name', 'Swanson')
+	 *     ->setForm('vote', 'Hamburger');
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#url-encoded-forms-applicationx-www-form-urlencoded
 	 */
-	public function setForm(array $form): self {
-		$this->request['form'] = $form;
+	public function setForm(string $key, mixed $value): self {
+		if (!@$this->request['form']) $this->request['form'] = [];
+		$this->request['form'][$key] = $value;
 		return $this;
 	}
 
 	/**
-	 * Multipart/form-data form (forms containing files, non-ASCII data, and binary data).
+	 * Set an array of URL-encoded form attributes (application/x-www-form-urlencoded).
+	 * @param array $form An array of form data to set. As [key => value, ...].
+	 * @return $this The current Request instance.
+	 * @example <pre><code class="language-php">$request = Artillery::request('post', '/submit')
+	 *     ->setForms(['name' => 'Swanson', 'vote' => 'Hamburger']);
+	 * </code></pre>
+	 * @link https://www.artillery.io/docs/guides/guides/http-reference#url-encoded-forms-applicationx-www-form-urlencoded
+	 */
+	public function setForms(array $form): self {
+		foreach ($form as $key => $value) $this->setForm($key, $value);
+		return $this;
+	}
+
+	/**
+	 * Set an array of Multipart/form-data form attributes (forms containing files, non-ASCII data, and binary data).
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#multipart-forms-multipartform-data
 	 * @param array $formData An array of form data to set.
 	 * @return $this The current Request instance.
 	 */
-	public function setFormData(array $formData): self {
-		$this->request['formData'] = $formData;
+	public function setFormDatas(array $formData): self {
+		foreach ($formData as $key => $value) $this->setFormData($key, $value);
+		return $this;
+	}
+
+	/**
+	 * Set a Multipart/form-data form attribute (forms containing files, non-ASCII data, and binary data).
+	 * @link https://www.artillery.io/docs/guides/guides/http-reference#multipart-forms-multipartform-data
+	 * @param string $key The key of the form data to set.
+	 * @param mixed $value The value of the form data to set.
+	 * @return $this The current Request instance.
+	 */
+	public function setFormData(string $key, mixed $value): self {
+		if (!@$this->request['formData']) $this->request['formData'] = [];
+		$this->request['formData'][$key] = $value;
 		return $this;
 	}
 

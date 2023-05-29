@@ -174,7 +174,7 @@ Please refer to the docs: https://artilleryphp.netlify.app/classes/artilleryphp-
 - `addEnsureCondition(expression: string, [strict: bool = true])`
 - `addEnsureThreshold(metricName: string, value: int)`
 - `setEngine(name: string, [options: array = [...]])`
-- `addEnvironment(name: string, config: array):`
+- `setEnvironment(name: string, config: array):`
 - `addPayload(path: string, fields: array, [options: array = [...]])`
 - `addPhase(phase: array, [name: null|string = null])`
 - `setPlugin(name: string, [options: array = [...]])`

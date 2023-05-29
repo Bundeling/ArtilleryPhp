@@ -255,9 +255,10 @@ class Artillery {
 	 * @return $this The current Artillery instance.
 	 */
 	public function addScenario(array|Scenario|RequestInterface $scenario, array $options = null): self {
-		if ($scenario instanceof Scenario) $this->scenarios[] = array_merge($scenario->toArray(), $options ?? []);
-		else if ($scenario instanceof RequestInterface) $this->scenarios[] = ['flow' => [$scenario->toArray()]] + ($options ?? []);
-		else $this->scenarios[] = ['flow' => [array_map(fn($r) => $r->toArray(), $scenario)]] + ($options ?? []);
+		$options ??= [];
+		if ($scenario instanceof Scenario) $this->scenarios[] = array_merge($scenario->toArray(), $options);
+		elseif ($scenario instanceof RequestInterface) $this->scenarios[] = ['flow' => [$scenario->toArray()]] + $options;
+		else $this->scenarios[] = ['flow' => [array_map(fn($r) => $r->toArray(), $scenario)]] + $options;
 		return $this;
 	}
 
@@ -333,26 +334,34 @@ class Artillery {
 	}
 
 	/**
-	 * Add a custom engine to the config section of the Artillery script.
-	 * @example <pre><code class="language-php">$artillery->setEngine('custom');
-	 * $artillery->set('custom', ['some' => 'setting']);</code></pre>
+	 * Set a custom engine to the config section of the Artillery script.
 	 * @param string $name The name of the engine.
-	 * @param array $options The options for this engine.
+	 * @param array|null $options The options for this engine.
 	 * @return $this The current Artillery instance.
+	 * @example <pre><code class="language-php">$artillery->setEngine('custom');</code></pre>
 	 */
-	public function setEngine(string $name, array $options = []): self {
+	public function setEngine(string $name, array $options = null): self {
+		$options ??= [];
 		if (!@$this->config['engines']) $this->config['engines'] = [];
 		$this->config['engines'][$name] = $options;
 		return $this;
 	}
 
 	/**
-	 *  TODO: document
-	 * @param array $engines
-	 * @return $this
+	 * Set an array of custom engine to the config section of the Artillery script.
+	 * @example <pre><code class="language-php">$artillery->setEngines(['custom1', 'custom2' => ['some' => 'setting']]);</code></pre>
+	 * @param array<string|int, array|string> $engines Engines to set. Either just the name of the engine, or an array with the name as the key and the options as value.
+	 * @return $this The current Artillery instance.
 	 */
 	public function setEngines(array $engines): self {
-		foreach ($engines as $name => $options) $this->setEngine($name, $options);
+		foreach ($engines as $name => $options) {
+			if (is_int($name)) {
+				$name = $options;
+				$options = null;
+			}
+
+			$this->setEngine($name, $options);
+		}
 		return $this;
 	}
 
@@ -369,20 +378,20 @@ class Artillery {
 	 *     ->setHttpTimeout(30);
 	 *
 	 * $artillery = Artillery::new()
-	 *     ->addEnvironment('staging', ['target' => 'https://staging.example.com'])
-	 *     ->addEnvironment('production', $production)
-	 *     ->addEnvironment('local', $local);
+	 *     ->setEnvironment('staging', ['target' => 'https://staging.example.com'])
+	 *     ->setEnvironment('production', $production)
+	 *     ->setEnvironment('local', $local);
 	 * </code></pre>
 	 * <pre><code>artillery run -e local my-script.yml</code></pre>
 	 * @param string $name The name of the environment.
 	 * @param Artillery|array $config Config overrides for this environment, as an array or another Artillery instance.
 	 * @return $this The current Artillery instance.
 	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#environments---config-profiles
-	 * @example <pre><code class="language-php">$artillery->addEnvironment('staging', ['target' => 'https://staging.example.com']);
+	 * @example <pre><code class="language-php">$artillery->setEnvironment('staging', ['target' => 'https://staging.example.com']);
 	 * </code></pre>
 	 * <pre><code>artillery run -e staging my-script.yml</code></pre>
 	 */
-	public function addEnvironment(string $name, Artillery|array $config): self {
+	public function setEnvironment(string $name, Artillery|array $config): self {
 		if (!@$this->config['environments']) $this->config['environments'] = [];
 		if ($config instanceof Artillery) $this->config['environments'][$name] = $config->config;
 	    else $this->config['environments'][$name] = $config;
@@ -407,18 +416,18 @@ class Artillery {
 	 *     'local' => $local
 	 * ];
 	 *
-	 * $artillery = Artillery::new()->addEnvironments($defaultEnvironments);
+	 * $artillery = Artillery::new()->setEnvironments($defaultEnvironments);
 	 * </code></pre>
 	 * <pre><code>artillery run -e local my-script.yml</code></pre>
 	 * @param array<string, array|Artillery> $environments Environment definitions, as arrays or Artillery instances.
 	 * @return $this The current Artillery instance.
 	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#environments---config-profiles
-	 * @example <pre><code class="language-php">$artillery->addEnvironment('staging', ['target' => 'https://staging.example.com']);
+	 * @example <pre><code class="language-php">$artillery->setEnvironment('staging', ['target' => 'https://staging.example.com']);
 	 * </code></pre>
 	 * <pre><code>artillery run -e staging my-script.yml</code></pre>
 	 */
-	public function addEnvironments(array $environments): self {
-		foreach ($environments as $name => $config) $this->addEnvironment($name, $config);
+	public function setEnvironments(array $environments): self {
+		foreach ($environments as $name => $config) $this->setEnvironment($name, $config);
 		return $this;
 	}
 
@@ -431,7 +440,7 @@ class Artillery {
 	 *  * skipHeader (default: false) - Set to true to make Artillery skip the first row in the file (typically the header row).<br>
 	 *  * delimiter (default: ,) - If the payload file uses a delimiter other than a comma, set this option to the delimiter character.<br>
 	 *  * cast (default: true) - By default, Artillery will convert fields to native types (e.g. numbers or booleans). To keep those fields as strings, set this option to false.<br>
-	 *  * skipEmptyLines (default: true) - By default, Artillery skips empty lines in the payload. Set to false to include empty lines.<br>
+	 *  * skipEmptyLines (default: true) - By default, Artillery skips empty lines in the payload. Set as false to include empty lines.<br>
 	 *  * loadAll and name - set loadAll to true to provide all rows to each VU, and name to a variable name which will contain the data
 	 * @example <pre><code class="language-php">$artillery = Artillery::new()
 	 *     ->addPayload('users.csv', ['username', 'password'], ['skipHeader' => true])
@@ -455,25 +464,28 @@ class Artillery {
 	 * @description You can use a CSV file to provide dynamic data to test scripts.<br>
 	 * For example, you might have a list of usernames and passwords that you want to use to test authentication in your API.<br>
 	 * Payload file options:<br>
+	 *  * path - Path to the CSV file
 	 *  * fields - Names of variables to use for each column in the CSV file
 	 *  * order (default: random) - Control how rows are selected from the CSV file for each new virtual user. This option may be set to sequence to iterate through the rows in a sequence (looping around and starting from the beginning after reaching the last row). Note that this will not work as expected when running distributed tests, as each node will have its own copy of the CSV data.
 	 *  * skipHeader (default: false) - Set to true to make Artillery skip the first row in the file (typically the header row).
 	 *  * delimiter (default: ,) - If the payload file uses a delimiter other than a comma, set this option to the delimiter character.
-	 *  * cast (default: true) - By default, Artillery will convert fields to native types (e.g. numbers or booleans). To keep those fields as strings, set this option to false.
-	 *  * skipEmptyLines (default: true) - By default, Artillery skips empty lines in the payload. Set to false to include empty lines.
+	 *  * cast (default: true) - By default, Artillery will convert fields to native types (e.g., numbers or booleans). To keep those fields as strings, set this option to false.
+	 *  * skipEmptyLines (default: true) - By default, Artillery skips empty lines in the payload. Set as false to include empty lines.
 	 *  * loadAll and name - set loadAll to true to provide all rows to each VU, and name to a variable name which will contain the data
 	 * @example <pre><code class="language-php">$defaultPayloads = [
 	 *     ['path' => 'users.csv', 'fields' => ['username', 'password'], 'skipHeader' => true]
 	 *     ['path' => 'animals.csv', 'fields' => ['name', 'specie'], 'skipHeader' => true]
 	 * ];
 	 *
-	 * $scenario = Artillery::scenario()
-	 *     ->addRequest(Artillery::request('post', '/login')
-	 *         ->setJsons(['username' => '{{ username }}', 'password' => '{{ password }}']))
-	 *     ->addRequest(Artillery::request('get', '/animals')
-	 *         ->setJsons(['name' => '{{ name }}', 'specie' => '{{ specie }}']));
-	 *
-	 * $artillery = Artillery::new()->addPayloads($defaultPayloads)->addScenario($scenario);
+	 * $artillery = Artillery::new()
+	 *     ->addPayloads($defaultPayloads)
+	 *     ->addScenario(
+	 *         Artillery::scenario()
+	 *             ->addRequest(Artillery::request('post', '/login')
+	 *             ->setJsons(['username' => '{{ username }}', 'password' => '{{ password }}']))
+	 *             ->addRequest(Artillery::request('get', '/animals')
+	 *             ->setJsons(['name' => '{{ name }}', 'specie' => '{{ specie }}']))
+	 *     );
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#payload---loading-data-from-csv-files
 	 * @param array<'path'|'fields'|'order'|'skipHeader'|'delimiter'|'cast'|'skipEmptyLines'|'loadAll'|'name', string|bool>[] $payloads Payloads to be added.
@@ -623,7 +635,7 @@ class Artillery {
 	 *      ->setJsons(['username' => '{{ username }}', 'password' => '{{ password }}']);
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#variables---inline-variables
-	 * @param array<string, mixed> $variables The variables to be set with name as key.
+	 * @param array<string, mixed> $variables The variables to be set with name as the key.
 	 * @return $this The current Artillery instance.
 	 */
 	public function setVariables(array $variables): self {
@@ -746,7 +758,7 @@ class Artillery {
 	/**
 	 * Reject self-signed Tls certificates.
 	 * Set the tls 'rejectUnauthorized' property of the config section of the Artillery script.
-	 * @description If false tell Artillery to accept self-signed TLS certificates, which it does not do by default.
+	 * @description If false, tell Artillery to accept self-signed TLS certificates, which it does not do by default.
 	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#tls---self-signed-certificates
 	 * @param bool $rejectUnauthorized Whether to reject unauthorized tls certificates.
 	 * @return $this The current Artillery instance.

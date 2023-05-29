@@ -4,8 +4,8 @@ require __DIR__ . '/../../vendor/autoload.php';
 use ArtilleryPhp\Artillery;
 
 $artillery = Artillery::new('http://localhost:3000')
-	->addEnvironment('load', ['phases' => [['duration' => 600, 'arrivalRate' => 25]]])
-	->addEnvironment('functional', ['plugins' => ['expect' => []]]);
+	->setEnvironment('load', ['phases' => [['duration' => 600, 'arrivalRate' => 25]]])
+	->setEnvironment('functional', ['plugins' => ['expect' => []]]);
 
 $postUserRequest = Artillery::request('post', '/users')
 	->setJson('username', 'new-user')

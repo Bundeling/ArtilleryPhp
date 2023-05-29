@@ -81,9 +81,8 @@ abstract class RequestBase implements RequestInterface {
 		$capture['as'] = $as;
 		if ($strict === false) $capture['strict'] = false;
 
-		if (!@$this->request['capture']) $this->request['capture'] = $capture;
-		elseif (!is_array(array_values($this->request['capture'])[0])) $this->request['capture'] = [$this->request['capture'], $capture];
-		else $this->request['capture'][] = $capture;
+		if (!@$this->request['capture']) $this->request['capture'] = [];
+		$this->request['capture'][] = $capture;
 		return $this;
 	}
 
@@ -109,13 +108,12 @@ abstract class RequestBase implements RequestInterface {
 	 *   ->setPayload(['id' => '{{ id }}', 'msg' => 'Hello {{ name }}!']);
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#extracting-and-re-using-parts-of-a-response-request-chaining
-	 * @param array<string, string>[] $captures An array of capture objects. E.g. [['as' => 'user_id', 'json' => '$.id'], [...etc]].
+	 * @param array<'as'|'json'|'xpath'|'regexp'|'header'|'selector'|'attr'|'index'|'strict', int|string>[] $captures An array of capture objects. E.g. [['as' => 'user_id', 'json' => '$.id'], [...etc]].
 	 * @return $this The current Request instance.
 	 */
 	public function addCaptures(array $captures): self {
-		if (!@$this->request['capture']) $this->request['capture'] = $captures;
-		elseif (!is_array(array_values($this->request['capture'])[0])) $this->request['capture'] = [$this->request['capture'], ...$captures];
-		else $this->request['capture'][] = array_merge($this->request['capture'], $captures);
+		if (!@$this->request['capture']) $this->request['capture'] = [];
+		$this->request['capture'] = array_merge($this->request['capture'], $captures);
 		return $this;
 	}
 
@@ -157,7 +155,7 @@ abstract class RequestBase implements RequestInterface {
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions#expectations
 	 * @link https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions
-	 * @param array{'statusCode'|'notStatusCode'|'contentType'|'hasProperty'|'notHasProperty'|'equals'|'hasHeader'|'headerEquals'|'matchesRegexp'|'cdnHit', mixed} $expects
+	 * @param array<'statusCode'|'notStatusCode'|'contentType'|'hasProperty'|'notHasProperty'|'equals'|'hasHeader'|'headerEquals'|'matchesRegexp'|'cdnHit', mixed>[] $expects
 	 * @return $this The current Request instance.
 	 */
 	public function addExpects(array $expects): self {
@@ -166,17 +164,40 @@ abstract class RequestBase implements RequestInterface {
 	}
 
 	/**
-	 * Warning: I can't find much about this.
-	 * See {@link https://github.com/search?q=repo%3Aartilleryio%2Fartillery%20match%3A&type=code}.
-	 * @todo Test this.
+	 * Adds a matching statement to the request, similar to a capture but without an 'as' alias.
+	 * @example <pre><code class="language-php">$request = Artillery::request('get', '/users')
+	 *     ->addMatch('json', '$[0].name', 'John');
 	 * @param 'json'|'xpath'|'regexp'|'header'|'selector' $type The type of capture expression.
 	 * @param string $expression The capture expression.
-	 * @param string $value The value to match against the capture.
+	 * @param mixed $value The value to match against the capture.
 	 * @return $this The current Request instance.
 	 */
-	public function addMatch(string $type, string $expression, string $value): self {
+	public function addMatch(string $type, string $expression, mixed $value, bool $strict = true, string $attr = null, int|string $index = null): self {
+		$match = [$type => $expression, 'value' => $value];
+		if ($expression === 'selector') {
+			if ($index !== null) $match['index'] = $index;
+			if ($attr) $match['attr'] = $attr;
+		}
+		if ($strict === false) $match['strict'] = false;
+
 		if (!@$this->request['match']) $this->request['match'] = [];
-		$this->request['match'][] = [$type => $expression, 'value' => $value];
+		$this->request['match'][] = $match;
+		return $this;
+	}
+
+	/**
+	 * Adds an array of matching statement to the request, similar to a capture but without an 'as' alias.
+	 * @example <pre><code class="language-php">$request = Artillery::request('get', '/users')
+	 *     ->addMatches([
+	 *         ['json' => '$[0].name', 'value' => 'John'],
+	 *         ['json' => '$[1].name', 'value' => 'Jane']
+	 *     ]);
+	 * @param array<'json'|'xpath'|'regexp'|'header'|'selector'|'value'|'strict'|'attr'|'index', mixed>[] $matches
+	 * @return $this The current Request instance.
+	 */
+	public function addMatches(array $matches): self {
+		if (!@$this->request['match']) $this->request['match'] = [];
+		$this->request['match'] = array_merge($this->request['match'], $matches);
 		return $this;
 	}
 }

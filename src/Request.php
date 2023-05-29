@@ -13,6 +13,7 @@ namespace ArtilleryPhp;
  * @link https://www.artillery.io/docs/guides/guides/http-reference
  */
 class Request extends RequestBase {
+	/** @var array @internal */ protected mixed $request = [];
 
 	/**
 	 * Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed after the response is received where the response can be inspected, and custom variables can be set.

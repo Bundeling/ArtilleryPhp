@@ -81,10 +81,20 @@ Search.appendIndex(
             "summary": "Adds\u0020an\u0020\u0027ensure\u0027\u0020condition\u0020to\u0020the\u0020Artillery\u0020script.\u0020Metrics\u0020are\u0020listed\u0020in\u0020the\u0020report\u0020output.",
             "url": "classes/ArtilleryPhp-Artillery.html#method_addEnsureCondition"
         },                {
+            "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AaddEnsureConditions\u0028\u0029",
+            "name": "addEnsureConditions",
+            "summary": "Adds\u0020an\u0020array\u0020of\u0020\u0027ensure\u0027\u0020conditions\u0020to\u0020the\u0020Artillery\u0020script.\u0020Metrics\u0020are\u0020listed\u0020in\u0020the\u0020report\u0020output.",
+            "url": "classes/ArtilleryPhp-Artillery.html#method_addEnsureConditions"
+        },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AaddEnsureThreshold\u0028\u0029",
             "name": "addEnsureThreshold",
             "summary": "Adds\u0020an\u0020\u0027ensure\u0027\u0020threshold\u0020to\u0020the\u0020config\u0020section\u0020of\u0020the\u0020Artillery\u0020script.",
             "url": "classes/ArtilleryPhp-Artillery.html#method_addEnsureThreshold"
+        },                {
+            "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AaddEnsureThresholds\u0028\u0029",
+            "name": "addEnsureThresholds",
+            "summary": "Adds\u0020an\u0020array\u0020of\u0020\u0027ensure\u0027\u0020thresholds\u0020to\u0020the\u0020config\u0020section\u0020of\u0020the\u0020Artillery\u0020script.",
+            "url": "classes/ArtilleryPhp-Artillery.html#method_addEnsureThresholds"
         },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AsetEngine\u0028\u0029",
             "name": "setEngine",
@@ -305,6 +315,11 @@ Search.appendIndex(
             "name": "setUrl",
             "summary": "Set\u0020the\u0020URL\u0020to\u0020send\u0020the\u0020request\u0020to,\u0020it\u0020can\u0020be\u0020fully\u0020qualified\u0020or\u0020relative\u0020to\u0020the\u0020Artillery\u0020script\u0020target\u0020URL.",
             "url": "classes/ArtilleryPhp-Request.html#method_setUrl"
+        },                {
+            "fqsen": "\\ArtilleryPhp\\Request\u003A\u003A\u0024request",
+            "name": "request",
+            "summary": "",
+            "url": "classes/ArtilleryPhp-Request.html#property_request"
         },                {
             "fqsen": "\\ArtilleryPhp\\RequestBase",
             "name": "RequestBase",

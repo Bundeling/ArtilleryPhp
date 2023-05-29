@@ -181,11 +181,25 @@ file_put_contents(__DIR__ . '/artillery.yaml', $artillery->toYaml());
 <dd>Adds an &#039;ensure&#039; condition to the Artillery script. Metrics are listed in the report output.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/ArtilleryPhp-Artillery.html#method_addEnsureConditions">addEnsureConditions()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Adds an array of &#039;ensure&#039; conditions to the Artillery script. Metrics are listed in the report output.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Artillery.html#method_addEnsureThreshold">addEnsureThreshold()</a>
     <span>
                                 &nbsp;: $this    </span>
 </dt>
 <dd>Adds an &#039;ensure&#039; threshold to the config section of the Artillery script.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/ArtilleryPhp-Artillery.html#method_addEnsureThresholds">addEnsureThresholds()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Adds an array of &#039;ensure&#039; thresholds to the config section of the Artillery script.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ArtilleryPhp-Artillery.html#method_addPayload">addPayload()</a>
@@ -564,6 +578,105 @@ The built-in 'ensure' plugin needs to be enabled with Artillery::setPlugin('ensu
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_addEnsureConditions">
+        addEnsureConditions()
+        <a href="classes/ArtilleryPhp-Artillery.html#method_addEnsureConditions" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">333</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Adds an array of &#039;ensure&#039; conditions to the Artillery script. Metrics are listed in the report output.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">addEnsureConditions</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$thresholds</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$thresholds</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">description</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Artillery can validate if a metrics value meets a predefined threshold. If it doesn't, it will exit with a non-zero exit code.<br>
+Setting strict: false on a condition will make that check optional. Failing optional checks do not cause Artillery to exit with a non-zero exit code. Checks are strict by default.<br>
+The built-in 'ensure' plugin needs to be enabled with Artillery::setPlugin('ensure') for this feature.</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$artillery = Artillery::new()
+    ->setPlugin('ensure')
+    ->addEnsureConditions([
+        ['http.response_time.p95 < 250 and http.request_rate > 1000'],
+        ['http.response_time.p95 < 250 and http.request_rate > 1000', false],
+    );
+</code></pre>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/test-script-reference#advanced-conditional-checks"> https://www.artillery.io/docs/guides/guides/test-script-reference#advanced-conditional-checks </a>
+                    
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/guides/test-script-reference#ensure---slo-checks"> https://www.artillery.io/docs/guides/guides/test-script-reference#ensure---slo-checks </a>
+                    
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://www.artillery.io/docs/guides/plugins/plugins-overview"> https://www.artillery.io/docs/guides/plugins/plugins-overview </a>
+                    
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The current Artillery instance.</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_addEnsureThreshold">
         addEnsureThreshold()
         <a href="classes/ArtilleryPhp-Artillery.html#method_addEnsureThreshold" class="headerlink"><i class="fas fa-link"></i></a>
@@ -571,7 +684,7 @@ The built-in 'ensure' plugin needs to be enabled with Artillery::setPlugin('ensu
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">329</span>
+    <span class="phpdocumentor-element-found-in__line">354</span>
 
     </aside>
 
@@ -656,6 +769,83 @@ The built-in 'ensure' plugin needs to be enabled with Artillery::setPlugin('ensu
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_addEnsureThresholds">
+        addEnsureThresholds()
+        <a href="classes/ArtilleryPhp-Artillery.html#method_addEnsureThresholds" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">374</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Adds an array of &#039;ensure&#039; thresholds to the config section of the Artillery script.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">addEnsureThresholds</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, array&lt;string, int&gt;&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$thresholds</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$thresholds</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, array&lt;string, int&gt;&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>An array of thresholds to add to the config section of the Artillery script.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">description</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Artillery can validate if a metrics value meets a predefined threshold. If it doesn't, it will exit with a non-zero exit code.<br>
+The built-in 'ensure' plugin needs to be enabled with Artillery::setPlugin('ensure') for this feature.</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$artillery = Artillery::new()
+    ->setPlugin('ensure')
+    ->addEnsureThresholds([
+        ['http.response_time.p99' => 250],
+	       ['http.response_time.p95' => 100]]);
+</code></pre>
+</section>
+
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The current Artillery instance.</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_addPayload">
         addPayload()
         <a href="classes/ArtilleryPhp-Artillery.html#method_addPayload" class="headerlink"><i class="fas fa-link"></i></a>
@@ -663,7 +853,7 @@ The built-in 'ensure' plugin needs to be enabled with Artillery::setPlugin('ensu
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">456</span>
+    <span class="phpdocumentor-element-found-in__line">501</span>
 
     </aside>
 
@@ -777,7 +967,7 @@ Payload file options:<br></p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">494</span>
+    <span class="phpdocumentor-element-found-in__line">539</span>
 
     </aside>
 
@@ -880,7 +1070,7 @@ $artillery = Artillery::new()
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">512</span>
+    <span class="phpdocumentor-element-found-in__line">557</span>
 
     </aside>
 
@@ -970,7 +1160,7 @@ $artillery = Artillery::new()
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">534</span>
+    <span class="phpdocumentor-element-found-in__line">579</span>
 
     </aside>
 
@@ -1650,7 +1840,7 @@ $artillery = Artillery::new()->addScenarios($defaultScenarios);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">724</span>
+    <span class="phpdocumentor-element-found-in__line">769</span>
 
     </aside>
 
@@ -1826,7 +2016,7 @@ $artillery = Artillery::new()->addScenarios($defaultScenarios);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">343</span>
+    <span class="phpdocumentor-element-found-in__line">388</span>
 
     </aside>
 
@@ -1897,7 +2087,7 @@ $artillery = Artillery::new()->addScenarios($defaultScenarios);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">356</span>
+    <span class="phpdocumentor-element-found-in__line">401</span>
 
     </aside>
 
@@ -1959,7 +2149,7 @@ $artillery = Artillery::new()->addScenarios($defaultScenarios);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">394</span>
+    <span class="phpdocumentor-element-found-in__line">439</span>
 
     </aside>
 
@@ -2072,7 +2262,7 @@ $artillery = Artillery::new()
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">429</span>
+    <span class="phpdocumentor-element-found-in__line">474</span>
 
     </aside>
 
@@ -2179,7 +2369,7 @@ $artillery = Artillery::new()->setEnvironments($defaultEnvironments);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">658</span>
+    <span class="phpdocumentor-element-found-in__line">703</span>
 
     </aside>
 
@@ -2258,7 +2448,7 @@ $artillery = Artillery::new()->setHttp('timeout', 30);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">713</span>
+    <span class="phpdocumentor-element-found-in__line">758</span>
 
     </aside>
 
@@ -2329,7 +2519,7 @@ $artillery = Artillery::new()->setHttp('timeout', 30);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">698</span>
+    <span class="phpdocumentor-element-found-in__line">743</span>
 
     </aside>
 
@@ -2389,7 +2579,7 @@ $artillery = Artillery::new()->setHttp('timeout', 30);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">673</span>
+    <span class="phpdocumentor-element-found-in__line">718</span>
 
     </aside>
 
@@ -2459,7 +2649,7 @@ $artillery = Artillery::new()->setHttps(['timeout' => 30, 'maxSockets' => 1]);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">687</span>
+    <span class="phpdocumentor-element-found-in__line">732</span>
 
     </aside>
 
@@ -2530,7 +2720,7 @@ $artillery = Artillery::new()->setHttpTimeout(30);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">563</span>
+    <span class="phpdocumentor-element-found-in__line">608</span>
 
     </aside>
 
@@ -2650,7 +2840,7 @@ $customRequest = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">589</span>
+    <span class="phpdocumentor-element-found-in__line">634</span>
 
     </aside>
 
@@ -2758,7 +2948,7 @@ $expectRequest = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">740</span>
+    <span class="phpdocumentor-element-found-in__line">785</span>
 
     </aside>
 
@@ -2839,7 +3029,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">753</span>
+    <span class="phpdocumentor-element-found-in__line">798</span>
 
     </aside>
 
@@ -2903,7 +3093,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">766</span>
+    <span class="phpdocumentor-element-found-in__line">811</span>
 
     </aside>
 
@@ -2974,7 +3164,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">617</span>
+    <span class="phpdocumentor-element-found-in__line">662</span>
 
     </aside>
 
@@ -3068,7 +3258,7 @@ $artillery->addRequest(
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">641</span>
+    <span class="phpdocumentor-element-found-in__line">686</span>
 
     </aside>
 
@@ -3156,7 +3346,7 @@ $artillery->addRequest(
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">784</span>
+    <span class="phpdocumentor-element-found-in__line">829</span>
 
     </aside>
 

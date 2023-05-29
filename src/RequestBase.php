@@ -5,7 +5,7 @@ namespace ArtilleryPhp;
 /** Functions shared across both HTTP and WebSocket requests. */
 abstract class RequestBase implements RequestInterface {
 	/** @internal */ protected string $method;
-	/** @internal */ protected array $request;
+	/** @internal */ protected mixed $request;
 
 	/** @internal */
 	public function toArray(): array {

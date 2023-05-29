@@ -50,9 +50,9 @@ class Artillery {
 	/** @internal */
 	public string $filePath = '';
 	/** @internal */
-	public const EMPTY_ARRAY = "'[ARTILLERYPHP_EMPTY_ARRAY]'";
+	public const EMPTY_ARRAY = '[ARTILLERYPHP_EMPTY_ARRAY]';
 	/** @internal */
-	public const EMPTY_OBJECT = "'{ARTILLERYPHP_EMPTY_OBJECT}'";
+	public const EMPTY_OBJECT = '{ARTILLERYPHP_EMPTY_OBJECT}';
 
 	/**
 	 * Creates a new Artillery instance, optionally with a target URL.
@@ -153,10 +153,8 @@ class Artillery {
 	 * @return string The YAML representation of the Artillery script.
 	 */
 	public function toYaml(bool $correctNewlines = true, int $inline = PHP_INT_MAX, int $indent = 2, int $flags = 0): string {
-		$yml = preg_replace_callback('/\s*(' . static::EMPTY_OBJECT . '|' . static::EMPTY_ARRAY . ')\s*/', function ($matches) {
-			return $matches[1] === static::EMPTY_OBJECT ? '{}' : '[]';
-		}, Yaml::dump($this->toArray(), $inline, $indent, $flags));
-
+		$q = fn($s) => "'" . $s . "'";
+		$yml = str_replace([$q(static::EMPTY_ARRAY), $q(static::EMPTY_OBJECT)], ['[]', '{}'], Yaml::dump($this->toArray(), $inline, $indent, $flags));
 		if (!$correctNewlines) return $yml;
 
 		return preg_replace_callback('/-\s*\n\s*(\w+)/', function ($matches) {
@@ -394,7 +392,6 @@ class Artillery {
 	 * @example <pre><code class="language-php">$artillery->setEngine('custom');</code></pre>
 	 */
 	public function setEngine(string $name, array $options = null): self {
-		$options ??= [];
 		if (!@$this->config['engines']) $this->config['engines'] = [];
 		$this->config['engines'][$name] = $options ?: static::EMPTY_OBJECT;
 		return $this;

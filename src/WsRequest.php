@@ -21,9 +21,9 @@ class WsRequest extends RequestBase implements RequestInterface {
 	}
 
 	/** @inheritDoc */
-	public function addExpect(string $type, mixed $value): self {
+	public function addExpect(string $type, mixed $value, mixed $equals = null): self {
 		if ($this->request && !@$this->request['payload']) $this->request['payload'] = $this->request;
-		return parent::addExpect($type, $value);
+		return parent::addExpect($type, $value, $equals);
 	}
 
 	/**

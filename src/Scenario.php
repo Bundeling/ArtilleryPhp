@@ -42,6 +42,17 @@ class Scenario {
 	}
 
 	/**
+	 * Set an arbitrary custom option in this scenario.
+	 * @param string $key The name of the option.
+	 * @param mixed $value The value of the option.
+	 * @return $this The current Scenario instance.
+	 */
+	public function set(string $key, mixed $value): self {
+		$this->scenario[$key] = $value;
+		return $this;
+	}
+
+	/**
 	 * Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed after a response is received where the response can be inspected, and custom variables can be set.
 	 * @param string|string[] $function The function(s) to execute.
 	 * @return $this The current Request instance.

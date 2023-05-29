@@ -313,6 +313,31 @@ class Artillery {
 	}
 
 	/**
+	 * Adds an array of 'ensure' conditions to the Artillery script. Metrics are listed in the report output.
+	 * @description Artillery can validate if a metrics value meets a predefined threshold. If it doesn't, it will exit with a non-zero exit code.<br>
+	 * Setting strict: false on a condition will make that check optional. Failing optional checks do not cause Artillery to exit with a non-zero exit code. Checks are strict by default.<br>
+	 * The built-in 'ensure' plugin needs to be enabled with Artillery::setPlugin('ensure') for this feature.
+	 * @example <pre><code class="language-php">$artillery = Artillery::new()
+	 *     ->setPlugin('ensure')
+	 *     ->addEnsureConditions([
+	 *         ['http.response_time.p95 < 250 and http.request_rate > 1000'],
+	 *         ['http.response_time.p95 < 250 and http.request_rate > 1000', false],
+	 *     );
+	 * </code></pre>
+	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#advanced-conditional-checks
+	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#ensure---slo-checks
+	 * @link https://www.artillery.io/docs/guides/plugins/plugins-overview
+	 * @param array{expression: string, strict?: bool}[] $thresholds An array of expressions to be used as conditions.
+	 * @return $this The current Artillery instance.
+	 */
+	public function addEnsureConditions(array $thresholds): self {
+		if (!@$this->config['ensure']) $this->config['ensure'] = [];
+		if (!@$this->config['ensure']['conditions']) $this->config['ensure']['conditions'] = [];
+		$this->config['ensure']['conditions'] = array_merge($this->config['ensure']['conditions'], $thresholds);
+		return $this;
+	}
+
+	/**
 	 * Adds an 'ensure' threshold to the config section of the Artillery script.
 	 * @description Artillery can validate if a metrics value meets a predefined threshold. If it doesn't, it will exit with a non-zero exit code.<br>
 	 * The built-in 'ensure' plugin needs to be enabled with Artillery::setPlugin('ensure') for this feature.
@@ -330,6 +355,26 @@ class Artillery {
 		if (!@$this->config['ensure']) $this->config['ensure'] = [];
 		if (!@$this->config['ensure']['thresholds']) $this->config['ensure']['thresholds'] = [];
 		$this->config['ensure']['thresholds'][] = [$metricName => $value];
+		return $this;
+	}
+
+	/**
+	 * Adds an array of 'ensure' thresholds to the config section of the Artillery script.
+	 * @description Artillery can validate if a metrics value meets a predefined threshold. If it doesn't, it will exit with a non-zero exit code.<br>
+	 * The built-in 'ensure' plugin needs to be enabled with Artillery::setPlugin('ensure') for this feature.
+	 * @example <pre><code class="language-php">$artillery = Artillery::new()
+	 *     ->setPlugin('ensure')
+	 *     ->addEnsureThresholds([
+	 *         ['http.response_time.p99' => 250],
+	 * 	       ['http.response_time.p95' => 100]]);
+	 * </code></pre>
+	 * @param array<string, int>[] $thresholds An array of thresholds to add to the config section of the Artillery script.
+	 * @return $this The current Artillery instance.
+	 */
+	public function addEnsureThresholds(array $thresholds): self {
+		if (!@$this->config['ensure']) $this->config['ensure'] = [];
+		if (!@$this->config['ensure']['thresholds']) $this->config['ensure']['thresholds'] = [];
+		$this->config['ensure']['thresholds'] = array_merge($this->config['ensure']['thresholds'], $thresholds);
 		return $this;
 	}
 

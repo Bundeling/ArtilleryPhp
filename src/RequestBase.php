@@ -176,7 +176,7 @@ abstract class RequestBase implements RequestInterface {
 	 */
 	public function addMatch(string $type, string $expression, string $value): self {
 		if (!@$this->request['match']) $this->request['match'] = [];
-		$this->request['match'][] = [$expression => $expression, 'value' => $value];
+		$this->request['match'][] = [$type => $expression, 'value' => $value];
 		return $this;
 	}
 }

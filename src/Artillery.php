@@ -202,30 +202,6 @@ class Artillery {
 		return $this;
 	}
 
-//	/**
-//	 * @throws Exception If the Artillery script is not valid.
-//	 * @internal WIP
-//	 */
-//	public function validate(): self {
-//		// Convert YAML to JSON for use with JavaScript
-//		$json = json_encode(yaml_parse($this->toYaml()));
-//
-//		// Path to the validation script
-//		$validationScriptPath = __DIR__ . '/util/validate-script.js';
-//
-//		// JavaScript code to load the validation script and run it with the provided JSON
-//		$jsCode = <<<JS
-//            const validateScript = require('$validationScriptPath');
-//            const script = $json;
-//            const validationResult = validateScript(script);
-//            validationResult;
-//        JS;
-//
-//		$validationResult = (new PHPNodeJS)->run($jsCode);
-//		if ($validationResult) throw new Exception("Artillery validation failed: " . $validationResult);
-//		return $this;
-//	}
-
 	/**
 	 * Run the Artillery script using passthru('artillery run ...') and create a report file.
 	 * @example <pre><code>$artillery = Artillery::new()

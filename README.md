@@ -1,8 +1,10 @@
 # ArtilleryPhp
-ArtilleryPhp is a PHP library that provides a fluent interface for [Artillery.io](https://www.artillery.io/) scripts.
 
-Library documentation: [https://artilleryphp.netlify.app](https://artilleryphp.netlify.app/packages/application)
+[Artillery](https://www.artillery.io/) is a modern, powerful & easy-to-use performance testing toolkit. Use it to ship scalable applications that stay performant & resilient under high load.
 
+[ArtilleryPhp](https://github.com/Bundeling/ArtilleryPhp) is a library to write and maintain [Artillery.io](https://www.artillery.io/) scripts in PHP.
+
+Library documentation: [https://artilleryphp.netlify.app](https://artilleryphp.netlify.app/packages/application)<br>
 Examples (look for the .php files): [ArtilleryPhp-Examples](https://github.com/Bundeling/ArtilleryPhp-examples)
 
 Documentation contains:
@@ -18,7 +20,9 @@ Documentation contains:
 -   [Request Class](#request-class)
 
 ## Installation
+
 You can install the library via Composer:
+
 ```text
 composer require bundeling/artilleryphp
 ```
@@ -26,9 +30,13 @@ composer require bundeling/artilleryphp
 This library requires the `symfony/yaml` package to render its internal arrays to a YAML format.
 
 ## Usage
+
 Here is an example of how to use the ArtilleryPhp library:
+
 ### Step 1: Create a new Artillery instance
+
 You can use `Artillery::new($target)` to get a new instance, and use the fluent interface to set config values:
+
 ```php
 use ArtilleryPhp\Artillery;
 
@@ -37,7 +45,9 @@ $artillery = Artillery::new('http://localhost:3000')
     ->addPhase(['duration' => 60, 'arrivalRate' => 20], 'Sustain')
     ->setPlugin('expect');
 ```
+
 You can also create one from a full or partial array representation:
+
 ```php
 use ArtilleryPhp\Artillery;
 
@@ -49,38 +59,65 @@ $artillery = Artillery::fromArray([
             ['duration' => 60, 'arrivalRate' => 20, 'name' => 'Sustain'],
         ],
         'plugins' => [
-            'expect' => [],
+            // To produce an empty object as "{  }", use stdClass.
+            // This is automatic when using setPlugin(s), setEngine(s) and setJson(s).
+            'expect' => new stdClass(),
         ]
     ]
 ]);
 ```
-### Step 2: Define the flow of your scenario and add it to the Artillery instance:
-```php
-$scenario = Artillery::scenario()
-    ->addRequest(
-        Artillery::request('get', '/login')
-            ->addCapture('token', 'json', '$.token')
-            ->addExpect('statusCode', 200)
-            ->addExpect('contentType', 'json')
-            ->addExpect('hasProperty', 'token'))
-    ->addRequest(
-        Artillery::request('get', '/inbox')
-            ->setQueryString('token', '{{ token }}')
-            ->addExpect('statusCode', 200));
-            
-$loopedScenario = Artillery::scenario()->addLoop($scenario, 10);
 
-$artillery->addScenario($loopedScenario);
-```
-### Step 3: Export the YAML:
+Or from an existing `Artillery` instance with Artillery::from(...):
+
 ```php
-$filePath = __DIR__ . '/artillery.yaml';
-$artillery->build($filePath);
+// Imagine we have a default Artillery instance with some default values:
+$artillery = Artillery::from($default);
+```
+
+### Step 2: Define the flow of your scenario and add it to the Artillery instance:
+
+```php
+// Create some requests:
+$loginRequest = Artillery::request('get', '/login')
+    ->addCapture('token', 'json', '$.token')
+    ->addExpect('statusCode', 200)
+    ->addExpect('contentType', 'json')
+    ->addExpect('hasProperty', 'token');
+    
+$inboxRequest = Artillery::request('get', '/inbox')
+    ->setQueryString('token', '{{ token }}')
+    ->addExpect('statusCode', 200);
+
+// Create a flow with the requests:
+$flow = Artillery::scenario()
+    ->addRequest($loginRequest)
+    ->addRequest($inboxRequest);
+
+// Let's loop the flow 10 times:
+$scenario = Artillery::scenario()->addLoop($flow, 10);
+
+// Add the scenario to the Artillery instance:
+$artillery->addScenario($scenario);
+```
+
+#### Tips:
+
+- Nearly all methods have a plural version to add/set multiple entries.
+- Set-methods imply associative input. e.g., `[key => value, key2 => value]`.
+- Add-methods imply array of entries. E.g. `[[key => value], [key => value]]`.
+
+### Step 3: Export the YAML:
+
+```php
+// Without argument will build the YAML as the same name as the php file:
+$artillery->build();
 
 // Maybe even run the script right away:
-// $artillery->run();
+$artillery->run();
 ```
-This will produce the following `artillery.yaml` file:
+
+This will produce the following `usage-example.yml` file:
+
 ```yaml
 config:
   target: 'http://localhost:3000'
@@ -116,94 +153,139 @@ scenarios:
                 - statusCode: 200
         count: 10
 ```
-For a very simple script you can also add Requests (single or array) directly to the Artillery instance:
+
+For a very basic script, you can also add Requests (single or array) directly to the Artillery instance:
+
 ```php
 $artillery = Artillery::new()
     ->addScenario(Artillery::request('get', 'http://www.google.com'));
 ```
+
 This creates a new scenario out of the request(s).
-```php
-$artillery = Artillery::request('custom')
-    ->setRequest(Artillery::EMPTY_OBJECT);
-```
 
 ## Artillery Class
+
 The `Artillery` class has all the methods related to the config section of the Artillery script, along with adding scenarios.
 
 Docs: https://artilleryphp.netlify.app/classes/artilleryphp-artillery
 
-For custom config settings, there is a `set(key: string, value: mixed)` function available.
+For custom settings, there is a `set(key: string, value: mixed)` function available.
 
 ### Target:
-If a target is set it will be used as the base Url for all of the requests in the script.
+
+If a target is set, it will be used as the base Url for all the requests in the script.
 
 You can either pass the base Url in the constructor or use the `setTarget` method on the Artillery instance. You can also skip this step entirely and provide fully qualified Urls in each Request.
+
 ```php
 $artillery = Artillery::fromArray(['config' => ['target' => 'http://localhost:3000']]);
 $artillery = Artillery::new('http://localhost:3000');
 $artillery = Artillery::new()->setTarget('http://localhost:3000');
 ```
+
 ### Static factory helpers, use these to get a new instance and immediately call methods on it:
+
 - Artillery: `new([targetUrl: null|string = null]): Artillery`
-- Request: `request(method: string, url: string): Request`
-- WsRequest: `wsRequest(method: string, request: mixed): WsRequest`
-- Scenario: `scenario(): Scenario`
+- Scenario: `scenario([name: null|string = null]): Scenario`
+- Request: `request([method: null|string = null], [url: null|string = null]): Request`
+- WsRequest: `wsRequest([method: null|string = null], [request: mixed = null]): WsRequest`
+- AnyRequest: `anyRequest([method: null|string = null], [request: mixed = null]): AnyRequest`
 
 ```php
 $artillery = Artillery::new($targetUrl)
     ->addPhase(['duration' => 60, 'arrivalRate' => 10]);
+    
 $request = Artillery::request('get', '/login')
     ->addCapture('token', 'json', '$.token');
-$scenario = Artillery::scenario()->addRequest($request)->addThink(0.5);
-$loop = Artillery::scenario()->addLoop($scenario, 10);
+    
+$scenario = Artillery::scenario()->addRequest($request);
+
 $artillery->addScenario($loop);
 ```
 
 ### Scenarios:
-- `addScenario(scenario: Scenario)`
-  Set a Scenario to the scenarios section of the Artillery script.
-- `setAfter(scenario: Scenario)`
+
+You can add a fully built scenario, or pass a single Request or array of Requests, and a Scenario will be made from it.
+
+- `addScenario(scenario: array|RequestInterface|RequestInterface[]|Scenario, [options: mixed[]|null = null])`
+  Add a Scenario to the scenarios section of the Artillery script.
+- `setAfter(after: array|RequestInterface|RequestInterface[]|Scenario)`
   Set a Scenario to run after a Scenario from the scenarios section is complete.
-- `setBefore(scenario: Scenario)`
+- `setBefore(before: array|RequestInterface|RequestInterface[]|Scenario)`
   Adds a Scenario to run before any given Scenario from the scenarios section.
+
 ```php
-$login = Artillery::scenario()->addRequest(
-    Artillery::request('get', '/login')
-        ->addCapture('token', 'json', '$.token'));
-$inbox = Artillery::scenario()->addRequest(
-    Artillery::request('get', '/inbox')
-        ->setHeader('auth', '{{ token }}'));
-$artillery->setBefore($login)->addScenario($inbox);
+// This scenario will run once before the main scenarios,
+// here we're using a function to generate a shared token:
+$before = Artillery::scenario()->addFunction('generateSharedToken');
+
+// One of the normal scenarios, which has access to the shared token,
+// and it can generate a VU-specific token within its own scope:
+$scenario = Artillery::scenario()
+	->addFunction('generateVUToken')
+	->addLog('VU id: {{ $uuid }}')
+	->addLog('    shared token is: {{ sharedToken }}')
+	->addLog('    VU-specific token is: {{ vuToken }}')
+	->addRequest(
+		Artillery::request('get', '/')
+			->setHeaders([
+				'x-auth-one' => '{{ sharedToken }}',
+				'x-auth-two' => '{{ vuToken }}'
+			]));
+
+$artillery = Artillery::new('http://www.artillery.io')
+	->setProcessor('./helpers.js')
+	->setBefore($before)
+	->addScenario($scenario);
 ```
 
+For custom settings, there is a `set(key: string, value: mixed)` function available.
+
 ### Config settings:
+
 Please refer to the docs: https://artilleryphp.netlify.app/classes/artilleryphp-artillery#methods
-- `addEnsureCondition(expression: string, [strict: bool = true])`
+
+- `addEnsureCondition(expression: string, [strict: bool|null = null])`
+- `addEnsureConditions(thresholds: array[])`
 - `addEnsureThreshold(metricName: string, value: int)`
-- `setEngine(name: string, [options: array = [...]])`
-- `setEnvironment(name: string, config: array):`
-- `addPayload(path: string, fields: array, [options: array = [...]])`
+- `addEnsureThresholds(thresholds: int[][])`
+- `setEngine(name: string, [options: array|null = null])`
+- `setEngines(engines: array[]|string[])`
+- `setEnvironment(name: string, config: array|Artillery)`
+- `setEnvironments(environments: array[]|Artillery[])`
+- `addPayload(path: string, fields: array, [options: bool[]|string[] = [...]])`
+- `addPayloads(payloads: bool[][]|string[][])`
 - `addPhase(phase: array, [name: null|string = null])`
-- `setPlugin(name: string, [options: array = [...]])`
+- `addPhases(phases: array[])`
+- `setPlugin(name: string, [options: array|null = null])`
+- `setPlugins(plugins: array)`
 - `setVariable(name: string, value: mixed)`
-- `set(key: string, value: mixed)`
-- `setHttp(options: array)`
+- `setVariables(variables: mixed[])`
+- `setHttp(key: string, value: bool|int|mixed)`
+- `setHttps(options: bool[]|int[])`
+- `setHttpTimeout(timeout: int)`
+- `setHttpMaxSockets(maxSockets: int)`
+- `setHttpExtendedMetrics([extendedMetrics: bool = true])`
 - `setProcessor(path: string)`
 - `setTarget(url: string)`
-- `setTls(rejectUnauthorized: bool): Artillery setWs(wsOptions: array)`
+- `setTls(rejectUnauthorized: bool)`
+- `setWs(wsOptions: array)`
 
 ### Render/load:
-- `toYaml(): string`
-  Render the script to a Yaml string.
-- `fromArray(script: array): Artillery `
-  Construct a new Artillery instance from given array data.
-- `toArray(): array`
-  Get the array representation of the current Artillery instance.
+
+- `build([file: null|string = null]): Artillery` Build the script and save it to a file.
+- `toYaml(): string` Render the script to a Yaml string.
+- `from(artillery: Artillery): Artillery` New Artillery instance from given Artillery instance.
+- `fromArray(script: array): Artillery` New Artillery instance from given array data.
+- `toArray(): array` Get the array representation of the current Artillery instance.
+- `run([reportFile: null|string = null], [debug: null|string = null]): Artillery` Run the built script (or build and run-), and save the report to a file.
 
 ## Scenario Class
+
 The `Scenario` class has all the methods related to a scenario as well as all methods related to its flow.
 
 Docs: https://artilleryphp.netlify.app/classes/artilleryphp-scenario
+
 ```php
 // Imagine we have an already defined Scenario as $defaultScenario
 $scenario = Artillery::scenario()  
@@ -216,37 +298,53 @@ $scenario = Artillery::scenario()
 ### Methods:
 Docs: https://artilleryphp.netlify.app/classes/artilleryphp-scenario#methods
 
+Custom Scenario settings:
+
+- `set(key: string, value: mixed)`
+
 Adding to the flow from another scenario into this scenario:
+
 - `addFlow(scenario: Scenario)`
 
 Misc:
+
 - `setName(name: string)`
   Used for metric reports.
 - `setWeight(weight: int)`
   Determines the probability that this scenario will be picked compared to other scenarios in the Artillery script. Defaults to 1.
 
 Engine if not set are for HTTP requests, to make a WebSocket scenario you need to specify this scenario's engine to be 'ws' and only use instances of the `WsRequest` class available at `Artillery::wsRequest()`.
+
 - `setEngine(engine: string) `
 
 Scenario-level JavaScript function hook, from the Js file defined in `setProcessor` in the `Artillery` instance:
 - `addAfterScenario(function: array|string|string[])`
 - `addBeforeScenario(function: array|string|string[])`
 
+Similarly, for requests, there are scenario level hooks for before and after:
+- `addAfterResponse(function: array|string|string[])`
+- `addBeforeRequest(function: array|string|string[])`
+
 Flow methods:
 - `addRequest(request: RequestInterface)`
-- `addLoop(request: array|Scenario|RequestInterface, [count: int|null = null], [over: null|string = null], [whileTrue: null|string = null])`
+- `addRequests(requests: RequestInterface[])`
+- `addLoop(loop: array|RequestInterface|RequestInterface[]|Scenario|Scenario[], [count: int|null = null], [over: null|string = null], [whileTrue: null|string = null])`
 - `addLog(message: string, [ifTrue: null|string = null])`
-- `addThink(duration: float|int, [ifTrue: null|string = null])`
+- `addThink(duration: float, [ifTrue: null|string = null])`
 - `addFunction(function: array|string|string[], [ifTrue: null|string = null])`
 
 ## Request Class
+
 The `Request` class has all the methods related to HTTP requests along with some shared methods inherited from a `RequestBase` class.
 
-For WebSocket there is a crude implementation of the `WsRequest` class available at `Artillery::wsRequest()`. For custom requests there is a bare-bone `AnyRequest` class available at `Artillery::anyRequest()` only inheriting from RequestBase. Both `Request` and `WsRequest` can be used anonymously with `set()`, `setMethod()` and `setRequest()` but it can be confusing to have methods available that do not exist.
+For WebSocket there is a crude implementation of the `WsRequest` class available at `Artillery::wsRequest()`. 
+
+For custom requests `AnyRequest` is meant to be used anonymously with these functions:
+- `set(key: string, value: mixed)`
+- `setMethod(method: string)`
+- `setRequest(request: mixed)`
 
 Docs: https://artilleryphp.netlify.app/classes/artilleryphp-request
-
-For custom config settings, there is a `set(key: string, value: mixed)` function available.
 
 Method and URL can be set in the constructor:
 ```php
@@ -258,27 +356,38 @@ $postResponse = Artillery::request('post', '/inbox')
 ```
 
 ### Methods:
+
 Please refer to the docs: https://artilleryphp.netlify.app/classes/artilleryphp-request#methods
+
+- `addAfterResponse(function: array|string|string[])`
+- `addBeforeRequest(function: array|string|string[])`
 - `setAuth(user: string, pass: string)`
 - `setBody(body: mixed)`
 - `setCookie(name: string, value: string)`
 - `setCookies(cookies: string[])`
 - `setFollowRedirect([followRedirect: bool = true])`
-- `setForm(form: array)`
-- `setFormData(formData: array)`
+- `setForm(key: string, value: mixed)`
+- `setForms(form: array)`
+- `setFormDatas(formData: array)`
+- `setFormData(key: string, value: mixed)`
 - `setGzip([gzip: bool = true])`
-- `setHeaders(headers: array)`
 - `setHeader(key: string, value: string)`
+- `setHeaders(headers: string[])`
 - `setIfTrue(expression: string)`
-- `setJson(key: string, value: mixed)`
-- `setJsons(jsons: array)`
-- `setQueryStrings(qs: array)`
+- `setJson([key: null|string = null], [value: mixed = null])`
+- `setJsons(jsons: mixed[])`
+- `setMethod(method: string)`
 - `setQueryString(key: string, value: mixed)`
+- `setQueryStrings(qs: array)`
 - `setUrl(url: string)`
 
 Inherited:
 - `set(key: string, data: mixed)`
-- `addCapture(as: string, type: string, expression: string, [strict: bool = true], [attr: null|string = null], [index: int|null|string = null])`
-- `addExpect(type: string, value: mixed)`
 - `setMethod(method: string)`
 - `setRequest(request: mixed)`
+- `addCapture(as: string, type: string, expression: string, [strict: bool = true], [attr: null|string = null], [index: int|null|string = null])`
+- `addCaptures(captures: int[][]|string[][])`
+- `addExpect(type: string, value: mixed, [equals: mixed = null])`
+- `addExpects(expects: mixed[][])`
+- `addMatch(type: string, expression: string, value: mixed, [strict: bool = true], [attr: null|string = null], [index: int|null|string = null])`
+- `addMatches(matches: mixed[][])`

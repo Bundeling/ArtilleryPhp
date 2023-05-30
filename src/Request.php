@@ -209,7 +209,7 @@ class Request extends RequestBase {
 	}
 
 	/**
-	 * Set a JSON field for the request.
+	 * Set a JSON field for the request. If called without parameters, it will initialize an empty JSON object '{  }'.
 	 * @example <pre><code class="language-php">$request = Artillery::request('post', '/submit')
 	 *     ->setJson('name', 'Swanson')
 	 *     ->setJson('vote', 'Hamburger');
@@ -237,9 +237,8 @@ class Request extends RequestBase {
 	 * @param array<string, mixed> $jsons An array of data to be stringified as JSON data for the request.
 	 * @return $this The current Request instance.
 	 */
-	public function setJsons(array $jsons = null): self {
-		if (!$jsons) $this->setJson();
-		else foreach ($jsons as $key => $value) $this->setJson($key, $value);
+	public function setJsons(array $jsons): self {
+		foreach ($jsons as $key => $value) $this->setJson($key, $value);
 		return $this;
 	}
 

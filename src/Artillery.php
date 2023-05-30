@@ -204,7 +204,7 @@ class Artillery {
 
 	/**
 	 * Run the Artillery script using passthru('artillery run ...') and create a report file.
-	 * @example <pre><code>$artillery = Artillery::new()
+	 * @example <pre><code class="language-php">$artillery = Artillery::new()
 	 *     ->addScenario(Artillery::request('get', 'https://www.example.com'))
 	 *     ->run();
 	 * </code></pre>

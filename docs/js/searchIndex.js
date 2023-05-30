@@ -58,7 +58,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003Arun\u0028\u0029",
             "name": "run",
-            "summary": "Run\u0020the\u0020Artillery\u0020script\u0020using\u0020passthru\u0028\u0027artillery\u0020run\u0020...\u0027\u0029.",
+            "summary": "Run\u0020the\u0020Artillery\u0020script\u0020using\u0020passthru\u0028\u0027artillery\u0020run\u0020...\u0027\u0029\u0020and\u0020create\u0020a\u0020report\u0020file.",
             "url": "classes/ArtilleryPhp-Artillery.html#method_run"
         },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AsetAfter\u0028\u0029",

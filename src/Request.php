@@ -2,6 +2,8 @@
 
 namespace ArtilleryPhp;
 
+use stdClass;
+
 /**
  * The Request class represents a single HTTP request to be made by Artillery within the flow section of a scenario.
  * @example <pre><code class="language-php">$getTarget = Artillery::request('get', '/inbox')
@@ -218,8 +220,9 @@ class Request extends RequestBase {
 	 * @return $this The current Request instance.
 	 */
 	public function setJson(string $key = null, mixed $value = null): self {
-		if (!@$this->request['json']) $this->request['json'] = [];
+		if (empty((array)@$this->request['json'])) $this->request['json'] = [];
 		if ($key) $this->request['json'][$key] = $value;
+		if (empty((array)@$this->request['json'])) $this->request['json'] = new stdClass();
 		return $this;
 	}
 
@@ -234,8 +237,9 @@ class Request extends RequestBase {
 	 * @param array<string, mixed> $jsons An array of data to be stringified as JSON data for the request.
 	 * @return $this The current Request instance.
 	 */
-	public function setJsons(array $jsons): self {
-		foreach ($jsons as $key => $value) $this->setJson($key, $value);
+	public function setJsons(array $jsons = null): self {
+		if (!$jsons) $this->setJson();
+		else foreach ($jsons as $key => $value) $this->setJson($key, $value);
 		return $this;
 	}
 

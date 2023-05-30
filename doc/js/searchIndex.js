@@ -293,7 +293,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetJson\u0028\u0029",
             "name": "setJson",
-            "summary": "Set\u0020a\u0020JSON\u0020field\u0020for\u0020the\u0020request.",
+            "summary": "Set\u0020a\u0020JSON\u0020field\u0020for\u0020the\u0020request.\u0020If\u0020called\u0020without\u0020parameters,\u0020it\u0020will\u0020initialize\u0020an\u0020empty\u0020JSON\u0020object\u0020\u0027\u007B\u0020\u0020\u007D\u0027.",
             "url": "classes/ArtilleryPhp-Request.html#method_setJson"
         },                {
             "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetJsons\u0028\u0029",

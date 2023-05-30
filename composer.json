@@ -32,7 +32,6 @@
     "require": {
         "php": "^8.1",
         "symfony/yaml": "^5.0",
-        "nacmartin/phpexecjs": "^3.1",
         "ext-yaml": "*"
     },
     "scripts": {

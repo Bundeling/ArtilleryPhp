@@ -1,7 +1,7 @@
 composer.phar
 composer.lock
 /vendor/
-/doc/cache/
+/docs/cache/
 /.idea/
 /.phpdoc/*
 !/.phpdoc/template/

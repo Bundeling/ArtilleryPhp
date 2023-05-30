@@ -656,7 +656,7 @@ class Artillery {
 		foreach ($plugins as $name => $options) {
 			if (is_int($name)) {
 				$name = $options;
-				$options = new stdClass();
+				$options = null;
 			}
 
 			$this->setPlugin($name, $options);

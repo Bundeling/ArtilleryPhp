@@ -4,10 +4,10 @@
 
 [ArtilleryPhp](https://github.com/Bundeling/ArtilleryPhp) is a library to write and maintain [Artillery.io](https://www.artillery.io/) scripts in PHP.
 
-Library documentation: [https://artilleryphp.netlify.app](https://artilleryphp.netlify.app/packages/application)<br>
+Library documentation: [bundeling.github.io/ArtilleryPhp](https://bundeling.github.io/ArtilleryPhp/namespaces/artilleryphp.html)<br>
 Examples (look for the .php files): [ArtilleryPhp-Examples](https://github.com/Bundeling/ArtilleryPhp-examples)
 
-Documentation contains:
+[Documentation](https://bundeling.github.io/ArtilleryPhp/namespaces/artilleryphp.html) contains:
 - Full explanation for each class and method.
 - Example code for each class and most methods.
 - Links to every section of the [Artillery reference docs](https://www.artillery.io/docs).

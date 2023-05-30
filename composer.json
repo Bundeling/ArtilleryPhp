@@ -3,6 +3,7 @@
     "description": "Wrapper for Artillery.io in PHP.",
     "homepage": "https://github.com/Bundeling/artilleryphp",
     "license": "MIT",
+    "version": "1.0.0",
     "keywords": [
         "artillery.io",
         "artillery",

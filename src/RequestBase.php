@@ -124,7 +124,7 @@ abstract class RequestBase implements RequestInterface {
 	 * The built-in 'expect' plugin needs to be enabled with Artillery::setPlugin('expect') for this feature.
 	 * Here's a list of the available expectations:<br>
 	 * contentType, statusCode, notStatusCode: expectNotStatusCode, hasHeader, headerEquals, hasProperty, equals, matchesRegexp, notHasProperty, cdnHit.
-	 * @example <pre><code>npm i artillery-plugin-expect</pre></code><br>
+	 * @example <pre><code>npm i artillery-plugin-expect</code></pre><br>
 	 * <pre><code class="language-php">$artillery->setPlugin('expect');
 	 * $ensureRequest = Artillery::request('get', '/users/1')
 	 *    ->addExpect('statusCode', [200, 201]);
@@ -155,7 +155,7 @@ abstract class RequestBase implements RequestInterface {
 	 * @description Expectations are assertions that are checked after the request is made.
 	 * If the assertion fails, the request is considered to have failed.<br>
 	 * The built-in 'expect' plugin needs to be enabled with Artillery::setPlugin('expect') for this feature.
-	 * @example <pre><code>npm i artillery-plugin-expect</pre></code><br>
+	 * @example <pre><code>npm i artillery-plugin-expect</code></pre><br>
 	 * <pre><code class="language-php">$artillery->setPlugin('expect');
 	 * $expectJson200 = [
 	 *     ['statusCode' => 200],
@@ -205,6 +205,7 @@ abstract class RequestBase implements RequestInterface {
 	 *         ['json' => '$[0].name', 'value' => 'John'],
 	 *         ['json' => '$[1].name', 'value' => 'Jane']
 	 *     ]);
+	 * </code></pre>
 	 * @param array<'json'|'xpath'|'regexp'|'header'|'selector'|'value'|'strict'|'attr'|'index', mixed>[] $matches
 	 * @return $this The current Request instance.
 	 */

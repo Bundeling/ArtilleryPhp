@@ -181,7 +181,7 @@ class Artillery {
 
 	/**
 	 * Creates a Yaml file from the current Artillery instance.
-	 * @example <pre><code>$artillery = Artillery::new()
+	 * @example <pre><code class="language-php">$artillery = Artillery::new()
 	 *     ->addScenario(Artillery::request('get', 'https://www.example.com'))
 	 *     ->build('./artillery.yaml');
 	 * </code></pre>

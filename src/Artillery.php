@@ -5,8 +5,6 @@ namespace ArtilleryPhp;
 use stdClass;
 use Symfony\Component\Yaml\Yaml;
 
-// todo: test config + scenario + request scope variables with just log
-
 /**
  * Main class for Artillery scripts, containing all methods for config and adding scenarios.
  * @example <pre><code class="language-php">use ArtilleryPhp\Artillery;

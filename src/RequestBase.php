@@ -179,6 +179,7 @@ abstract class RequestBase implements RequestInterface {
 	 * Adds a matching statement to the request, similar to a capture but without an 'as' alias.
 	 * @example <pre><code class="language-php">$request = Artillery::request('get', '/users')
 	 *     ->addMatch('json', '$[0].name', 'John');
+	 * </code></pre>
 	 * @param 'json'|'xpath'|'regexp'|'header'|'selector' $type The type of capture expression.
 	 * @param string $expression The capture expression.
 	 * @param mixed $value The value to match against the capture.

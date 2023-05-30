@@ -67,7 +67,7 @@ $artillery = Artillery::fromArray([
 ]);
 ```
 
-Or from an existing `Artillery` instance with Artillery::from(...):
+Or from an existing `Artillery` instance with `Artillery::from(artillery: Artillery)`:
 
 ```php
 // Imagine we have a default Artillery instance with some default values:
@@ -113,7 +113,7 @@ $artillery->addScenario($scenario);
 $artillery->build();
 
 // Maybe even run the script right away:
-$artillery->run();
+// $artillery->run();
 ```
 
 This will produce the following `usage-example.yml` file:
@@ -154,14 +154,15 @@ scenarios:
         count: 10
 ```
 
-For a very basic script, you can also add Requests (single or array) directly to the Artillery instance:
+For a very basic script, you can also add Requests (single or array) directly to the Artillery instance to create a new Scenario out of it:
 
 ```php
 $artillery = Artillery::new()
     ->addScenario(Artillery::request('get', 'http://www.google.com'));
 ```
+### Notes
 
-This creates a new scenario out of the request(s).
+Current implementation builds up an internal array representation. Meaning very little to no support for operations like getting a `Scenario` from a specific index or unsetting a property. For now think in terms of composition, and look forward to v2.
 
 ## Artillery Class
 
@@ -208,11 +209,11 @@ $artillery->addScenario($loop);
 You can add a fully built scenario, or pass a single Request or array of Requests, and a Scenario will be made from it.
 
 - `addScenario(scenario: array|RequestInterface|RequestInterface[]|Scenario, [options: mixed[]|null = null])`
-  Add a Scenario to the scenarios section of the Artillery script.
+  - Add a Scenario to the scenarios section of the Artillery script.
 - `setAfter(after: array|RequestInterface|RequestInterface[]|Scenario)`
-  Set a Scenario to run after a Scenario from the scenarios section is complete.
+  - Set a Scenario to run after a Scenario from the scenarios section is complete.
 - `setBefore(before: array|RequestInterface|RequestInterface[]|Scenario)`
-  Adds a Scenario to run before any given Scenario from the scenarios section.
+  - Adds a Scenario to run before any given Scenario from the scenarios section.
 
 ```php
 // This scenario will run once before the main scenarios,
@@ -222,21 +223,21 @@ $before = Artillery::scenario()->addFunction('generateSharedToken');
 // One of the normal scenarios, which has access to the shared token,
 // and it can generate a VU-specific token within its own scope:
 $scenario = Artillery::scenario()
-	->addFunction('generateVUToken')
-	->addLog('VU id: {{ $uuid }}')
-	->addLog('    shared token is: {{ sharedToken }}')
-	->addLog('    VU-specific token is: {{ vuToken }}')
-	->addRequest(
-		Artillery::request('get', '/')
-			->setHeaders([
-				'x-auth-one' => '{{ sharedToken }}',
-				'x-auth-two' => '{{ vuToken }}'
-			]));
+    ->addFunction('generateVUToken')
+    ->addLog('VU id: {{ $uuid }}')
+    ->addLog('    shared token is: {{ sharedToken }}')
+    ->addLog('    VU-specific token is: {{ vuToken }}')
+    ->addRequest(
+        Artillery::request('get', '/')
+            ->setHeaders([
+                'x-auth-one' => '{{ sharedToken }}',
+                'x-auth-two' => '{{ vuToken }}'
+            ]));
 
 $artillery = Artillery::new('http://www.artillery.io')
-	->setProcessor('./helpers.js')
-	->setBefore($before)
-	->addScenario($scenario);
+    ->setProcessor('./helpers.js')
+    ->setBefore($before)
+    ->addScenario($scenario);
 ```
 
 For custom settings, there is a `set(key: string, value: mixed)` function available.

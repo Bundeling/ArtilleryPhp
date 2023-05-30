@@ -22,6 +22,7 @@ We're always open to contributions that help this project improve. Here are a fe
   1. Create classes where `Artillery extends Config`, and `Scenario extends Flow`, and move the existing methods from their regions into these classes. We extend them to keep the reduction in complexity.
   2. Update or add methods to bring together the abstraction (e.g., `setConfig(Config ..)`, `Artillery::fromConfig(Config ...`, and `addEnvironment(Config ...)`, etc.).
 * **Deprecations and versions** Currently we have decided to aim for V2, but this is another area where we'd love to hear your ideas.
+* **Testing** We do not have any tests yet, but we'd love to hear your ideas on how to test this library, some form of end-to-end testing would be great as a reliable way to adhere to the Artillery spec.
 * **OOP (v2)** Currently everything destructs into an internal array, with no getters, so you can't simply get `$artillery->getScenario(0)` to make a modification. Do we want to keep object references rather than maintaining an array, or a different pattern? Discussions around this would be greatly appreciated.
 
 Currently, the project contains no form of validation, as it would balloon the complexity of the library. If you're interested in contributing to this, please open an issue to discuss the best approach.

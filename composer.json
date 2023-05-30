@@ -34,7 +34,7 @@
         "symfony/yaml": "^5.0"
     },
     "scripts": {
-        "doc": "phpdoc -d src -t doc",
+        "doc": "phpdoc -d src -t docs",
         "usage-example": "php examples/usage/usage-example.php"
     }
 }

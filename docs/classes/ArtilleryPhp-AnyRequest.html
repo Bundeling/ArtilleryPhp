@@ -546,7 +546,7 @@ contentType, statusCode, notStatusCode: expectNotStatusCode, hasHeader, headerEq
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="prettyprint">npm i artillery-plugin-expect</pre></code><br>
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="prettyprint">npm i artillery-plugin-expect</code></pre><br>
 <pre class="prettyprint"><code class="language-php">$artillery->setPlugin('expect');
 $ensureRequest = Artillery::request('get', '/users/1')
    ->addExpect('statusCode', [200, 201]);
@@ -636,7 +636,7 @@ The built-in 'expect' plugin needs to be enabled with Artillery::setPlugin('expe
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="prettyprint">npm i artillery-plugin-expect</pre></code><br>
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="prettyprint">npm i artillery-plugin-expect</code></pre><br>
 <pre class="prettyprint"><code class="language-php">$artillery->setPlugin('expect');
 $expectJson200 = [
     ['statusCode' => 200],
@@ -790,7 +790,7 @@ $ensureRequest = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/RequestBase.php"><a href="files/src-requestbase.html"><abbr title="src/RequestBase.php">RequestBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">211</span>
+    <span class="phpdocumentor-element-found-in__line">212</span>
 
     </aside>
 
@@ -825,10 +825,11 @@ $ensureRequest = Artillery::request('get', '/users/1')
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
                                                  <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$request = Artillery::request('get', '/users')
-->addMatches([
-    ['json' => '$[0].name', 'value' => 'John'],
-    ['json' => '$[1].name', 'value' => 'Jane']
-]);
+    ->addMatches([
+        ['json' => '$[0].name', 'value' => 'John'],
+        ['json' => '$[1].name', 'value' => 'Jane']
+    ]);
+</code></pre>
 </section>
 
                                     </dd>

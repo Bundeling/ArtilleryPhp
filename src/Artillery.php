@@ -2,6 +2,7 @@
 
 namespace ArtilleryPhp;
 
+use ArtilleryPhp\util\PHPNodeJS;
 use Exception;
 use Nacmartin\PhpExecJs\PhpExecJs;
 use Nacmartin\PhpExecJs\Runtime\ExternalRuntime;
@@ -212,6 +213,26 @@ class Artillery {
 		$phpExecJs->createContextFromFile(__DIR__ . '/util/validate-script.js');
 		$result = $phpExecJs->call("module.exports", [json_encode(yaml_parse($this->toYaml()))]);
 		if ($result) throw new Exception("Artillery validation failed: " . $result);
+		return $this;
+	}
+
+	public function validate2(): self {
+		// Convert YAML to JSON for use with JavaScript
+		$json = json_encode(yaml_parse($this->toYaml()));
+
+		// Path to the validation script
+		$validationScriptPath = __DIR__ . '/util/validate-script.js';
+
+		// JavaScript code to load the validation script and run it with the provided JSON
+		$jsCode = <<<JS
+            const validateScript = require('$validationScriptPath');
+            const script = $json;
+            const validationResult = validateScript(script);
+            validationResult;
+        JS;
+
+		$validationResult = (new PHPNodeJS)->run($jsCode);
+		if ($validationResult) throw new Exception("Artillery validation failed: " . $validationResult);
 		return $this;
 	}
 

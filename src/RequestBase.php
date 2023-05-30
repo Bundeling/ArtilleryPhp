@@ -61,8 +61,8 @@ abstract class RequestBase implements RequestInterface {
 	 * @param string|null $attr If $type is 'selector': The name of the attribute whose value we want.
 	 * @param int|'random'|'last'|null $index The index attribute may be set to a number to grab an element matching a selector at the specified index, "random" to grab an element at random, or "last" to grab the last matching element. If the index attribute is not specified, the first matching element will get captured.
 	 * @return $this The current Request instance.
-	 * @example <pre><code class="language-php">// Cheerio element selector: $request->addCapture(as: "productUrl", type: "selector", expression: "a[class^=productLink]", index: "random", attr: "href")<br>
-	 * // Xpath: $request->addCapture(as: "JourneyId", type: "xpath", expression: "(//Journey)[1]/JourneyId/text()")<br>
+	 * @example <pre><code class="language-php">// Cheerio element selector: $request->addCapture(as: "productUrl", type: "selector", expression: "a[class^=productLink]", index: "random", attr: "href")
+	 * // Xpath: $request->addCapture(as: "JourneyId", type: "xpath", expression: "(//Journey)[1]/JourneyId/text()")
 	 * // Header: $request->addCapture(as: "headerValue", type: "header", expression: "x-my-custom-header")
 	 * // Json:
 	 * $getIdRequest = Artillery::request('get', '/users')
@@ -94,8 +94,8 @@ abstract class RequestBase implements RequestInterface {
 	 *  * regexp - Allows you to define a regular expression that gets passed to a RegExp constructor. A specific capturing group to return may be set with the group attribute (set to an integer index of the group in the regular expression). Flags for the regular expression may be set with the flags attribute.<br>
 	 *  * header - Allows you to set the name of the response header whose value you want to capture.<br>
 	 *  * selector - Allows you to define a Cheerio element selector. The attr attribute will contain the name of the attribute whose value we want. An optional index attribute may be set to a number to grab an element matching a selector at the specified index, "random" to grab an element at random, or "last" to grab the last matching element. If the index attribute is not specified, the first matching element will get captured.
-	 * @example <pre><code class="language-php">// Cheerio element selector: $request->addCapture(as: "productUrl", type: "selector", expression: "a[class^=productLink]", index: "random", attr: "href")<br>
-	 * // Xpath: $request->addCapture(as: "JourneyId", type: "xpath", expression: "(//Journey)[1]/JourneyId/text()")<br>
+	 * @example <pre><code class="language-php">// Cheerio element selector: $request->addCapture(as: "productUrl", type: "selector", expression: "a[class^=productLink]", index: "random", attr: "href")
+	 * // Xpath: $request->addCapture(as: "JourneyId", type: "xpath", expression: "(//Journey)[1]/JourneyId/text()")
 	 * // Header: $request->addCapture(as: "headerValue", type: "header", expression: "x-my-custom-header")
 	 * // Json:
 	 * $getIdRequest = Artillery::request('get', '/users')
@@ -124,7 +124,7 @@ abstract class RequestBase implements RequestInterface {
 	 * The built-in 'expect' plugin needs to be enabled with Artillery::setPlugin('expect') for this feature.
 	 * Here's a list of the available expectations:<br>
 	 * contentType, statusCode, notStatusCode: expectNotStatusCode, hasHeader, headerEquals, hasProperty, equals, matchesRegexp, notHasProperty, cdnHit.
-	 * @example <pre><code>npm i artillery-plugin-expect</code></pre><br>
+	 * @example <pre><code>npm i artillery-plugin-expect</code></pre>
 	 * <pre><code class="language-php">$artillery->setPlugin('expect');
 	 * $ensureRequest = Artillery::request('get', '/users/1')
 	 *    ->addExpect('statusCode', [200, 201]);
@@ -155,7 +155,7 @@ abstract class RequestBase implements RequestInterface {
 	 * @description Expectations are assertions that are checked after the request is made.
 	 * If the assertion fails, the request is considered to have failed.<br>
 	 * The built-in 'expect' plugin needs to be enabled with Artillery::setPlugin('expect') for this feature.
-	 * @example <pre><code>npm i artillery-plugin-expect</code></pre><br>
+	 * @example <pre><code>npm i artillery-plugin-expect</code></pre>
 	 * <pre><code class="language-php">$artillery->setPlugin('expect');
 	 * $expectJson200 = [
 	 *     ['statusCode' => 200],

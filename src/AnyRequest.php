@@ -10,4 +10,4 @@ namespace ArtilleryPhp;
  * </code></pre>
  * @link https://www.artillery.io/docs/guides/guides/ws-reference
  */
-class AnyRequest extends RequestBase implements RequestInterface { }
+class AnyRequest extends RequestBase { }

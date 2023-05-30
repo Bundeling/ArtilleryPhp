@@ -10,7 +10,7 @@ namespace ArtilleryPhp;
  * </code></pre>
  * @link https://www.artillery.io/docs/guides/guides/ws-reference
  */
-class WsRequest extends RequestBase implements RequestInterface {
+class WsRequest extends RequestBase {
 
 	/** @inheritDoc */
 	public function addCapture(string $as, string $type, string $expression, bool $strict = true, string $attr = null, int|string $index = null): self {

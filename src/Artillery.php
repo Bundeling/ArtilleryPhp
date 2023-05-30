@@ -2,6 +2,7 @@
 
 namespace ArtilleryPhp;
 
+use stdClass;
 use Symfony\Component\Yaml\Yaml;
 
 // todo: test config + scenario + request scope variables with just log
@@ -49,10 +50,6 @@ class Artillery {
 	protected array $scenarios = [];
 	/** @internal */
 	public string $filePath = '';
-	/** @internal */
-	public const EMPTY_ARRAY = '[ARTILLERYPHP_EMPTY_ARRAY]';
-	/** @internal */
-	public const EMPTY_OBJECT = '{ARTILLERYPHP_EMPTY_OBJECT}';
 
 	/**
 	 * Creates a new Artillery instance, optionally with a target URL.
@@ -172,9 +169,8 @@ class Artillery {
 	 * @param int $flags A bit field of Yaml::DUMP_* constants to customize the dumped YAML string.
 	 * @return string The YAML representation of the Artillery script.
 	 */
-	public function toYaml(bool $correctNewlines = true, int $inline = PHP_INT_MAX, int $indent = 2, int $flags = 0): string {
-		$q = fn($s) => "'" . $s . "'";
-		$yml = str_replace([$q(static::EMPTY_ARRAY), $q(static::EMPTY_OBJECT)], ['[]', '{}'], Yaml::dump($this->toArray(), $inline, $indent, $flags));
+	public function toYaml(bool $correctNewlines = true, int $inline = PHP_INT_MAX, int $indent = 2, int $flags = Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE | Yaml::DUMP_OBJECT_AS_MAP): string {
+		$yml = Yaml::dump($this->toArray(), $inline, $indent, $flags);
 		if (!$correctNewlines) return $yml;
 
 		return preg_replace_callback('/-\s*\n\s*(\w+)/', function ($matches) {
@@ -413,7 +409,7 @@ class Artillery {
 	 */
 	public function setEngine(string $name, array $options = null): self {
 		if (!@$this->config['engines']) $this->config['engines'] = [];
-		$this->config['engines'][$name] = $options ?: static::EMPTY_OBJECT;
+		$this->config['engines'][$name] = $options ?: new \stdClass();
 		return $this;
 	}
 
@@ -627,12 +623,12 @@ class Artillery {
 	 * @link https://www.artillery.io/docs/guides/plugins/plugin-expectations-assertions
 	 * @link https://www.npmjs.com/package/artillery-plugin-hls
 	 * @param string $name The name of the plugin.
-	 * @param array $options The options for the plugin.
+	 * @param array|null $options The options for the plugin.
 	 * @return $this The current Artillery instance.
 	 */
 	public function setPlugin(string $name, array $options = null): self {
 		if (!@$this->config['plugins']) $this->config['plugins'] = [];
-		$this->config['plugins'][$name] = $options ?: static::EMPTY_OBJECT;
+		$this->config['plugins'][$name] = $options ?: new stdClass();
 		return $this;
 	}
 
@@ -660,7 +656,7 @@ class Artillery {
 		foreach ($plugins as $name => $options) {
 			if (is_int($name)) {
 				$name = $options;
-				$options = static::EMPTY_OBJECT;
+				$options = new stdClass();
 			}
 
 			$this->setPlugin($name, $options);

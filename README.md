@@ -120,6 +120,15 @@ $artillery = Artillery::new()
     ->addScenario(Artillery::request('get', 'http://www.google.com'));
 ```
 This creates a new scenario out of the request(s).
+
+Caveat when using this Library: if you need an empty Array or an empty Object as value, PHP cannot differentiate between the two. <br>
+In this case we have static Artillery::EMPTY_ARRAY and Artillery::EMPTY_OBJECT constants available that get replaced with [] and {} respectively. <br>
+Most methods already use these constants where needed (such as an empty flow array, and empty plugin options), but if you need to use them yourself (for custom engines or plugins), make sure to use the constants instead of the empty array/object literals.
+```php
+$artillery = Artillery::request('custom')
+    ->setRequest(Artillery::EMPTY_OBJECT);
+```
+
 ## Artillery Class
 The `Artillery` class has all the methods related to the config section of the Artillery script, along with adding scenarios.
 

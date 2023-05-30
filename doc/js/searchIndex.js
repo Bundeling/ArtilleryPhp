@@ -21,6 +21,11 @@ Search.appendIndex(
             "summary": "Creates\u0020a\u0020new\u0020WsRequest\u0020for\u0020WebSocket\u0020\u0028engine\u003A\u0020ws\u0029\u0020Scenarios\u0020with\u0020the\u0020given\u0020method\u0020and\u0020request\u0020data.",
             "url": "classes/ArtilleryPhp-Artillery.html#method_wsRequest"
         },                {
+            "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AanyRequest\u0028\u0029",
+            "name": "anyRequest",
+            "summary": "Creates\u0020an\u0020anonymous\u0020Request\u0020type\u0020for\u0020custom\u0020engines.",
+            "url": "classes/ArtilleryPhp-Artillery.html#method_anyRequest"
+        },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003Ascenario\u0028\u0029",
             "name": "scenario",
             "summary": "Creates\u0020a\u0020new\u0020Scenario\u0020which\u0020contains\u0020a\u0020Flow\u0020of\u0020Requests.",
@@ -470,6 +475,11 @@ Search.appendIndex(
             "name": "setPayload",
             "summary": "Todo\u003A\u0020Investigate\u0020a\u0020bit\u0020https\u003A\/\/github.com\/artilleryio\/artillery\/issues\/800",
             "url": "classes/ArtilleryPhp-WsRequest.html#method_setPayload"
+        },                {
+            "fqsen": "\\ArtilleryPhp\\AnyRequest",
+            "name": "AnyRequest",
+            "summary": "Anonymous\u0020Request\u0020type.\u0020Crude\u0020implementation.",
+            "url": "classes/ArtilleryPhp-AnyRequest.html"
         },                {
             "fqsen": "\\",
             "name": "\\",

@@ -94,6 +94,26 @@ class Artillery {
 	}
 
 	/**
+	 * Creates an anonymous Request type for custom engines.
+	 * @example <pre><code class="language-php">$emitAndValidateResponse = Artillery::scenario('Emit and validate response')
+	 *     ->setEngine('socketio')
+	 *     ->addRequest(
+	 *         Artillery::wsRequest('emit')
+	 *         ->set('channel', 'echo')
+	 *         ->set('data', 'Hello from Artillery')
+	 *         ->set('response', ['channel' => 'echoResponse', 'data' => 'Hello from Artillery']));
+	 * @param string|null $method Method for the Request (e.g., the key for the entry in a flow).
+	 * @param mixed|null $request Data for the Request (e.g., the value of the $method key).
+	 * @return AnyRequest A new AnyRequest instance.
+	 */
+	public static function anyRequest(string $method = null, mixed $request = null): AnyRequest {
+		$ret = new AnyRequest();
+		if ($method) $ret->setMethod($method);
+		if ($request) $ret->setRequest($request);
+		return $ret;
+	}
+
+	/**
 	 * Creates a new Scenario which contains a Flow of Requests.
 	 * @link https://www.artillery.io/docs/guides/getting-started/writing-your-first-test#scenarios
 	 * @link https://www.artillery.io/docs/guides/overview/why-artillery#scenarios

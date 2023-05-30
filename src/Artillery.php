@@ -851,5 +851,5 @@ class Artillery {
 		$this->config['ws'] = $wsOptions;
 		return $this;
 	}
-	// endregion Config
+	// endregion
 }

@@ -3,7 +3,7 @@ ArtilleryPhp is a PHP library that provides a fluent interface for [Artillery.io
 
 Library documentation: [https://artilleryphp.netlify.app](https://artilleryphp.netlify.app/packages/application)
 
-Examples (look for the .php files): [ArtilleryPhp-Examples](https://github.com/eslof/artilleryphp-examples)
+Examples (look for the .php files): [ArtilleryPhp-Examples](https://github.com/Bundeling/ArtilleryPhp-examples)
 
 Documentation contains:
 - Full explanation for each class and method.
@@ -241,6 +241,8 @@ Flow methods:
 
 ## Request Class
 The `Request` class has all the methods related to HTTP requests along with some shared methods inherited from a `RequestBase` class.
+
+For WebSocket there is a crude implementation of the `WsRequest` class available at `Artillery::wsRequest()`. For custom requests there is a bare-bone `AnyRequest` class available at `Artillery::anyRequest()` only inheriting from RequestBase. Both `Request` and `WsRequest` can be used anonymously with `set()`, `setMethod()` and `setRequest()` but it can be confusing to have methods available that do not exist.
 
 Docs: https://artilleryphp.netlify.app/classes/artilleryphp-request
 

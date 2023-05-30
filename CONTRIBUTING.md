@@ -21,6 +21,7 @@ We're always open to contributions that help this project improve. Here are a fe
 * **Abstraction and `/doc` generation:** For now, we have decided not to have `Flow` and `Config` classes, to reduce clutter in the generated documentation. If you're up for a task to create a better **phpDocumentor template**, or even a different generator implementation for the PHPDoc tags used, here are some guidelines for the abstraction:
   1. Create classes where `Artillery extends Config`, and `Scenario extends Flow`, and move the existing methods from their regions into these classes. We extend them to keep the reduction in complexity.
   2. Update or add methods to bring together the abstraction (e.g., `setConfig(Config ..)`, `Artillery::fromConfig(Config ...`, and `addEnvironment(Config ...)`, etc.).
+* **Deprecations and versions** Currently I have decided to aim for V2, but this is another area where we'd love to hear your ideas.
 
 Currently, the project contains no form of validation, as it would balloon the complexity of the library. If you're interested in contributing to this, please open an issue to discuss the best approach.
 

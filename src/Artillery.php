@@ -4,6 +4,7 @@ namespace ArtilleryPhp;
 
 use Exception;
 use Nacmartin\PhpExecJs\PhpExecJs;
+use Nacmartin\PhpExecJs\Runtime\ExternalRuntime;
 use stdClass;
 use Symfony\Component\Yaml\Yaml;
 
@@ -207,7 +208,7 @@ class Artillery {
 	 * @internal WIP
 	 */
 	public function validate(): self {
-		$phpExecJs = new PhpExecJs();
+		$phpExecJs = new PhpExecJs(new ExternalRuntime('Node.js (V8)', array('node', 'nodejs')));
 		$phpExecJs->createContextFromFile(__DIR__ . '/util/validate-script.js');
 		$result = $phpExecJs->call("module.exports", [json_encode(yaml_parse($this->toYaml()))]);
 		if ($result) throw new Exception("Artillery validation failed: " . $result);

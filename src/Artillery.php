@@ -93,10 +93,11 @@ class Artillery {
 	 * @example <pre><code class="language-php">$emitAndValidateResponse = Artillery::scenario('Emit and validate response')
 	 *     ->setEngine('socketio')
 	 *     ->addRequest(
-	 *         Artillery::wsRequest('emit')
+	 *         Artillery::anyRequest('emit')
 	 *         ->set('channel', 'echo')
 	 *         ->set('data', 'Hello from Artillery')
 	 *         ->set('response', ['channel' => 'echoResponse', 'data' => 'Hello from Artillery']));
+	 * </code></pre>
 	 * @param string|null $method Method for the Request (e.g., the key for the entry in a flow).
 	 * @param mixed|null $request Data for the Request (e.g., the value of the $method key).
 	 * @return AnyRequest A new AnyRequest instance.

@@ -2,6 +2,8 @@
 
 namespace ArtilleryPhp;
 
+use Exception;
+use Nacmartin\PhpExecJs\PhpExecJs;
 use stdClass;
 use Symfony\Component\Yaml\Yaml;
 
@@ -201,7 +203,19 @@ class Artillery {
 	}
 
 	/**
-	 * Run the Artillery script using passthru('artillery run ...').
+	 * @throws Exception If the Artillery script is not valid.
+	 * @internal WIP
+	 */
+	public function validate(): self {
+		$phpExecJs = new PhpExecJs();
+		$phpExecJs->createContextFromFile(__DIR__ . '/util/validate-script.js');
+		$result = $phpExecJs->call("module.exports", [json_encode(yaml_parse($this->toYaml()))]);
+		if ($result) throw new Exception("Artillery validation failed: " . $result);
+		return $this;
+	}
+
+	/**
+	 * Run the Artillery script using passthru('artillery run ...') and create a report file.
 	 * @example <pre><code>$artillery = Artillery::new()
 	 *     ->addScenario(Artillery::request('get', 'https://www.example.com'))
 	 *     ->run();

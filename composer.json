@@ -31,8 +31,7 @@
     },
     "require": {
         "php": "^8.1",
-        "symfony/yaml": "^5.0",
-        "ext-yaml": "*"
+        "symfony/yaml": "^5.0"
     },
     "scripts": {
         "doc": "phpdoc -d src -t docs",

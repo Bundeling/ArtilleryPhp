@@ -80,6 +80,7 @@ class PHPNodeJS {
 			self::DebugMsg('Executing shell command:');
 			self::DebugMsg($command);
 		}
+		echo $command;
 		$result = shell_exec($command);
 		if ($this->debug) {
 			self::DebugMsg('Result:');

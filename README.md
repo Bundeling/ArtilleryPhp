@@ -1,18 +1,18 @@
 # ArtilleryPhp
 
-[Artillery](https://www.artillery.io/) is a modern, powerful & easy-to-use performance testing toolkit. Use it to ship scalable applications that stay performant & resilient under high load.
+[Artillery](https://www.artillery.io/) is a modern, powerful & easy-to-use performance testing toolkit. 
 
 [ArtilleryPhp](https://github.com/Bundeling/ArtilleryPhp) is a library to write and maintain [Artillery.io](https://www.artillery.io/) scripts in PHP.
+- Documentation: [bundeling.github.io/ArtilleryPhp](https://bundeling.github.io/ArtilleryPhp/namespaces/artilleryphp.html)
+- Examples: [ArtilleryPhp-Examples](https://github.com/Bundeling/ArtilleryPhp-examples)
 
-Library documentation: [bundeling.github.io/ArtilleryPhp](https://bundeling.github.io/ArtilleryPhp/namespaces/artilleryphp.html)<br>
-Examples (look for the .php files): [ArtilleryPhp-Examples](https://github.com/Bundeling/ArtilleryPhp-examples)
-
-[Documentation](https://bundeling.github.io/ArtilleryPhp/namespaces/artilleryphp.html) contains:
+Documentation contains:
 - Full explanation for each class and method.
 - Example code for each class and most methods.
 - Links to every section of the [Artillery reference docs](https://www.artillery.io/docs).
 
 ## Table of Contents
+
 -   [Installation](#installation)
 -   [Usage](#usage)
 -   [Artillery Class](#artillery-class)

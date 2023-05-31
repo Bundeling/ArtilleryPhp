@@ -145,10 +145,10 @@ class Artillery {
 	 */
 	public static function fromArray(array $script): self {
 		$instance = new self();
-		if ($script['config']) $instance->config = $script['config'];
-		if ($script['before']) $instance->before = $script['before'];
-		if ($script['scenarios']) $instance->scenarios = $script['scenarios'];
-		if ($script['after']) $instance->after = $script['after'];
+		if (@$script['config']) $instance->config = $script['config'];
+		if (@$script['before']) $instance->before = $script['before'];
+		if (@$script['scenarios']) $instance->scenarios = $script['scenarios'];
+		if (@$script['after']) $instance->after = $script['after'];
 		return $instance;
 	}
 

@@ -107,8 +107,8 @@ $artillery->addScenario($scenario);
 #### Tips:
 
 Where it's applicable methods have plural versions to add/set multiple entries, such as:
-- `addNames([['key' => $value], [..]])` 
-- `setNames(['name' => $value, ..])` 
+- `addCaptures([['key' => $value], [..]])` 
+- `setEnvironments(['name' => $value, ..])` 
 
 ### Step 3: Export the YAML:
 

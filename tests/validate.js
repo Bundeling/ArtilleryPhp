@@ -1,7 +1,8 @@
 const fs = require('fs');
 const yaml = require('js-yaml');
-const validateScript = require('./validate-script/validate-script.js');
+const validateScript = require('./node_modules/artillery/lib/util/validate-script.js');
 const file = process.argv[2];
+
 fs.readFile(file, 'utf8', (err, data) => {
     if (err) {
         console.error('Error reading file:', err);

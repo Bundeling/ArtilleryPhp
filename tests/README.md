@@ -7,10 +7,10 @@ Using https://github.com/artilleryio/artillery/blob/main/packages/artillery/lib/
 
 Each php script is expected to call `->build()` with default parameters.
 
-Install requirements (js-yaml joi):
+Install requirements (js-yaml artillery):
 
 ```
 npm install
 ```
 
-`validate.js` uses `js-yaml` to parse the yaml file and then `validate-script.js` uses `joi` to validate the script.
+`validate.js` uses `js-yaml` to parse the yaml file and then `validate-script.js` from `artillery` to validate the script.

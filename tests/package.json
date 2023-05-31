@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "artillery": "^2.0.0-32",
     "joi": "^17.9.2",
     "js-yaml": "^4.1.0"
   }

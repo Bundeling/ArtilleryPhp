@@ -119,11 +119,11 @@ $loginRequest = Artillery::request('post', '/login')
 
 ```
 
-Take note of the difference between the set and add differention, and;<br>
+Take note of the difference between the set and add differentiation, and;<br>
 Refer to the [Artillery reference docs](https://www.artillery.io/docs) for raw representation specs.
 
 
-### Step 3: Export the YAML:
+### Step 3: Export to YAML:
 
 ```php
 // Without argument will build the YAML as the same name as the php file:
@@ -198,7 +198,7 @@ You can either pass the base Url in the constructor or use the `setTarget` metho
 
 ```php
 // Base URL in the Scenario with relateve path in the request:
-$artillery = Artillery::new('http://localhost:3000')->addScenario(Artillery::request('get', '/home'));;
+$artillery = Artillery::new('http://localhost:3000')->addScenario(Artillery::request('get', '/home'));
 
 // Without target, and fully qualified URL in Request:
 $artillery = Artillery::new()->addScenario(Artillery::request('get', 'http://localhost:3000/home'));
@@ -225,7 +225,7 @@ $artillery = Artillery::new()
     ->setEnvironment('local', $local);
 ````
 
-### Static factory helpers, use these to get a new instance and immediately call methods on it:
+### Static factory helpers: use these to get a new instance and immediately call methods on them:
 
 - Artillery: `new([targetUrl: null|string = null]): Artillery`
 - Scenario: `scenario([name: null|string = null]): Scenario`
@@ -306,10 +306,6 @@ function generateVUToken(context, events, done) {
 }
 ```
 
-#### Tips:
-
-- For custom settings, there is a `set(key: string, value: mixed)` function available.
-
 ### Config settings:
 
 Please refer to the docs: https://bundeling.github.io/ArtilleryPhp/classes/ArtilleryPhp-Artillery#methods
@@ -340,18 +336,19 @@ Please refer to the docs: https://bundeling.github.io/ArtilleryPhp/classes/Artil
 - `setTls(rejectUnauthorized: bool)`
 - `setWs(wsOptions: array)`
 
-### Render/load:
+### Rendering and Loading:
 
-- `build([file: null|string = null]): Artillery` Build the script and save it to a file.
+- `build([file: null|string = null]): Artillery` Build the script and save it as a file.
 - `toYaml(): string` Render the script to a Yaml string.
 - `from(artillery: Artillery): Artillery` New Artillery instance from given Artillery instance.
 - `fromArray(script: array): Artillery` New Artillery instance from given array data.
+- `fromYaml(file: string): Artillery` New Artillery instance from given Yaml file.
 - `toArray(): array` Get the array representation of the current Artillery instance.
 - `run([reportFile: null|string = null], [debug: null|string = null]): Artillery` Run the built script (or build and run-), and save the report to a file.
 
 ## Scenario Class
 
-The `Scenario` class has all the methods related to a scenario as well as all methods related to its flow.
+The Scenario class includes all the methods related to a scenario and its flow.
 
 Docs: https://bundeling.github.io/ArtilleryPhp/classes/ArtilleryPhp-Scenario
 
@@ -382,8 +379,7 @@ Misc:
 - `setWeight(weight: int)`
   Determines the probability that this scenario will be picked compared to other scenarios in the Artillery script. Defaults to 1.
 
-Engine if not set are for HTTP requests, to make a WebSocket scenario you need to specify this scenario's engine to be 'ws' and only use instances of the `WsRequest` class available at `Artillery::wsRequest()`.
-
+If not set, the engine defaults to HTTP requests. To create a WebSocket scenario, you need to specify this scenario's engine as 'ws' and only use instances of the `WsRequest` class, available at `Artillery::wsRequest()`.
 - `setEngine(engine: string) `
 
 Scenario-level JavaScript function hook, from the Js file defined in `setProcessor` in the `Artillery` instance:

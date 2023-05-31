@@ -107,11 +107,11 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/AnyRequest.php"><a href="files/src-anyrequest.html"><abbr title="src/AnyRequest.php">AnyRequest.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">13</span>
+    <span class="phpdocumentor-element-found-in__line">17</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Anonymous Request type. Crude implementation.</p>
+            <p class="phpdocumentor-summary">Anonymous Request type. Can be used for not-yet-supported or custom engines. Crude implementation.</p>
 
 
 
@@ -125,9 +125,13 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$scenario = Artillery::scenario()
-    ->setEngine('custom')
-    ->addRequest(Artillery::anyRequest('send', 'Hello World!'));
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$emitAndValidateResponse = Artillery::scenario('Emit and validate response')
+    ->setEngine('socketio')
+    ->addRequest(
+        Artillery::anyRequest('emit')
+            ->set('channel', 'echo')
+            ->set('data', 'Hello from Artillery')
+            ->set('response', ['channel' => 'echoResponse', 'data' => 'Hello from Artillery']));
 </code></pre>
 </section>
 

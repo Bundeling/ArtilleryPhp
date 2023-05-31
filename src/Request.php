@@ -9,6 +9,7 @@ use stdClass;
  * @example <pre><code class="language-php">$getTarget = Artillery::request('get', '/inbox')
  *      ->setJson('client_id', '{{ id }}')
  *      ->addCapture('first_inbox_id', 'json', '$[0].id');
+ *
  * $postResponse = Artillery::request('post', '/inbox')
  *      ->setJsons(['user_id' => '{{ first_inbox_id }}', 'message' => 'Hello, world!']);
  * </code></pre>
@@ -56,10 +57,10 @@ class Request extends RequestBase {
 	}
 
 	/**
-	 * Set the body of the request. This can be a string or an array (which will be stringified into JSON).
+	 * Set the body of the request. This can be a string or an array (which will be stringified with JSON).
+	 * @example <pre><code class="language-php">$request->setBody('Hello world!');</code></pre>
 	 * @param mixed $body The body of the request in arbitrary data.
 	 * @return $this The current Request instance.
-	 * @example <pre><code class="language-php">$request->setBody('Hello world!');</code></pre>
 	 */
 	public function setBody(mixed $body): self {
 		$this->request['body'] = $body;
@@ -68,11 +69,11 @@ class Request extends RequestBase {
 
 	/**
 	 * Set a Cookie to send with the request. These will be merged with any cookies that have been set globally.
+	 * @example <pre><code class="language-php">$request->setCookie('session_id', '1234567890');</code></pre>
+	 * @link https://www.artillery.io/docs/guides/guides/http-reference#cookies
 	 * @param string $name The name of the cookie to set.
 	 * @param string $value The value of the cookie to set.
 	 * @return $this The current Request instance.
-	 * @link https://www.artillery.io/docs/guides/guides/http-reference#cookies
-	 * @example <pre><code class="language-php">$request->setCookie('session_id', '1234567890');</code></pre>
 	 */
 	public function setCookie(string $name, string $value): self {
 		if (!@$this->request['cookie']) $this->request['cookie'] = [];
@@ -82,10 +83,10 @@ class Request extends RequestBase {
 
 	/**
 	 * Set an array of Cookies to send with the request. These will be merged with any cookies that have been set globally.
-	 * @param array<string, string> $cookies An array of cookies to set.
-	 * @return $this The current Request instance.
 	 * @example <pre><code class="language-php">$request->setCookies(['session_id' => '1234567890', 'name' => 'Geraldo']);</code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#cookies
+	 * @param array<string, string> $cookies An array of cookies to set.
+	 * @return $this The current Request instance.
 	 */
 	public function setCookies(array $cookies): self {
 		foreach ($cookies as $name => $value) $this->setCookie($name, $value);
@@ -104,14 +105,14 @@ class Request extends RequestBase {
 
 	/**
 	 * Set a URL-encoded form attribute (application/x-www-form-urlencoded).
-	 * @param string $key The key of the form data to set.
-	 * @param mixed $value The value of the form data to set.
-	 * @return $this The current Request instance.
 	 * @example <pre><code class="language-php">$request = Artillery::request('post', '/submit')
 	 *     ->setForm('name', 'Swanson')
 	 *     ->setForm('vote', 'Hamburger');
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#url-encoded-forms-applicationx-www-form-urlencoded
+	 * @param string $key The key of the form data to set.
+	 * @param mixed $value The value of the form data to set.
+	 * @return $this The current Request instance.
 	 */
 	public function setForm(string $key, mixed $value): self {
 		if (!@$this->request['form']) $this->request['form'] = [];
@@ -121,12 +122,12 @@ class Request extends RequestBase {
 
 	/**
 	 * Set an array of URL-encoded form attributes (application/x-www-form-urlencoded).
-	 * @param array $form An array of form data to set. As [key => value, ...].
-	 * @return $this The current Request instance.
 	 * @example <pre><code class="language-php">$request = Artillery::request('post', '/submit')
 	 *     ->setForms(['name' => 'Swanson', 'vote' => 'Hamburger']);
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#url-encoded-forms-applicationx-www-form-urlencoded
+	 * @param array $form An array of form data to set. As [key => value, ...].
+	 * @return $this The current Request instance.
 	 */
 	public function setForms(array $form): self {
 		foreach ($form as $key => $value) $this->setForm($key, $value);
@@ -170,11 +171,11 @@ class Request extends RequestBase {
 
 	/**
 	 * Arbitrary header may be sent under the 'headers' option for a request.
+	 * @example <pre><code class="language-php">$request = Artillery::request()->setHeader('User-Agent', 'Mozilla/5.0 (Linux; Android 12; ...');</code></pre>
+	 * @link https://www.artillery.io/docs/guides/guides/http-reference#setting-headers
 	 * @param string $key The name of the header to set.
 	 * @param string $value The value of the header to set.
 	 * @return $this The current Request instance.
-	 * @example <pre><code class="language-php">$request = Artillery::request()->setHeader('User-Agent', 'Mozilla/5.0 (Linux; Android 12; ...');</code></pre>
-	 * @link https://www.artillery.io/docs/guides/guides/http-reference#setting-headers
 	 */
 	public function setHeader(string $key, string $value): self {
 		if (!@$this->request['headers']) $this->request['headers'] = [];
@@ -184,10 +185,10 @@ class Request extends RequestBase {
 
 	/**
 	 * Associative array of [name => value, ...] arbitrary headers may be sent under the 'headers' option for a request.
-	 * @param array<string, string> $headers A key-value array of headers to set.
-	 * @return $this The current Request instance.
 	 * @example <pre><code class="language-php">$request = Artillery::request()->setHeaders(['User-Agent' => 'Mozilla/5.0 (Linux; Android 12; ...']);</code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#setting-headers
+	 * @param array<string, string> $headers A key-value array of headers to set.
+	 * @return $this The current Request instance.
 	 */
 	public function setHeaders(array $headers): self {
 		foreach ($headers as $key => $value) $this->setHeader($key, $value);
@@ -196,12 +197,12 @@ class Request extends RequestBase {
 
 	/**
 	 * The ifTrue option can execute a request in a flow only when meeting a condition.
-	 * @param string $expression The expression to evaluate.
-	 * @return $this The current Request instance.
 	 * @example <pre><code class="language-php">$request = Artillery::request('get', '/pages/{{ pageNumber }}')
 	 *     ->setIfTrue('pageNumber < 10');
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#conditional-requests
+	 * @param string $expression The expression to evaluate.
+	 * @return $this The current Request instance.
 	 */
 	public function setIfTrue(string $expression): self {
 		$this->request['ifTrue'] = $expression;

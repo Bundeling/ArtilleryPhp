@@ -68,10 +68,12 @@ $artillery = Artillery::fromArray([
 ]);
 ```
 
-Or from an existing `Artillery` instance with `Artillery::from(artillery: Artillery)`:
+Or from an existing `Artillery` instance, or from another existing YAML file:
 
 ```php
-// Imagine we have a default Artillery instance with some default values:
+$file = __DIR__ . '/common-config.yml';
+$default = Artillery::fromYaml($file);
+
 $artillery = Artillery::from($default);
 ```
 

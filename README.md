@@ -68,7 +68,7 @@ $artillery = Artillery::fromArray([
 ]);
 ```
 
-Or from an existing `Artillery` instance, or from another existing YAML file:
+And from an existing YAML file, or other `Artillery` instance:
 
 ```php
 $file = __DIR__ . '/common-config.yml';

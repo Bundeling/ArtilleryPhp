@@ -71,7 +71,7 @@ $artillery = Artillery::fromArray([
 And from an existing YAML file, or other `Artillery` instance:
 
 ```php
-$file = __DIR__ . '/common-config.yml';
+$file = __DIR__ . '/default-config.yml';
 $default = Artillery::fromYaml($file);
 
 $artillery = Artillery::from($default);

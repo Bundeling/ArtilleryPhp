@@ -5,7 +5,8 @@ const file = process.argv[2];
 
 fs.readFile(file, 'utf8', (err, data) => {
     if (err) {
-        console.error('Error reading file:', err);
+        console.error('❌ Error reading file:', file);
+        console.error(' ↳', err)
         return;
     }
 
@@ -13,11 +14,13 @@ fs.readFile(file, 'utf8', (err, data) => {
         let doc = yaml.load(data);
         let error = validateScript(doc);
         if (error) {
-            console.error('Error in file:', file, error);
+            console.error('❌ Error in file:', file);
+            console.error(' ↳', error)
         } else {
-            console.log('File parsed successfully:', file);
+            console.log('✅ File validated:', file);
         }
     } catch (e) {
-        console.error('Error parsing YAML:', e);
+        console.error('❌ Error parsing YAML:', file);
+        console.error(' ↳', file, e);
     }
 });

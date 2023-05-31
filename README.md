@@ -153,15 +153,14 @@ scenarios:
       - loop:
           - get:
               url: /login
-              payload:
-                url: /login
               capture:
-                json: $.token
-                as: token
+                - json: $.token
+                  as: token
               expect:
                 - statusCode: 200
                 - contentType: json
                 - hasProperty: token
+          - think: 0.5
           - get:
               url: /inbox
               qs:

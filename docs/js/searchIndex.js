@@ -103,7 +103,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AsetEngine\u0028\u0029",
             "name": "setEngine",
-            "summary": "Set\u0020a\u0020custom\u0020engine\u0020to\u0020the\u0020config\u0020section\u0020of\u0020the\u0020Artillery\u0020script.",
+            "summary": "Set\u0020a\u0020the\u0020engine\u0020to\u0020the\u0020config\u0020section\u0020of\u0020the\u0020Artillery\u0020script.",
             "url": "classes/ArtilleryPhp-Artillery.html#method_setEngine"
         },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AsetEngines\u0028\u0029",
@@ -233,7 +233,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetBody\u0028\u0029",
             "name": "setBody",
-            "summary": "Set\u0020the\u0020body\u0020of\u0020the\u0020request.\u0020This\u0020can\u0020be\u0020a\u0020string\u0020or\u0020an\u0020array\u0020\u0028which\u0020will\u0020be\u0020stringified\u0020into\u0020JSON\u0029.",
+            "summary": "Set\u0020the\u0020body\u0020of\u0020the\u0020request.\u0020This\u0020can\u0020be\u0020a\u0020string\u0020or\u0020an\u0020array\u0020\u0028which\u0020will\u0020be\u0020stringified\u0020with\u0020JSON\u0029.",
             "url": "classes/ArtilleryPhp-Request.html#method_setBody"
         },                {
             "fqsen": "\\ArtilleryPhp\\Request\u003A\u003AsetCookie\u0028\u0029",
@@ -388,12 +388,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ArtilleryPhp\\Scenario\u003A\u003AaddAfterResponse\u0028\u0029",
             "name": "addAfterResponse",
-            "summary": "Add\u0020a\u0020function\u0020or\u0020array\u0020of\u0020functions\u0020from\u0020the\u0020JavaScript\u0020file\u0020defined\u0020with\u0020Artillery\u003A\u003AsetProcessor\u0020to\u0020be\u0020executed\u0020after\u0020a\u0020response\u0020is\u0020received\u0020where\u0020the\u0020response\u0020can\u0020be\u0020inspected,\u0020and\u0020custom\u0020variables\u0020can\u0020be\u0020set.",
+            "summary": "Add\u0020a\u0020function\u0020or\u0020array\u0020of\u0020functions\u0020to\u0020be\u0020executed\u0020after\u0020a\u0020response\u0020is\u0020received.",
             "url": "classes/ArtilleryPhp-Scenario.html#method_addAfterResponse"
         },                {
             "fqsen": "\\ArtilleryPhp\\Scenario\u003A\u003AaddBeforeRequest\u0028\u0029",
             "name": "addBeforeRequest",
-            "summary": "Add\u0020a\u0020function\u0020or\u0020array\u0020of\u0020functions\u0020from\u0020the\u0020JavaScript\u0020file\u0020defined\u0020with\u0020Artillery\u003A\u003AsetProcessor\u0020to\u0020be\u0020executed\u0020before\u0020a\u0020request\u0020is\u0020sent,\u0020where\u0020you\u0020can\u0020set\u0020headers\u0020or\u0020body\u0020dynamically.",
+            "summary": "Add\u0020a\u0020function\u0020or\u0020array\u0020of\u0020functions\u0020to\u0020be\u0020executed\u0020after\u0020a\u0020scenario\u0020is\u0020finished.",
             "url": "classes/ArtilleryPhp-Scenario.html#method_addBeforeRequest"
         },                {
             "fqsen": "\\ArtilleryPhp\\Scenario\u003A\u003AaddAfterScenario\u0028\u0029",
@@ -478,7 +478,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ArtilleryPhp\\AnyRequest",
             "name": "AnyRequest",
-            "summary": "Anonymous\u0020Request\u0020type.\u0020Crude\u0020implementation.",
+            "summary": "Anonymous\u0020Request\u0020type.\u0020Can\u0020be\u0020used\u0020for\u0020not\u002Dyet\u002Dsupported\u0020or\u0020custom\u0020engines.\u0020Crude\u0020implementation.",
             "url": "classes/ArtilleryPhp-AnyRequest.html"
         },                {
             "fqsen": "\\",

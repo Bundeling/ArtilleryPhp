@@ -43,6 +43,15 @@ class Scenario {
 
 	/**
 	 * Set an arbitrary custom option in this scenario.
+	 * @example <pre><code class="language-php">$artillery = Artillery::new('https://artillery.io')
+	 *     ->addPhase(['arrivalRate' => 1, 'duration' => 10])
+	 *     ->setEngine('playwright')
+	 *     ->setProcessor('./flows.js');
+	 *
+	 * $scenario = Artillery::scenario('A flow with multiple steps')
+	 *     ->setEngine('playwright')
+	 *     ->set('flowFunction', 'multistepWithCustomMetrics');
+	 * </code></pre>
 	 * @param string $key The name of the option.
 	 * @param mixed $value The value of the option.
 	 * @return $this The current Scenario instance.
@@ -53,23 +62,25 @@ class Scenario {
 	}
 
 	/**
-	 * Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed after a response is received where the response can be inspected, and custom variables can be set.
+	 * Add a function or array of functions to be executed after a response is received.
+	 * @description A JavaScript file defined with Artillery::setProcessor can export methods which can be executed after a response is received where the response can be inspected, and custom variables can be set.
+	 * @link https://www.artillery.io/docs/guides/guides/http-reference#afterresponse-hooks
 	 * @param string|string[] $function The function(s) to execute.
 	 * @return $this The current Request instance.
-	 * @link https://www.artillery.io/docs/guides/guides/http-reference#afterresponse-hooks
 	 */
 	public function addAfterResponse(array|string $function): self {
-		if (!@$this->request['afterResponse']) $this->scenario['afterResponse'] = [];
+		if (!@$this->scenario['afterResponse']) $this->scenario['afterResponse'] = [];
 		if (is_array($function)) $this->scenario['afterResponse'] = array_merge($this->scenario['afterResponse'], $function);
 		else $this->scenario['afterResponse'][] = $function;
 		return $this;
 	}
 
 	/**
-	 * Add a function or array of functions from the JavaScript file defined with Artillery::setProcessor to be executed before a request is sent, where you can set headers or body dynamically.
+	 * Add a function or array of functions to be executed after a scenario is finished.
+	 * @description A JavaScript file defined with Artillery::setProcessor can export methods which can be executed before a request is sent, where you can set headers or body dynamically.
+	 * @link https://www.artillery.io/docs/guides/guides/http-reference#beforerequest-hooks
 	 * @param string|string[] $function The function(s) to execute.
 	 * @return $this The current Request instance.
-	 * @link https://www.artillery.io/docs/guides/guides/http-reference#beforerequest-hooks
 	 */
 	public function addBeforeRequest(array|string $function): self {
 		if (!@$this->scenario['beforeRequest']) $this->scenario['beforeRequest'] = [];
@@ -175,8 +186,7 @@ class Scenario {
 	 *     ->addFlow(
 	 *         Artillery::Scenario()
 	 *             ->addRequest(Artillery::request('GET', 'https://example.com'))
-	 *             ->addThink(2)
-	 *     );
+	 *             ->addThink(2));
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/getting-started/writing-your-first-test#adding-a-scenario-and-flow
 	 * @param Scenario $scenario The Scenario from which flow to add to this Scenario's flow.
@@ -228,12 +238,6 @@ class Scenario {
 	/**
 	 * Adds a loop to the flow, which can be another Scenario, a request or an array of either.
 	 * To make it even more fun, loops can be nested.
-	 * @param Scenario|RequestInterface|(Scenario|RequestInterface)[]  $loop A Scenario, Request or array containing these types.
-	 * @param int|null $count The number of times to loop.
-	 * @param string|null $over The variable reference to loop over.
-	 * @param string|null $whileTrue The condition to continue looping.
-	 * @return $this The current Scenario instance.
-	 * @link https://github.com/rjnienaber/artillery-test/blob/master/nested_loops/test.yml
 	 * @example <pre><code class="language-php"> // Loop through 100 pages:
 	 * $scenario = Artillery::scenario()
 	 *     ->addLoop(
@@ -241,6 +245,12 @@ class Scenario {
 	 *         100);
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/http-reference#loops
+	 * @link https://github.com/rjnienaber/artillery-test/blob/master/nested_loops/test.yml
+	 * @param Scenario|RequestInterface|(Scenario|RequestInterface)[]  $loop A Scenario, Request or array containing these types.
+	 * @param int|null $count The number of times to loop.
+	 * @param string|null $over The variable reference to loop over.
+	 * @param string|null $whileTrue The condition to continue looping.
+	 * @return $this The current Scenario instance.
 	 */
 	public function addLoop(array|Scenario|RequestInterface $loop, int $count = null, string $over = null, string $whileTrue = null): self {
 		if ($loop instanceof Scenario) $ret = ['loop' => $loop->getFlow()];
@@ -304,8 +314,10 @@ class Scenario {
 
 	/**
 	 * Adds a function or array of functions from the JavaScript file defined with Artillery::setProcessor() to be executed at this point in the Scenario's flow.
-	 * @example <pre><code class="language-php">$artillery->setProcessor('functions.js');
-	 * // Possibly set some variables from javascript at the start of the flow.
+	 * @example <pre><code class="language-php"> // Set the javascript file:
+	 * $artillery->setProcessor('functions.js');
+	 *
+	 * // Possibly set some variables in an exported function at the start of the flow:
 	 * $scenario = Artillery::scenario()
 	 *    ->addFunction('myFunction');
 	 * </code></pre>

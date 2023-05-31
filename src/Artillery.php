@@ -145,10 +145,10 @@ class Artillery {
 	 */
 	public static function fromArray(array $script): self {
 		$instance = new self();
-		if ($script['config']) $instance->config = $script['config'];
-		if ($script['before']) $instance->before = $script['before'];
-		if ($script['scenarios']) $instance->scenarios = $script['scenarios'];
-		if ($script['after']) $instance->after = $script['after'];
+		if (@$script['config']) $instance->config = $script['config'];
+		if (@$script['before']) $instance->before = $script['before'];
+		if (@$script['scenarios']) $instance->scenarios = $script['scenarios'];
+		if (@$script['after']) $instance->after = $script['after'];
 		return $instance;
 	}
 
@@ -287,12 +287,21 @@ class Artillery {
 
 	/**
 	 * Adds an array of Scenarios to the main scenarios section of the Artillery script. You can also provide a single Request or array of Requests, and a scenario will be made from it.
-	 * @example <pre><code class="language-php"> // Define a set of scenarios to use in the script, in this case 3 different scenarios.
+	 * @example <pre><code class="language-php"> // Just as addScenario, this function can take a single or array of Requests(s):
 	 * $defaultScenarios = [
-	 *     Artillery::scenario()->addRequest(Artillery::request('GET', '/')),
+	 *     // This becomes one scenario:
+	 *     Artillery::scenario('Name')
+	 *         ->addRequest(Artillery::request('GET', '/'))
+	 *         ->addWeight(10),
+	 *
+	 *     // This becomes another scenario:
 	 *     Artillery::request('GET', '/about'),
+	 *
+	 *     // This becomes a third scenario:
 	 *     [Artillery::request('GET', '/contact'), Artillery::request('GET', '/contact-us')],
 	 * ];
+	 *
+	 * // Sticking to Scenario objects is recommended as it gives you access to options aside from just the flow such as name and weight.
 	 *
 	 * // Add the 3 scenarios to the Artillery script.
 	 * $artillery = Artillery::new()->addScenarios($defaultScenarios);
@@ -402,11 +411,15 @@ class Artillery {
 	}
 
 	/**
-	 * Set a custom engine to the config section of the Artillery script.
+	 * Set a the engine to the config section of the Artillery script.
+	 * @example <pre><code class="language-php">$artillery = Artillery::new('https://artillery.io')
+	 *     ->addPhase(['arrivalRate' => 1, 'duration' => 10])
+	 *     ->setEngine('playwright')
+	 *     ->setProcessor('./flows.js');
+	 * </code></pre>
 	 * @param string $name The name of the engine.
 	 * @param array|null $options The options for this engine.
 	 * @return $this The current Artillery instance.
-	 * @example <pre><code class="language-php">$artillery->setEngine('custom');</code></pre>
 	 */
 	public function setEngine(string $name, array $options = null): self {
 		if (!@$this->config['engines']) $this->config['engines'] = [];
@@ -566,15 +579,15 @@ class Artillery {
 	/**
 	 * Adds a phase to the config section of the Artillery script.
 	 * @description A load phase defines how Artillery generates new virtual users (VUs) in a specified time period. For example, a typical performance test will have a gentle warm-up phase, followed by a ramp-up phase, and finalizing with a maximum load for a duration of time.
-	 * @param array{duration?: int, arrivalCount?: int, arrivalRate?: int, rampTo?: int, maxVusers?: int, pause?: int} $phase The phase to be added.
-	 * @param string|null $name The name of the phase.
-	 * @return $this The current Artillery instance.
-	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#phases---load-phases
 	 * @example <pre><code class="language-php">$artillery = Artillery::new()
 	 *     ->addPhase(['duration' => 60, 'arrivalRate' => 10], 'warm up')
 	 *     ->addPhase(['duration' => 300, 'arrivalRate' => 10, 'rampTo' => 100], 'ramp up')
 	 *     ->addPhase(['duration' => 600, 'arrivalRate' => 100], 'sustained load');
 	 * </code></pre>
+	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#phases---load-phases
+	 * @param array{duration?: int, arrivalCount?: int, arrivalRate?: int, rampTo?: int, maxVusers?: int, pause?: int} $phase The phase to be added.
+	 * @param string|null $name The name of the phase.
+	 * @return $this The current Artillery instance.
 	 */
 	public function addPhase(array $phase, string $name = null): self {
 		if (!@$this->config['phases']) $this->config['phases'] = [];
@@ -586,9 +599,6 @@ class Artillery {
 	/**
 	 * Adds an array of phase to the config section of the Artillery script.
 	 * @description A load phase defines how Artillery generates new virtual users (VUs) in a specified time period. For example, a typical performance test will have a gentle warm-up phase, followed by a ramp-up phase, and finalizing with a maximum load for a duration of time.
-	 * @param array{duration?: int, arrivalCount?: int, arrivalRate?: int, rampTo?: int, pause?: int, name?: string}[] $phases The phases to be added.
-	 * @return $this The current Artillery instance.
-	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#phases---load-phases
 	 * @example <pre><code class="language-php">$defaultPhases = [
 	 *     ['duration' => 60, 'arrivalRate' => 10, 'name' => 'warm up'],
 	 *     ['duration' => 300, 'arrivalRate' => 10, 'rampTo' => 100, 'name' => 'ramp up'],
@@ -597,6 +607,9 @@ class Artillery {
 	 *
 	 * $artillery = Artillery::new()->addPhases($defaultPhases);
 	 * </code></pre>
+	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#phases---load-phases
+	 * @param array{duration?: int, arrivalCount?: int, arrivalRate?: int, rampTo?: int, pause?: int, name?: string}[] $phases The phases to be added.
+	 * @return $this The current Artillery instance.
 	 */
 	public function addPhases(array $phases): self {
 		foreach ($phases as $phase) $this->addPhase($phase);
@@ -617,7 +630,7 @@ class Artillery {
 	 * // Others can be handled like this:
 	 * $artillery->setPlugin('hls');
 	 * $customRequest = Artillery::request('get', '/users/1')
-	 *        ->set('hls', ['concurrency' => 200, 'throttle' => 128]);
+	 *     ->set('hls', ['concurrency' => 200, 'throttle' => 128]);
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/plugins/plugins-overview
 	 * @link https://www.npmjs.com/search?ranking=popularity&q=artillery-plugin-
@@ -671,6 +684,7 @@ class Artillery {
 	 * If you define multiple values for a variable, they will be accessed randomly in your scenarios.
 	 * @example <pre><code class="language-php">// Define 3 users:
 	 * $artillery->setVariable('username', ['user1', 'user2', 'user3']);
+	 *
 	 * // Pick a random one for each scenario:
 	 * $artillery->addRequest(
 	 *    Artillery::request('post', '/login')

@@ -198,8 +198,6 @@ $request = Artillery::request('get', '/login')
     ->addCapture('token', 'json', '$.token');
     
 $scenario = Artillery::scenario()->addRequest($request);
-
-$artillery->addScenario($loop);
 ```
 
 ### Scenarios:

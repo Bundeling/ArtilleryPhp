@@ -180,7 +180,7 @@ $artillery = Artillery::new()
 ```
 ### Notes
 
-Current implementation builds up an internal array representation. Meaning very little to no support for operations like getting a `Scenario` instance from a specific index or unsetting a property. For now think in terms of composition, and look forward to v2.
+Current implementation builds up an internal array representation. This means that there's limited or no support for operations like getting a `Scenario` instance from a specific index or unsetting a property. For now think in terms of composition, and look forward to v2.
 
 ## Artillery Class
 

@@ -1,8 +1,9 @@
 # ArtilleryPhp
 
-[Artillery](https://www.artillery.io/) is a modern, powerful & easy-to-use performance testing toolkit. 
+[Artillery.io](https://www.artillery.io/) is a modern, powerful & easy-to-use performance testing toolkit. 
 
-[ArtilleryPhp](https://github.com/Bundeling/ArtilleryPhp) is a library to write and maintain [Artillery.io](https://www.artillery.io/) scripts in PHP.
+[ArtilleryPhp](https://github.com/Bundeling/ArtilleryPhp) is a library to write and maintain Artillery scripts in PHP.
+
 - Documentation: [bundeling.github.io/ArtilleryPhp](https://bundeling.github.io/ArtilleryPhp/namespaces/artilleryphp.html)
 - Examples: [ArtilleryPhp-Examples](https://github.com/Bundeling/ArtilleryPhp-examples)
 

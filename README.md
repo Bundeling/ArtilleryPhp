@@ -212,12 +212,12 @@ You can add a fully built scenario, or pass a single Request or array of Request
   - Adds a Scenario to run before any given Scenario from the scenarios section.
 
 ```php
-// This scenario will run once before the main scenarios,
-// here we're using a function to generate a shared token:
+// This scenario will run once before any main scenarios/virtual users; here we're using a js function 
+// from a processor to generate a variable available in all future scenarios and their virtual users:
 $before = Artillery::scenario()->addFunction('generateSharedToken');
 
-// One of the normal scenarios, which has access to the shared token,
-// and it can generate a VU-specific token within its own scope:
+// One of the main scenarios, which has access to the shared token,
+// and here we're generating a token unique to every main scenario that executed.
 $scenario = Artillery::scenario()
     ->addFunction('generateVUToken')
     ->addLog('VU id: {{ $uuid }}')
@@ -236,7 +236,11 @@ $artillery = Artillery::new('http://www.artillery.io')
     ->addScenario($scenario);
 ```
 
-For custom settings, there is a `set(key: string, value: mixed)` function available.
+From: https://github.com/Bundeling/ArtilleryPhp-examples/tree/main/generating-vu-tokens
+
+#### Tips:
+
+- For custom settings, there is a `set(key: string, value: mixed)` function available.
 
 ### Config settings:
 

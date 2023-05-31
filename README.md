@@ -68,10 +68,12 @@ $artillery = Artillery::fromArray([
 ]);
 ```
 
-Or from an existing `Artillery` instance with `Artillery::from(artillery: Artillery)`:
+And from an existing YAML file, or other `Artillery` instance:
 
 ```php
-// Imagine we have a default Artillery instance with some default values:
+$file = __DIR__ . '/default-config.yml';
+$default = Artillery::fromYaml($file);
+
 $artillery = Artillery::from($default);
 ```
 
@@ -104,7 +106,22 @@ $artillery->addScenario($scenario);
 
 #### Tips:
 
-- Nearly all methods have a plural version to add/set multiple entries.
+Plural versions exist to take multiple entries of raw array representations:
+
+```php
+$loginRequest = Artillery::request('post', '/login')
+    ->setQueryStrings([
+        'username' => '{{ username }},
+        'password' => '{{ password }}'])
+    ->addCaptures([
+        ['json' => '$.token', 'as' => 'token'],
+        ['json' => '$.id', 'as' => 'id']])
+
+```
+
+Take note of the difference between the set and add differention, and;<br>
+Refer to the [Artillery reference docs](https://www.artillery.io/docs) for raw representation specs.
+
 
 ### Step 3: Export the YAML:
 
@@ -181,11 +198,11 @@ If a target is set, it will be used as the base Url for all the requests in the 
 You can either pass the base Url in the constructor or use the `setTarget` method on the Artillery instance. You can also skip this step entirely and provide fully qualified Urls in each Request.
 
 ```php
-// Amazingly 4 different ways to set the target:
-$artillery = Artillery::new('http://localhost:3000')->setTarget('http://localhost:3000');
+// Base URL in the Scenario with relateve path in the request:
+$artillery = Artillery::new('http://localhost:3000')->addScenario(Artillery::request('get', '/home'));;
 
-// Without target, and fully qualified url in Request:
-$artillery = Artillery::new()->addRequest(Artillery::request('get', 'http://localhost:3000'));
+// Without target, and fully qualified URL in Request:
+$artillery = Artillery::new()->addScenario(Artillery::request('get', 'http://localhost:3000/home'));
 ```
 
 ### Environments:

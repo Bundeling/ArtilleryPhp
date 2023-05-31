@@ -119,8 +119,7 @@ $loginRequest = Artillery::request('post', '/login')
 
 ```
 
-Take note of the difference between the set and add differention, and;
-
+Take note of the difference between the set and add differention, and;<br>
 Refer to the [Artillery reference docs](https://www.artillery.io/docs) for raw representation specs.
 
 

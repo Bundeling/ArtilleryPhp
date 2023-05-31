@@ -6,9 +6,13 @@
     "version": "1.0.0",
     "keywords": [
         "artillery.io",
+        "artilleryphp",
         "artillery",
+        "php",
         "wrapper",
         "library",
+        "testing",
+        "performance testing",
         "load testing",
         "smoke testing",
         "yaml"

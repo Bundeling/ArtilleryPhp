@@ -89,9 +89,10 @@ $inboxRequest = Artillery::request('get', '/inbox')
     ->setQueryString('token', '{{ token }}')
     ->addExpect('statusCode', 200);
 
-// Create a flow with the requests:
+// Create a flow with the requests, and a 500ms delay between:
 $flow = Artillery::scenario()
     ->addRequest($loginRequest)
+    ->addThink(0.5)
     ->addRequest($inboxRequest);
 
 // Let's loop the flow 10 times:

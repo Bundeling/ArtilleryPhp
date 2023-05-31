@@ -183,11 +183,11 @@ If a target is set, it will be used as the base Url for all the requests in the 
 You can either pass the base Url in the constructor or use the `setTarget` method on the Artillery instance. You can also skip this step entirely and provide fully qualified Urls in each Request.
 
 ```php
-// Amazingly 4 different ways to set the target:
-$artillery = Artillery::new('http://localhost:3000')->setTarget('http://localhost:3000');
+// Base URL in the Scenario with relateve path in the request:
+$artillery = Artillery::new('http://localhost:3000')->addScenario(Artillery::request('get', '/home'));;
 
-// Without target, and fully qualified url in Request:
-$artillery = Artillery::new()->addRequest(Artillery::request('get', 'http://localhost:3000'));
+// Without target, and fully qualified URL in Request:
+$artillery = Artillery::new()->addScenario(Artillery::request('get', 'http://localhost:3000/home'));
 ```
 
 ### Environments:

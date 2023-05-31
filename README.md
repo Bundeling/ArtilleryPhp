@@ -197,7 +197,7 @@ $artillery = Artillery::new($targetUrl)
 $request = Artillery::request('get', '/login')
     ->addCapture('token', 'json', '$.token');
     
-$scenario = Artillery::scenario()->addRequest($request);
+$scenario = Artillery::scenario('Logging in')->addRequest($request);
 ```
 
 ### Scenarios:

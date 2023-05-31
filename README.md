@@ -32,7 +32,7 @@ This library requires the `symfony/yaml` package to render its internal arrays t
 
 ## Usage
 
-Here is an example of how to use the ArtilleryPhp library:
+This example is available at [examples/artilleryphp-usage](https://github.com/Bundeling/ArtilleryPhp-examples/tree/main/artilleryphp-usage).
 
 ### Step 1: Create a new Artillery instance
 
@@ -116,7 +116,7 @@ $artillery->build();
 $artillery->run();
 ```
 
-This will produce the following `usage-example.yml` file:
+This will produce the following `readme-example.yml` file:
 
 ```yaml
 config:

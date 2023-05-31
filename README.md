@@ -111,7 +111,7 @@ Plural versions exist to take multiple entries of raw array representations:
 ```php
 $loginRequest = Artillery::request('post', '/login')
     ->setQueryStrings([
-        'username' => '{{ username }},
+        'username' => '{{ username }}',
         'password' => '{{ password }}'])
     ->addCaptures([
         ['json' => '$.token', 'as' => 'token'],

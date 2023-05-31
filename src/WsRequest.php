@@ -6,7 +6,7 @@ namespace ArtilleryPhp;
  * WebSocket Request. Crude implementation.
  * @example <pre><code class="language-php">$scenario = Artillery::scenario()
  *     ->setEngine('ws')
- *     ->addRequest(Artillery::wsRequest('send', 'Hello World!'));
+ *     ->addRequest(Artillery::wsRequest('send', 'Hello world!'));
  * </code></pre>
  * @link https://www.artillery.io/docs/guides/guides/ws-reference
  */

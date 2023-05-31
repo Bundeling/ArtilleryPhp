@@ -106,8 +106,6 @@ $artillery->addScenario($scenario);
 
 #### Tips:
 
-Where it's applicable methods have plural versions to add/set multiple entries, such as:
-
 Plural versions exist to take multiple entries of raw array representations:
 
 ```php

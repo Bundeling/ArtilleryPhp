@@ -5,16 +5,10 @@
     "license": "MIT",
     "version": "1.0.0",
     "keywords": [
-        "artillery.io",
-        "artilleryphp",
-        "artillery",
-        "php",
-        "wrapper",
-        "library",
-        "performance testing",
-        "load testing",
-        "smoke testing",
-        "yaml"
+        "artillery.io", "artilleryphp",
+        "artillery", "php", "wrapper", "library",
+        "performance testing", "load testing", "smoke testing",
+        "yaml", "yml"
     ],
     "authors": [
         {

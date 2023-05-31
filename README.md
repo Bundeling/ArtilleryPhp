@@ -103,8 +103,6 @@ $artillery->addScenario($scenario);
 #### Tips:
 
 - Nearly all methods have a plural version to add/set multiple entries.
-- Set-methods imply associative input. e.g., `[key => value, key2 => value]`.
-- Add-methods imply array of entries. E.g. `[[key => value], [key => value]]`.
 
 ### Step 3: Export the YAML:
 

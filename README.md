@@ -188,7 +188,7 @@ The `Artillery` class has all the methods related to the config section of the A
 
 Docs: https://bundeling.github.io/ArtilleryPhp/classes/ArtilleryPhp-Artillery
 
-For custom settings, there is a `set(key: string, value: mixed)` function available.
+For custom config settings, there is a `set(key: string, value: mixed)` function available.
 
 ### Target:
 

@@ -153,6 +153,26 @@ class Artillery {
 	}
 
 	/**
+	 * Creates a new Artillery instance from a YAML file.
+	 * @param string $file Path to the YAML file.
+	 * @return Artillery A new Artillery instance.
+	 */
+	public static function fromYaml(string $file): self {
+		// We parse maps as stdClass, but then we cast it back to array UNLESS it is empty.
+		// We do this to preserve the representation of an empty object {  } in YAML.
+		$yaml = Yaml::parseFile($file, Yaml::PARSE_OBJECT_FOR_MAP);
+
+		$script = (array)$yaml;
+		$recursiveCast = function (&$value) use (&$recursiveCast) {
+			if ($value instanceof stdClass && !empty((array)$value)) $value = (array)$value;
+			if (is_array($value)) array_walk_recursive($value, $recursiveCast);
+		};
+
+		$recursiveCast($script);
+		return self::fromArray($script);
+	}
+
+	/**
 	 * Creates a new Artillery instance copy from another Artillery instance.
 	 * @param Artillery $script Another Artillery instance.
 	 * @return Artillery A new Artillery instance.

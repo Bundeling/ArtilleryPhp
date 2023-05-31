@@ -111,7 +111,7 @@ $artillery->addScenario($scenario);
 $artillery->build();
 
 // Maybe even run the script right away:
-// $artillery->run();
+$artillery->run();
 ```
 
 This will produce the following `usage-example.yml` file:

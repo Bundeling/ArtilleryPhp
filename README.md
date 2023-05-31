@@ -107,8 +107,24 @@ $artillery->addScenario($scenario);
 #### Tips:
 
 Where it's applicable methods have plural versions to add/set multiple entries, such as:
-- `addCaptures([['key' => $value], [..]])` 
-- `setEnvironments(['name' => $value, ..])` 
+
+Plural versions exist to take multiple entries of raw array representations:
+
+```php
+$loginRequest = Artillery::request('post', '/login')
+    ->setQueryStrings([
+        'username' => '{{ username }},
+        'password' => '{{ password }}'])
+    ->addCaptures([
+        ['json' => '$.token', 'as' => 'token'],
+        ['json' => '$.id', 'as' => 'id']])
+
+```
+
+Take note of the difference between the set and add differention, and;
+
+Refer to the [Artillery reference docs](https://www.artillery.io/docs) for raw representation specs.
+
 
 ### Step 3: Export the YAML:
 

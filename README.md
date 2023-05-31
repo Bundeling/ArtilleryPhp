@@ -154,6 +154,8 @@ scenarios:
         count: 10
 ```
 
+#### Tips:
+
 For a very basic script, you can also add Requests (single or array) directly to the Artillery instance to create a new Scenario out of it:
 
 ```php

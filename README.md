@@ -209,7 +209,6 @@ $artillery = Artillery::new()
     ->setEnvironment('local', $local);
 ````
 
-
 ### Static factory helpers, use these to get a new instance and immediately call methods on it:
 
 - Artillery: `new([targetUrl: null|string = null]): Artillery`
@@ -228,9 +227,11 @@ $request = Artillery::request('get', '/login')
 $scenario = Artillery::scenario('Logging in')->addRequest($request);
 ```
 
-### Scenarios:
+### Scenario-related methods:
 
 You can add a fully built scenario, or pass a single Request or array of Requests, and a Scenario will be made from it.
+
+See the [Scenario Class](#scenario-class) for more details.
 
 - `addScenario(scenario: array|RequestInterface|RequestInterface[]|Scenario, [options: mixed[]|null = null])`
   - Add a Scenario to the scenarios section of the Artillery script.
@@ -238,6 +239,12 @@ You can add a fully built scenario, or pass a single Request or array of Request
   - Set a Scenario to run after a Scenario from the scenarios section is complete.
 - `setBefore(before: array|RequestInterface|RequestInterface[]|Scenario)`
   - Adds a Scenario to run before any given Scenario from the scenarios section.
+
+#### Processor & function hooks:
+
+A scenario's flow, and requests, can have JavaScript function hooks that can read and modify context such as variables:
+
+Here's a very demonstrative example from [examples/generating-vu-tokens](https://github.com/Bundeling/ArtilleryPhp-examples/tree/main/generating-vu-tokens):
 
 ```php
 // This scenario will run once before any main scenarios/virtual users; here we're using a js function 
@@ -264,7 +271,24 @@ $artillery = Artillery::new('http://www.artillery.io')
     ->addScenario($scenario);
 ```
 
-From: https://github.com/Bundeling/ArtilleryPhp-examples/tree/main/generating-vu-tokens
+With `./helpers.js` as:
+
+```js
+module.exports = {
+  generateSharedToken,
+  generateVUToken
+};
+
+function generateSharedToken(context, events, done) {
+  context.vars.sharedToken = `shared-token-${Date.now()}`;
+  return done();
+}
+
+function generateVUToken(context, events, done) {
+  context.vars.vuToken = `vu-token-${Date.now()}`;
+  return done();
+}
+```
 
 #### Tips:
 

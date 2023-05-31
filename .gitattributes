@@ -7,3 +7,4 @@
 .gitmodules export-ignore
 CONTRIBUTING.md export-ignore
 README.md export-ignore
+update_examples.sh export-ignore

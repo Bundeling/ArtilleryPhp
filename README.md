@@ -181,9 +181,14 @@ If a target is set, it will be used as the base Url for all the requests in the 
 You can either pass the base Url in the constructor or use the `setTarget` method on the Artillery instance. You can also skip this step entirely and provide fully qualified Urls in each Request.
 
 ```php
+// Amazingly 4 different ways to set the target:
 $artillery = Artillery::fromArray(['config' => ['target' => 'http://localhost:3000']]);
 $artillery = Artillery::new('http://localhost:3000');
 $artillery = Artillery::new()->setTarget('http://localhost:3000');
+$artillery = Artillery::from($artillery);
+
+// Without target, and fully qualified url in Request:
+$artillery = Artillery::new()->addRequest(Artillery::request('get', 'http://localhost:3000'));
 ```
 
 ### Static factory helpers, use these to get a new instance and immediately call methods on it:

@@ -5,7 +5,7 @@
 [ArtilleryPhp](https://github.com/Bundeling/ArtilleryPhp) is a library to write and maintain Artillery scripts in PHP.
 
 - Documentation: [bundeling.github.io/ArtilleryPhp](https://bundeling.github.io/ArtilleryPhp/namespaces/artilleryphp.html)
-- Examples: [ArtilleryPhp-Examples](https://github.com/Bundeling/ArtilleryPhp-examples)
+- Examples: [ArtilleryPhp-examples](https://github.com/Bundeling/ArtilleryPhp-examples)
 
 Documentation contains:
 - Full explanation for each class and method.

@@ -170,7 +170,7 @@ Current implementation builds up an internal array representation. Meaning very 
 
 The `Artillery` class has all the methods related to the config section of the Artillery script, along with adding scenarios.
 
-Docs: https://artilleryphp.netlify.app/classes/artilleryphp-artillery
+Docs: https://bundeling.github.io/ArtilleryPhp/classes/ArtilleryPhp-Artillery
 
 For custom settings, there is a `set(key: string, value: mixed)` function available.
 
@@ -248,7 +248,7 @@ From: https://github.com/Bundeling/ArtilleryPhp-examples/tree/main/generating-vu
 
 ### Config settings:
 
-Please refer to the docs: https://artilleryphp.netlify.app/classes/artilleryphp-artillery#methods
+Please refer to the docs: https://bundeling.github.io/ArtilleryPhp/classes/ArtilleryPhp-Artillery#methods
 
 - `addEnsureCondition(expression: string, [strict: bool|null = null])`
 - `addEnsureConditions(thresholds: array[])`
@@ -289,7 +289,7 @@ Please refer to the docs: https://artilleryphp.netlify.app/classes/artilleryphp-
 
 The `Scenario` class has all the methods related to a scenario as well as all methods related to its flow.
 
-Docs: https://artilleryphp.netlify.app/classes/artilleryphp-scenario
+Docs: https://bundeling.github.io/ArtilleryPhp/classes/ArtilleryPhp-Scenario
 
 ```php
 // Imagine we have an already defined Scenario as $defaultScenario
@@ -301,7 +301,7 @@ $scenario = Artillery::scenario()
 ```
 
 ### Methods:
-Docs: https://artilleryphp.netlify.app/classes/artilleryphp-scenario#methods
+Docs: https://bundeling.github.io/ArtilleryPhp/classes/ArtilleryPhp-Scenario#methods
 
 Custom Scenario settings:
 
@@ -349,7 +349,7 @@ For custom requests `AnyRequest` is meant to be used anonymously with these func
 - `setMethod(method: string)`
 - `setRequest(request: mixed)`
 
-Docs: https://artilleryphp.netlify.app/classes/artilleryphp-request
+Docs: https://bundeling.github.io/ArtilleryPhp/classes/ArtilleryPhp-Request
 
 Method and URL can be set in the constructor:
 ```php
@@ -362,7 +362,7 @@ $postResponse = Artillery::request('post', '/inbox')
 
 ### Methods:
 
-Please refer to the docs: https://artilleryphp.netlify.app/classes/artilleryphp-request#methods
+Please refer to the docs: https://bundeling.github.io/ArtilleryPhp/classes/ArtilleryPhp-Request#methods
 
 - `addAfterResponse(function: array|string|string[])`
 - `addBeforeRequest(function: array|string|string[])`

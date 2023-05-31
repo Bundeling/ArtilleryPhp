@@ -7,7 +7,7 @@ Using https://github.com/artilleryio/artillery/blob/main/packages/artillery/lib/
 
 Each php script is expected to call `->build()` with default parameters.
 
-Install prequisites (js-yaml joi):
+Install requirements (js-yaml joi):
 
 ```
 npm install

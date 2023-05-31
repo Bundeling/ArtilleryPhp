@@ -182,14 +182,33 @@ You can either pass the base Url in the constructor or use the `setTarget` metho
 
 ```php
 // Amazingly 4 different ways to set the target:
-$artillery = Artillery::fromArray(['config' => ['target' => 'http://localhost:3000']]);
-$artillery = Artillery::new('http://localhost:3000');
-$artillery = Artillery::new()->setTarget('http://localhost:3000');
-$artillery = Artillery::from($artillery);
+$artillery = Artillery::new('http://localhost:3000')->setTarget('http://localhost:3000');
 
 // Without target, and fully qualified url in Request:
 $artillery = Artillery::new()->addRequest(Artillery::request('get', 'http://localhost:3000'));
 ```
+
+### Environments:
+
+Environments can be specified with overrides for the config, such as the target URL and phases.
+
+You can either use the config of another Artillery instance, or as an array of config values:
+
+```php
+$local = Artillery::new('http://localhost:8080')
+    ->addPhase(['duration' => 30, 'arrivalRate' => 1, 'rampTo' => 10])
+    ->setHttpTimeout(60);
+
+$production = Artillery::new('https://example.com')
+    ->addPhase(['duration' => 300, 'arrivalRate' => 10, 'rampTo' => 100])
+    ->setHttpTimeout(30);
+
+$artillery = Artillery::new()
+    ->setEnvironment('staging', ['target' => 'https://staging.example.com'])
+    ->setEnvironment('production', $production)
+    ->setEnvironment('local', $local);
+````
+
 
 ### Static factory helpers, use these to get a new instance and immediately call methods on it:
 

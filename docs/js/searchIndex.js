@@ -41,6 +41,11 @@ Search.appendIndex(
             "summary": "Creates\u0020a\u0020new\u0020Artillery\u0020instance\u0020from\u0020an\u0020array\u0020representation.",
             "url": "classes/ArtilleryPhp-Artillery.html#method_fromArray"
         },                {
+            "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AfromYaml\u0028\u0029",
+            "name": "fromYaml",
+            "summary": "Creates\u0020a\u0020new\u0020Artillery\u0020instance\u0020from\u0020a\u0020YAML\u0020file.",
+            "url": "classes/ArtilleryPhp-Artillery.html#method_fromYaml"
+        },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003Afrom\u0028\u0029",
             "name": "from",
             "summary": "Creates\u0020a\u0020new\u0020Artillery\u0020instance\u0020copy\u0020from\u0020another\u0020Artillery\u0020instance.",

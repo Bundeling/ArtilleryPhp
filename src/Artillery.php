@@ -126,6 +126,25 @@ class Artillery {
 	}
 
 	/**
+	 * Merge another Artillery instance into this one.
+	 * @example <pre><code class="language-php">$config = __DIR__ . '/common-config.yml';
+	 * $scenario = __DIR__ . "/scenarios/dino.yml";
+	 *
+	 * $artillery = Artillery::fromYaml($config)
+	 *     ->merge(Artillery::fromYaml($scenario));
+	 * </code></pre>
+	 * @param Artillery $artillery The Artillery instance to merge into this one.
+	 * @return self This Artillery instance.
+	 */
+	public function merge(Artillery $artillery): self {
+		$this->config = array_merge($this->config, $artillery->config);
+		$this->before = array_merge($this->before, $artillery->before);
+		$this->scenarios = array_merge($this->scenarios, $artillery->scenarios);
+		$this->after = array_merge($this->after, $artillery->after);
+		return $this;
+	}
+
+	/**
 	 * Get the current Artillery script as an array.
 	 * @return array{config?: array, before?: array, scenarios?: array, after?: array} The array representation of the Artillery script.
 	 */
@@ -517,7 +536,7 @@ class Artillery {
 	 * $artillery = Artillery::new()->setEnvironments($defaultEnvironments);
 	 * </code></pre>
 	 * <pre><code>artillery run -e local my-script.yml</code></pre>
-	 * @param array<string, array|Artillery> $environments Environment definitions, as arrays or Artillery instances.
+	 * @param array<string, array|Artillery> $environments Environment definitions, as arrays or Artillery instances, by name.
 	 * @return $this The current Artillery instance.
 	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#environments---config-profiles
 	 * @example <pre><code class="language-php">$artillery->setEnvironment('staging', ['target' => 'https://staging.example.com']);

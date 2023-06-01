@@ -31,6 +31,11 @@ Search.appendIndex(
             "summary": "Creates\u0020a\u0020new\u0020Scenario\u0020which\u0020contains\u0020a\u0020Flow\u0020of\u0020Requests.",
             "url": "classes/ArtilleryPhp-Artillery.html#method_scenario"
         },                {
+            "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003Amerge\u0028\u0029",
+            "name": "merge",
+            "summary": "Merge\u0020another\u0020Artillery\u0020instance\u0020into\u0020this\u0020one.",
+            "url": "classes/ArtilleryPhp-Artillery.html#method_merge"
+        },                {
             "fqsen": "\\ArtilleryPhp\\Artillery\u003A\u003AtoArray\u0028\u0029",
             "name": "toArray",
             "summary": "Get\u0020the\u0020current\u0020Artillery\u0020script\u0020as\u0020an\u0020array.",

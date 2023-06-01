@@ -5,7 +5,7 @@ const file = process.argv[2];
 
 fs.readFile(file, 'utf8', (err, data) => {
     if (err) {
-        console.error('❌ ArtilleryPhp build error (no yaml):', file);
+        console.error('❌ Build error (no yaml):', file);
         console.error(' ↳', err)
         return;
     }

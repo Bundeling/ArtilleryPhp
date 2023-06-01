@@ -8,6 +8,7 @@
 - Examples: [ArtilleryPhp-examples](https://github.com/Bundeling/ArtilleryPhp-examples)
 
 Documentation contains:
+
 - Full explanation for each class and method.
 - Example code for each class and most methods.
 - Links to every section of the [Artillery reference docs](https://www.artillery.io/docs).
@@ -358,12 +359,13 @@ Docs: https://bundeling.github.io/ArtilleryPhp/classes/ArtilleryPhp-Scenario
 // Imagine we have an already defined Scenario as $defaultScenario
 $scenario = Artillery::scenario()  
     ->setName('Request, pause 2 seconds, then default flow.')
-    ->addRequest(Artillery::request('GET', 'https://example.com'))  
+    ->addRequest(Artillery::request('GET', '/'))  
     ->addThink(2)  
     ->addFlow($defaultScenario);
 ```
 
 ### Methods:
+
 Docs: https://bundeling.github.io/ArtilleryPhp/classes/ArtilleryPhp-Scenario#methods
 
 Custom Scenario settings:

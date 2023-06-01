@@ -8,6 +8,7 @@
 - Examples: [ArtilleryPhp-examples](https://github.com/Bundeling/ArtilleryPhp-examples)
 
 Documentation contains:
+
 - Full explanation for each class and method.
 - Example code for each class and most methods.
 - Links to every section of the [Artillery reference docs](https://www.artillery.io/docs).
@@ -198,10 +199,20 @@ You can either pass the base Url in the constructor or use the `setTarget` metho
 
 ```php
 // Base URL in the Scenario with relateve path in the request:
-$artillery = Artillery::new('http://localhost:3000')->addScenario(Artillery::request('get', '/home'));
+$artillery = Artillery::new('http://localhost:3000')
+    ->addScenario(Artillery::request('get', '/home'));
 
 // Without target, and fully qualified URL in Request:
-$artillery = Artillery::new()->addScenario(Artillery::request('get', 'http://localhost:3000/home'));
+$artillery = Artillery::new()
+    ->addScenario(Artillery::request('get', 'http://localhost:3000/home'));
+    
+// Setting the target when initializing from another source:
+$file = __DIR__ . '/default-config.yml';
+$default = Artillery::fromYaml($file)
+    ->setTarget('http://www.example.com');
+
+$artillery = Artillery::from($default)
+    ->setTarget('http://localhost:3000');
 ```
 
 ### Environments:
@@ -356,12 +367,13 @@ Docs: https://bundeling.github.io/ArtilleryPhp/classes/ArtilleryPhp-Scenario
 // Imagine we have an already defined Scenario as $defaultScenario
 $scenario = Artillery::scenario()  
     ->setName('Request, pause 2 seconds, then default flow.')
-    ->addRequest(Artillery::request('GET', 'https://example.com'))  
+    ->addRequest(Artillery::request('GET', '/'))  
     ->addThink(2)  
     ->addFlow($defaultScenario);
 ```
 
 ### Methods:
+
 Docs: https://bundeling.github.io/ArtilleryPhp/classes/ArtilleryPhp-Scenario#methods
 
 Custom Scenario settings:

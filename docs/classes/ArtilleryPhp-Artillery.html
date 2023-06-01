@@ -647,8 +647,8 @@ The built-in 'ensure' plugin needs to be enabled with Artillery::setPlugin('ensu
                                                  <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-php">$artillery = Artillery::new()
     ->setPlugin('ensure')
     ->addEnsureConditions([
-        ['http.response_time.p95 < 250 and http.request_rate > 1000'],
-        ['http.response_time.p95 < 250 and http.request_rate > 1000', false],
+        ['expression' => 'http.response_time.p95 < 250 and http.request_rate > 1000'],
+        ['expression' => 'http.response_time.p99 < 500', 'strict' => false],
     );
 </code></pre>
 </section>
@@ -698,7 +698,7 @@ The built-in 'ensure' plugin needs to be enabled with Artillery::setPlugin('ensu
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">406</span>
+    <span class="phpdocumentor-element-found-in__line">404</span>
 
     </aside>
 
@@ -790,7 +790,7 @@ The built-in 'ensure' plugin needs to be enabled with Artillery::setPlugin('ensu
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">426</span>
+    <span class="phpdocumentor-element-found-in__line">424</span>
 
     </aside>
 
@@ -867,7 +867,7 @@ The built-in 'ensure' plugin needs to be enabled with Artillery::setPlugin('ensu
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">556</span>
+    <span class="phpdocumentor-element-found-in__line">554</span>
 
     </aside>
 
@@ -981,7 +981,7 @@ Payload file options:<br></p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">594</span>
+    <span class="phpdocumentor-element-found-in__line">592</span>
 
     </aside>
 
@@ -1084,7 +1084,7 @@ $artillery = Artillery::new()
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">612</span>
+    <span class="phpdocumentor-element-found-in__line">610</span>
 
     </aside>
 
@@ -1174,7 +1174,7 @@ $artillery = Artillery::new()
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">634</span>
+    <span class="phpdocumentor-element-found-in__line">632</span>
 
     </aside>
 
@@ -1988,7 +1988,7 @@ $artillery = Artillery::new()->addScenarios($defaultScenarios);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">825</span>
+    <span class="phpdocumentor-element-found-in__line">823</span>
 
     </aside>
 
@@ -2164,7 +2164,7 @@ $artillery = Artillery::new()->addScenarios($defaultScenarios);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">444</span>
+    <span class="phpdocumentor-element-found-in__line">442</span>
 
     </aside>
 
@@ -2239,7 +2239,7 @@ $artillery = Artillery::new()->addScenarios($defaultScenarios);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">456</span>
+    <span class="phpdocumentor-element-found-in__line">454</span>
 
     </aside>
 
@@ -2301,7 +2301,7 @@ $artillery = Artillery::new()->addScenarios($defaultScenarios);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">494</span>
+    <span class="phpdocumentor-element-found-in__line">492</span>
 
     </aside>
 
@@ -2414,7 +2414,7 @@ $artillery = Artillery::new()
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">529</span>
+    <span class="phpdocumentor-element-found-in__line">527</span>
 
     </aside>
 
@@ -2521,7 +2521,7 @@ $artillery = Artillery::new()->setEnvironments($defaultEnvironments);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">759</span>
+    <span class="phpdocumentor-element-found-in__line">757</span>
 
     </aside>
 
@@ -2600,7 +2600,7 @@ $artillery = Artillery::new()->setHttp('timeout', 30);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">814</span>
+    <span class="phpdocumentor-element-found-in__line">812</span>
 
     </aside>
 
@@ -2671,7 +2671,7 @@ $artillery = Artillery::new()->setHttp('timeout', 30);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">799</span>
+    <span class="phpdocumentor-element-found-in__line">797</span>
 
     </aside>
 
@@ -2731,7 +2731,7 @@ $artillery = Artillery::new()->setHttp('timeout', 30);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">774</span>
+    <span class="phpdocumentor-element-found-in__line">772</span>
 
     </aside>
 
@@ -2801,7 +2801,7 @@ $artillery = Artillery::new()->setHttps(['timeout' => 30, 'maxSockets' => 1]);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">788</span>
+    <span class="phpdocumentor-element-found-in__line">786</span>
 
     </aside>
 
@@ -2872,7 +2872,7 @@ $artillery = Artillery::new()->setHttpTimeout(30);
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">663</span>
+    <span class="phpdocumentor-element-found-in__line">661</span>
 
     </aside>
 
@@ -2992,7 +2992,7 @@ $customRequest = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">689</span>
+    <span class="phpdocumentor-element-found-in__line">687</span>
 
     </aside>
 
@@ -3100,7 +3100,7 @@ $expectRequest = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">841</span>
+    <span class="phpdocumentor-element-found-in__line">839</span>
 
     </aside>
 
@@ -3181,7 +3181,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">854</span>
+    <span class="phpdocumentor-element-found-in__line">852</span>
 
     </aside>
 
@@ -3245,7 +3245,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">867</span>
+    <span class="phpdocumentor-element-found-in__line">865</span>
 
     </aside>
 
@@ -3316,7 +3316,7 @@ $request = Artillery::request('get', '/users/1')
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">718</span>
+    <span class="phpdocumentor-element-found-in__line">716</span>
 
     </aside>
 
@@ -3411,7 +3411,7 @@ $artillery->addRequest(
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">742</span>
+    <span class="phpdocumentor-element-found-in__line">740</span>
 
     </aside>
 
@@ -3499,7 +3499,7 @@ $artillery->addRequest(
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Artillery.php"><a href="files/src-artillery.html"><abbr title="src/Artillery.php">Artillery.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">885</span>
+    <span class="phpdocumentor-element-found-in__line">883</span>
 
     </aside>
 

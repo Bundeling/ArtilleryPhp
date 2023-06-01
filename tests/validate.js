@@ -11,8 +11,8 @@ fs.readFile(file, 'utf8', (err, data) => {
     }
 
     try {
-        let doc = yaml.load(data);
-        let error = validateScript(doc);
+        const doc = yaml.load(data);
+        const error = validateScript(doc);
         if (error) {
             console.error('❌ Validation error:', file);
             console.error(' ↳', error)

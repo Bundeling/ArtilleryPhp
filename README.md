@@ -198,10 +198,12 @@ You can either pass the base Url in the constructor or use the `setTarget` metho
 
 ```php
 // Base URL in the Scenario with relateve path in the request:
-$artillery = Artillery::new('http://localhost:3000')->addScenario(Artillery::request('get', '/home'));
+$artillery = Artillery::new('http://localhost:3000')
+    ->addScenario(Artillery::request('get', '/home'));
 
 // Without target, and fully qualified URL in Request:
-$artillery = Artillery::new()->addScenario(Artillery::request('get', 'http://localhost:3000/home'));
+$artillery = Artillery::new()
+    ->addScenario(Artillery::request('get', 'http://localhost:3000/home'));
 ```
 
 ### Environments:

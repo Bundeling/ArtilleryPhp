@@ -205,6 +205,14 @@ $artillery = Artillery::new('http://localhost:3000')
 // Without target, and fully qualified URL in Request:
 $artillery = Artillery::new()
     ->addScenario(Artillery::request('get', 'http://localhost:3000/home'));
+    
+// Setting the target when initializing from another source:
+$file = __DIR__ . '/default-config.yml';
+$default = Artillery::fromYaml($file)
+    ->setTarget('http://www.example.com');
+
+$artillery = Artillery::from($default)
+    ->setTarget('http://localhost:3000');
 ```
 
 ### Environments:

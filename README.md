@@ -338,13 +338,13 @@ Please refer to the docs: https://bundeling.github.io/ArtilleryPhp/classes/Artil
 
 ### Rendering and Loading:
 
-- `build([file: null|string = null]): Artillery` Build the script and save it as a file.
-- `toYaml(): string` Render the script to a Yaml string.
+- `build([file: null|string = null]): Artillery` Builds the script and save it as a YAML file.
+- `toYaml(): string` Renders the script to a Yaml string.
 - `from(artillery: Artillery): Artillery` New Artillery instance from given Artillery instance.
 - `fromArray(script: array): Artillery` New Artillery instance from given array data.
 - `fromYaml(file: string): Artillery` New Artillery instance from given Yaml file.
-- `toArray(): array` Get the array representation of the current Artillery instance.
-- `run([reportFile: null|string = null], [debug: null|string = null]): Artillery` Run the built script (or build and run-), and save the report to a file.
+- `toArray(): array` Gets the array representation of the current Artillery instance.
+- `run([reportFile: null|string = null], [debug: null|string = null]): Artillery` Runs the built script (or builds and runs-), and save the report to a file with a timestamp.
 
 ## Scenario Class
 

@@ -372,8 +372,8 @@ class Artillery {
 	 * @example <pre><code class="language-php">$artillery = Artillery::new()
 	 *     ->setPlugin('ensure')
 	 *     ->addEnsureConditions([
-	 *         ['http.response_time.p95 < 250 and http.request_rate > 1000'],
-	 *         ['http.response_time.p95 < 250 and http.request_rate > 1000', false],
+	 *         ['expression' => 'http.response_time.p95 < 250 and http.request_rate > 1000'],
+	 *         ['expression' => 'http.response_time.p99 < 500', 'strict' => false],
 	 *     );
 	 * </code></pre>
 	 * @link https://www.artillery.io/docs/guides/guides/test-script-reference#advanced-conditional-checks
@@ -383,9 +383,7 @@ class Artillery {
 	 * @return $this The current Artillery instance.
 	 */
 	public function addEnsureConditions(array $thresholds): self {
-		if (!@$this->config['ensure']) $this->config['ensure'] = [];
-		if (!@$this->config['ensure']['conditions']) $this->config['ensure']['conditions'] = [];
-		$this->config['ensure']['conditions'] = array_merge($this->config['ensure']['conditions'], $thresholds);
+		foreach ($thresholds as $threshold) $this->addEnsureCondition($threshold['expression'], @$threshold['strict']);
 		return $this;
 	}
 

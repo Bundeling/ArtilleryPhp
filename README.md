@@ -412,24 +412,39 @@ Flow methods:
 
 ## Request Class
 
-The `Request` class has all the methods related to HTTP requests along with some shared methods inherited from a `RequestBase` class.
-
-For WebSocket there is a crude implementation of the `WsRequest` class available at `Artillery::wsRequest()`. 
-
-For custom requests `AnyRequest` is meant to be used anonymously with these functions:
-- `set(key: string, value: mixed)`
-- `setMethod(method: string)`
-- `setRequest(request: mixed)`
-
 Docs: https://bundeling.github.io/ArtilleryPhp/classes/ArtilleryPhp-Request
 
-Method and URL can be set in the constructor:
+The `Request` class has all the methods related to HTTP requests along with some shared methods inherited from a `RequestBase` class.
+
 ```php
 $getTarget = Artillery::request('get', '/inbox')  
     ->setJson('client_id', '{{ id }}')  
     ->addCapture('first_inbox_id', 'json', '$[0].id');  
 $postResponse = Artillery::request('post', '/inbox')  
     ->setJsons(['user_id' => '{{ first_inbox_id }}', 'message' => 'Hello, world!']);
+```
+
+For WebSocket there is a crude implementation of the `WsRequest` class available at `Artillery::wsRequest()`. 
+
+```php
+$stringScenario = Artillery::scenario('Sending a string')
+	->setEngine('ws')
+	->addRequest(Artillery::wsRequest('send', 'Artillery'));
+```
+
+For custom requests `AnyRequest` is meant to be used anonymously with these functions:
+- `set(key: string, value: mixed)`
+- `setMethod(method: string)`
+- `setRequest(request: mixed)`
+
+```php
+$emitAndValidateResponse = Artillery::scenario('Emit and validate response')
+    ->setEngine('socketio')
+    ->addRequest(
+        Artillery::anyRequest('emit')
+            ->set('channel', 'echo')
+            ->set('data', 'Hello from Artillery')
+            ->set('response', ['channel' => 'echoResponse', 'data' => 'Hello from Artillery']));
 ```
 
 ### Methods:

@@ -404,7 +404,7 @@ Similarly, for requests, there are scenario level hooks for before and after:
 - `addAfterResponse(function: array|string|string[])`
 - `addBeforeRequest(function: array|string|string[])`
 
-See [Artillery.io docs](https://www.artillery.io/docs/guides/guides/http-reference#function-signatures) for more details.
+See [Artillery.io docs](https://www.artillery.io/docs/guides/guides/http-reference#function-signatures) for more details on js function hooks.
 
 Flow methods:
 - `addRequest(request: RequestInterface)`

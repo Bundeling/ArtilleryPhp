@@ -269,7 +269,7 @@ See the [Scenario Class](#scenario-class) for more details.
 
 #### Processor & function hooks:
 
-A scenario's flow, and requests, can have JavaScript function hooks that can read and modify context such as variables:
+A scenario's flow, and requests, can have JavaScript function hooks that can read and modify context such as variables.
 
 Here's a very demonstrative example from [examples/generating-vu-tokens](https://github.com/Bundeling/ArtilleryPhp-examples/tree/main/generating-vu-tokens):
 
@@ -316,6 +316,8 @@ function generateVUToken(context, events, done) {
   return done();
 }
 ```
+
+See also [Artillery.io docs](https://www.artillery.io/docs/guides/guides/http-reference#function-signatures) for necessary function signatures.
 
 ### Config settings:
 
@@ -401,6 +403,8 @@ Scenario-level JavaScript function hook, from the Js file defined in `setProcess
 Similarly, for requests, there are scenario level hooks for before and after:
 - `addAfterResponse(function: array|string|string[])`
 - `addBeforeRequest(function: array|string|string[])`
+
+See [Artillery.io docs](https://www.artillery.io/docs/guides/guides/http-reference#function-signatures) for more details.
 
 Flow methods:
 - `addRequest(request: RequestInterface)`

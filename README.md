@@ -183,6 +183,8 @@ $artillery = Artillery::new()
 
 Current implementation builds up an internal array representation. This means that there's limited or no support for operations like getting a `Scenario` instance from a specific index or unsetting a property. For now think in terms of composition, and look forward to v2.
 
+---
+
 ## Artillery Class
 
 The `Artillery` class has all the methods related to the config section of the Artillery script, along with adding scenarios.
@@ -359,6 +361,8 @@ Please refer to the docs: https://bundeling.github.io/ArtilleryPhp/classes/Artil
 - `toArray(): array` Gets the array representation of the current Artillery instance.
 - `run([reportFile: null|string = null], [debug: null|string = null]): Artillery` Runs the built script (or builds and runs-), and save the report to a file with a timestamp.
 
+---
+
 ## Scenario Class
 
 The Scenario class includes all the methods related to a scenario and its flow.
@@ -378,33 +382,28 @@ $scenario = Artillery::scenario()
 
 Docs: https://bundeling.github.io/ArtilleryPhp/classes/ArtilleryPhp-Scenario#methods
 
-Custom Scenario settings:
+
+<br>Custom Scenario settings:
 
 - `set(key: string, value: mixed)`
 
-
-
-Adding to the flow from another scenario into this scenario:
+<br>Adding to the flow from another scenario into this scenario:
 
 - `addFlow(scenario: Scenario)`
 
 
-
-Misc:
+<br>Misc:
 
 - `setName(name: string)`
   Used for metric reports.
 - `setWeight(weight: int)`
-  Determines the probability that this scenario will be picked compared to other scenarios in the Artillery script. Defaults to 1.
+  Default: 1. Determines the probability that this scenario will be picked compared to other scenarios in the Artillery script.
 
 
-
-If not set, the engine defaults to HTTP requests. To create a WebSocket scenario, you need to specify this scenario's engine as 'ws' and only use instances of the `WsRequest` class, available at `Artillery::wsRequest()`.
+<br>If not set, the engine defaults to HTTP requests. To create a WebSocket scenario, you need to specify this scenario's engine as 'ws' and only use instances of the `WsRequest` class, available at `Artillery::wsRequest()`.
 - `setEngine(engine: string) `
 
-
-
-Scenario-level JavaScript function hook, from the Js file defined in `setProcessor` in the `Artillery` instance:
+<br>Scenario-level JavaScript function hook, from the Js file defined in `setProcessor` in the `Artillery` instance:
 - `addAfterScenario(function: array|string|string[])`
 - `addBeforeScenario(function: array|string|string[])`
 
@@ -415,14 +414,15 @@ Similarly, for requests, there are scenario level hooks for before and after:
 See [Artillery.io docs](https://www.artillery.io/docs/guides/guides/http-reference#function-signatures) for more details on js function hooks.
 
 
-
-Flow methods:
+<br>Flow methods:
 - `addRequest(request: RequestInterface)`
 - `addRequests(requests: RequestInterface[])`
 - `addLoop(loop: array|RequestInterface|RequestInterface[]|Scenario|Scenario[], [count: int|null = null], [over: null|string = null], [whileTrue: null|string = null])`
 - `addLog(message: string, [ifTrue: null|string = null])`
 - `addThink(duration: float, [ifTrue: null|string = null])`
 - `addFunction(function: array|string|string[], [ifTrue: null|string = null])`
+
+---
 
 ## Request Class
 

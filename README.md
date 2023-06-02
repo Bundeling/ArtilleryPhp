@@ -382,9 +382,13 @@ Custom Scenario settings:
 
 - `set(key: string, value: mixed)`
 
+
+
 Adding to the flow from another scenario into this scenario:
 
 - `addFlow(scenario: Scenario)`
+
+
 
 Misc:
 
@@ -394,8 +398,10 @@ Misc:
   Determines the probability that this scenario will be picked compared to other scenarios in the Artillery script. Defaults to 1.
 
 
+
 If not set, the engine defaults to HTTP requests. To create a WebSocket scenario, you need to specify this scenario's engine as 'ws' and only use instances of the `WsRequest` class, available at `Artillery::wsRequest()`.
 - `setEngine(engine: string) `
+
 
 
 Scenario-level JavaScript function hook, from the Js file defined in `setProcessor` in the `Artillery` instance:
@@ -407,6 +413,7 @@ Similarly, for requests, there are scenario level hooks for before and after:
 - `addBeforeRequest(function: array|string|string[])`
 
 See [Artillery.io docs](https://www.artillery.io/docs/guides/guides/http-reference#function-signatures) for more details on js function hooks.
+
 
 
 Flow methods:

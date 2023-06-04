@@ -12,7 +12,11 @@ The aim with this project is to reduce the complexity of writing and maintaining
 
 ## How Can I Contribute?
 
-We're always open to contributions that help this project improve. Here are a few areas where you can help:
+We're always open to contributions that help this project improve. 
+
+The goal for v1.0 is to have a complete and confirmed implementation of WebSockets. Beyond this perhaps also Socket.io and Playwright as it's part of the official Artillery docs, if anyone is interested in these areas.
+
+Here are a few areas where you can help:
 
 * **Code and Features:** Implement missing features or fix bugs. Feedback on the API is also welcome.
 * **Engines:** Priority on a feature-complete and well-tested WebSocket. If you're interested in Socket.io or another request type, we'd love to hear your ideas.

@@ -116,7 +116,7 @@ $loginRequest = Artillery::request('post', '/login')
         'password' => '{{ password }}'])
     ->addCaptures([
         ['json' => '$.token', 'as' => 'token'],
-        ['json' => '$.id', 'as' => 'id']])
+        ['json' => '$.id', 'as' => 'id']]);
 
 ```
 

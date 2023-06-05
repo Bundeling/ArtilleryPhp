@@ -26,7 +26,7 @@ Documentation contains:
 You can install the library via Composer:
 
 ```text
-composer require bundeling/artilleryphp
+composer require bundeling/artilleryphp dev-main
 ```
 
 This library requires the `symfony/yaml` package to render its internal arrays to a YAML format.

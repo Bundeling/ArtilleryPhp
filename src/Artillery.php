@@ -137,10 +137,10 @@ class Artillery {
 	 * @return self This Artillery instance.
 	 */
 	public function merge(Artillery $artillery): self {
-		$this->config = array_merge($this->config, $artillery->config);
-		$this->before = array_merge($this->before, $artillery->before);
+		$this->config = array_merge_recursive($this->config, $artillery->config);
+		$this->before = array_merge_recursive($this->before, $artillery->before);
 		$this->scenarios = array_merge($this->scenarios, $artillery->scenarios);
-		$this->after = array_merge($this->after, $artillery->after);
+		$this->after = array_merge_recursive($this->after, $artillery->after);
 		return $this;
 	}
 

@@ -75,7 +75,7 @@ And from an existing YAML file, or other `Artillery` instance:
 $config = Artillery::fromYaml(__DIR__ . '/default-config.yml');
 $environments = Artillery::fromYaml(__DIR__ . '/default-environments.yml');
 
-// Creating a new instance from the default config, and merging in environments from another file:
+// New instance from the config, and merging in environments from another file:
 $artillery = Artillery::from($default)->merge($environments);
 ```
 

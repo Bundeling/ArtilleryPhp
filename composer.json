@@ -33,6 +33,7 @@
     },
     "scripts": {
         "doc": "phpdoc -d src -t docs",
-        "usage-example": "php examples/usage/usage-example.php"
+        "usage-example": "php examples/usage/usage-example.php",
+        "test": "./tests/build_and_validate_examples.sh"
     }
 }

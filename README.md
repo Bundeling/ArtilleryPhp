@@ -72,10 +72,11 @@ $artillery = Artillery::fromArray([
 And from an existing YAML file, or other `Artillery` instance:
 
 ```php
-$file = __DIR__ . '/default-config.yml';
-$default = Artillery::fromYaml($file);
+$config = Artillery::fromYaml(__DIR__ . '/default-config.yml');
+$environments = Artillery::fromYaml(__DIR__ . '/default-environments.yml');
 
-$artillery = Artillery::from($default);
+// Creating a new instance from the default config, and merging in environments from another file:
+$artillery = Artillery::from($default)->merge($environments);
 ```
 
 ### Step 2: Define the flow of your scenario and add it to the Artillery instance:

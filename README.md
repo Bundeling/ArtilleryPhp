@@ -65,9 +65,7 @@ $artillery = Artillery::fromArray([
             'expect' => new stdClass(),
         ],
         'environments' => [
-            'live' => [
-                'target' => 'https://www.example.com'
-            ]
+            'live' => ['target' => 'https://www.example.com']
         ]
     ]
 ]);
@@ -447,8 +445,8 @@ For WebSocket there is a crude implementation of the `WsRequest` class available
 
 ```php
 $stringScenario = Artillery::scenario('Sending a string')
-	->setEngine('ws')
-	->addRequest(Artillery::wsRequest('send', 'Artillery'));
+    ->setEngine('ws')
+    ->addRequest(Artillery::wsRequest('send', 'Artillery'));
 ```
 
 For custom requests `AnyRequest` is meant to be used anonymously with these functions:

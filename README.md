@@ -135,7 +135,7 @@ Refer to the [Artillery reference docs](https://www.artillery.io/docs) for raw r
 // Without argument will build the YAML as the same name as the php file:
 $artillery->build();
 
-// Maybe even run the script right away:
+// Maybe even run the script right away (assumes `npm install -g artillery`):
 $artillery->run();
 ```
 

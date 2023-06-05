@@ -72,6 +72,7 @@ $artillery = Artillery::fromArray([
 ```
 
 And from an existing YAML file, or other `Artillery` instance:
+
 ! Warning: These methods above are not very well supported right now; fromYaml mostly works with outputs from this library; and merge will do nothing if second level keys are already defined (e.g. trying to merge a second environment).
 
 ```php

@@ -45,14 +45,13 @@ use ArtilleryPhp\Artillery;
 $artillery = Artillery::new('http://localhost:3000')
     ->addPhase(['duration' => 60, 'arrivalRate' => 5, 'rampTo' => 20], 'Warm up')
     ->addPhase(['duration' => 60, 'arrivalRate' => 20], 'Sustain')
-    ->setPlugin('expect');
+    ->setPlugin('expect')
+    ->setEnvironment('live', ['target' => 'https://www.example.com']);
 ```
 
 You can also create one from a full or partial array representation:
 
 ```php
-use ArtilleryPhp\Artillery;
-
 $artillery = Artillery::fromArray([
     'config' => [
         'target' => 'http://localhost:3000',
@@ -64,6 +63,11 @@ $artillery = Artillery::fromArray([
             // To produce an empty object as "{  }", use stdClass.
             // This is automatic when using setPlugin(s), setEngine(s) and setJson(s).
             'expect' => new stdClass(),
+        ],
+        'environments' => [
+            'live' => [
+                'target' => 'https://www.example.com'
+            ]
         ]
     ]
 ]);
